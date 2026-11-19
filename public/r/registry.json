@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "dockkit",
-  "homepage": "https://example.com",
+  "homepage": "https://dockkit.vercel.app",
   "items": [
     {
       "name": "theme",

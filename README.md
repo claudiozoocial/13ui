@@ -26,10 +26,10 @@ pnpm registry:build # writes public/r/*.json
 
 ## Install in another project
 
-Host `public/r` anywhere static, then in that project's `components.json`:
+The registry is live at https://dockkit.vercel.app/r. In your project's `components.json`:
 
 ```json
-{ "registries": { "@dockkit": "https://your-domain.com/r/{name}.json" } }
+{ "registries": { "@dockkit": "https://dockkit.vercel.app/r/{name}.json" } }
 ```
 
 ```bash

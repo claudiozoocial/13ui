@@ -223,7 +223,7 @@ function PageNav({ page }: { page: DocPage }) {
 
 const setup = `{
   "registries": {
-    "@dockkit": "https://your-domain.com/r/{name}.json"
+    "@dockkit": "https://dockkit.vercel.app/r/{name}.json"
   }
 }`
 
