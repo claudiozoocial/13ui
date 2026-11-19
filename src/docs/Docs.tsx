@@ -7,7 +7,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { type ComponentType, type ReactNode, useEffect, useRef, useState } from "react"
 import { AppShell, SidebarToggle, TitleBar } from "@/components/shell/app-shell"
-import { Sidebar, SidebarContent, SidebarGroup, SidebarItem } from "@/components/shell/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarItem } from "@/components/shell/sidebar"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/ui/icon"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -85,6 +85,19 @@ export function Docs({ route }: { route: string }) {
               </SidebarGroup>
             ))}
           </SidebarContent>
+          <SidebarFooter className="text-xs text-muted-foreground">
+            <span>
+              Made by{" "}
+              <a
+                href="https://claudiocastillo.design/"
+                target="_blank"
+                rel="noopener"
+                className="text-foreground underline-offset-2 hover:underline"
+              >
+                Claudio Castillo
+              </a>
+            </span>
+          </SidebarFooter>
         </Sidebar>
       }
     >
@@ -240,6 +253,18 @@ const setup = `{
 function Introduction() {
   return (
     <>
+      <p className="text-sm text-muted-foreground">
+        Designed and built by{" "}
+        <a
+          href="https://claudiocastillo.design/"
+          target="_blank"
+          rel="noopener"
+          className="text-foreground underline underline-offset-2"
+        >
+          Claudio Castillo
+        </a>
+        .
+      </p>
       <Section title="How it works">
         <p className="text-sm leading-6 text-muted-foreground">
           Like shadcn, components aren't installed as a dependency: the CLI copies the code into your project and it's

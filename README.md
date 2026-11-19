@@ -1,5 +1,7 @@
 # 13UI
 
+By [Claudio Castillo](https://claudiocastillo.design/).
+
 > **Beta** — 13UI is at 0.1.0-beta.1. APIs and the dock layout format may change; see [CHANGELOG.md](CHANGELOG.md).
 
 A design system for panel-based interfaces, like an IDE or an AI assistant app: panels resize, collapse, move between groups and dock to any edge. Built with React 19, Tailwind v4 and [UI SDK](https://ui-sdk.dev) for behavior (keyboard, focus, ARIA, resizing). Icons are [Hugeicons](https://hugeicons.com). It ships as a shadcn registry: components are copied into your project.
@@ -85,4 +87,4 @@ registry.json               shadcn registry definition
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT © [Claudio Castillo](https://claudiocastillo.design/). See [LICENSE](LICENSE).

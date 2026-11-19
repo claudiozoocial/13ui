@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0-beta.1",
   "license": "MIT",
+  "author": "Claudio Castillo (https://claudiocastillo.design/)",
   "type": "module",
   "scripts": {
     "dev": "vite",
