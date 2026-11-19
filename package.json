@@ -4,6 +4,12 @@
   "version": "0.1.0-beta.8",
   "license": "MIT",
   "author": "Claudio Castillo (https://claudiocastillo.design/)",
+  "homepage": "https://13ui.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claudiozoocial/13ui.git"
+  },
+  "bugs": "https://github.com/claudiozoocial/13ui/issues",
   "type": "module",
   "scripts": {
     "dev": "vite",

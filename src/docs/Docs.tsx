@@ -1,6 +1,7 @@
 import {
   Copy01Icon,
   DashboardSquare01Icon,
+  GithubIcon,
   Moon02Icon,
   Sun03Icon,
   Tick02Icon,
@@ -71,6 +72,10 @@ export function Docs({ route }: { route: string }) {
               <SidebarItem render={<a href="#/" />}>
                 <Icon icon={DashboardSquare01Icon} />
                 <span>Workbench</span>
+              </SidebarItem>
+              <SidebarItem render={<a href="https://github.com/claudiozoocial/13ui" target="_blank" rel="noopener" />}>
+                <Icon icon={GithubIcon} />
+                <span>GitHub</span>
               </SidebarItem>
               <SidebarItem closesSidebar={false} onClick={toggle}>
                 <Icon icon={dark ? Sun03Icon : Moon02Icon} />
@@ -299,6 +304,10 @@ function Introduction() {
           styles are Tailwind on zinc tokens; icons are Hugeicons.
         </p>
       </Section>
+      <p className="text-sm text-muted-foreground">
+        The source is on{" "}
+        <ExternalLink href="https://github.com/claudiozoocial/13ui">GitHub</ExternalLink>, under the MIT license.
+      </p>
       <Section title="Built with">
         <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {builtWith.map((item) => (

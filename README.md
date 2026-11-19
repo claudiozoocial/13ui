@@ -1,6 +1,6 @@
 # 13UI
 
-By [Claudio Castillo](https://claudiocastillo.design/).
+By [Claudio Castillo](https://claudiocastillo.design/). Docs and workbench at [13ui.vercel.app](https://13ui.vercel.app).
 
 > **Beta** — 13UI is at 0.1.0-beta.8. APIs and the dock layout format may change; see [CHANGELOG.md](CHANGELOG.md).
 
