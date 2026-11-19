@@ -16,6 +16,8 @@ pnpm typecheck
 pnpm registry:build # writes public/r/*.json
 ```
 
+Pushes to `main` deploy to [13ui.vercel.app](https://13ui.vercel.app) through Vercel's GitHub integration; pull requests get preview deployments.
+
 ## What's included
 
 | Item | What it is |
