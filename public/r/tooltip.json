@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "dependencies": [
+    "@ui-sdk/react",
+    "@ui-sdk/core"
+  ],
+  "registryDependencies": [
+    "@dockkit/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/tooltip.tsx",
+      "content": "import {\n  Tooltip,\n  TooltipContent as TooltipContentPrimitive,\n  TooltipShortcut as TooltipShortcutPrimitive,\n  TooltipTrigger,\n} from \"@ui-sdk/react/tooltip\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\n\nfunction TooltipContent({\n  className,\n  sideOffset = 6,\n  ...props\n}: ComponentProps<typeof TooltipContentPrimitive>) {\n  return (\n    <TooltipContentPrimitive\n      sideOffset={sideOffset}\n      className={withClass(\n        \"z-50 flex origin-(--transform-origin) items-center gap-2 rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground transition-[opacity,scale] duration-100 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 data-instant:transition-none motion-reduce:transition-none\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction TooltipShortcut({ className, ...props }: ComponentProps<typeof TooltipShortcutPrimitive>) {\n  return (\n    <TooltipShortcutPrimitive\n      className={withClass(\"text-2xs text-primary-foreground/60\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Tooltip, TooltipContent, TooltipShortcut, TooltipTrigger }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

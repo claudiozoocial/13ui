@@ -1,0 +1,356 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "dockkit",
+  "homepage": "https://example.com",
+  "items": [
+    {
+      "name": "theme",
+      "type": "registry:file",
+      "title": "Dockkit theme",
+      "description": "Design tokens on Tailwind's zinc scale, light and dark, density sizes, radii and the ui-sdk layer. Import it from your global stylesheet.",
+      "files": [
+        {
+          "path": "src/styles/globals.css",
+          "type": "registry:file",
+          "target": "src/styles/dockkit.css"
+        }
+      ]
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "description": "Hugeicons wrapper with the design system's stroke width, hidden from screen readers.",
+      "dependencies": [
+        "@hugeicons/react",
+        "@hugeicons/core-free-icons"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/icon.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/resizable.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core",
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@dockkit/utils",
+        "@dockkit/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dock",
+      "type": "registry:component",
+      "title": "Dock",
+      "description": "Docking layout: resizable splits, tab groups, drag tabs between groups or to any edge, maximize, and a saved layout.",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core",
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@dockkit/button",
+        "@dockkit/menu",
+        "@dockkit/resizable",
+        "@dockkit/utils",
+        "@dockkit/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/dock/model.ts",
+          "type": "registry:lib",
+          "target": "components/dock/model.ts"
+        },
+        {
+          "path": "src/components/dock/dock.tsx",
+          "type": "registry:component",
+          "target": "components/dock/dock.tsx"
+        },
+        {
+          "path": "src/components/dock/index.ts",
+          "type": "registry:component",
+          "target": "components/dock/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "app-shell",
+      "type": "registry:component",
+      "title": "App shell",
+      "description": "Window frame with a title bar, a collapsible sidebar and a main area, plus sidebar parts and panel chrome.",
+      "dependencies": [
+        "@ui-sdk/react",
+        "@ui-sdk/core",
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@dockkit/button",
+        "@dockkit/resizable",
+        "@dockkit/scroll-area",
+        "@dockkit/tooltip",
+        "@dockkit/utils",
+        "@dockkit/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/shell/app-shell.tsx",
+          "type": "registry:component",
+          "target": "components/shell/app-shell.tsx"
+        },
+        {
+          "path": "src/components/shell/sidebar.tsx",
+          "type": "registry:component",
+          "target": "components/shell/sidebar.tsx"
+        },
+        {
+          "path": "src/components/shell/panel.tsx",
+          "type": "registry:component",
+          "target": "components/shell/panel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "chat",
+      "type": "registry:component",
+      "title": "Chat",
+      "description": "Composer, message and tool-call blocks for an assistant panel.",
+      "dependencies": [
+        "@hugeicons/core-free-icons"
+      ],
+      "registryDependencies": [
+        "@dockkit/button",
+        "@dockkit/textarea",
+        "@dockkit/utils",
+        "@dockkit/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/shell/composer.tsx",
+          "type": "registry:component",
+          "target": "components/shell/composer.tsx"
+        },
+        {
+          "path": "src/components/shell/message.tsx",
+          "type": "registry:component",
+          "target": "components/shell/message.tsx"
+        }
+      ]
+    },
+    {
+      "name": "workbench",
+      "type": "registry:block",
+      "title": "Workbench",
+      "description": "A full example: sidebar, chat, diff, files, terminal and browser panels in a dock, with a command palette.",
+      "registryDependencies": [
+        "@dockkit/dock",
+        "@dockkit/app-shell",
+        "@dockkit/chat",
+        "@dockkit/command",
+        "@dockkit/kbd",
+        "@dockkit/menu",
+        "@dockkit/tabs"
+      ],
+      "files": [
+        {
+          "path": "src/demo/App.tsx",
+          "type": "registry:component",
+          "target": "components/workbench.tsx"
+        }
+      ]
+    }
+  ]
+}

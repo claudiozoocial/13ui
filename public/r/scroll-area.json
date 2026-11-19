@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "dependencies": [
+    "@ui-sdk/react",
+    "@ui-sdk/core"
+  ],
+  "registryDependencies": [
+    "@dockkit/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/scroll-area.tsx",
+      "content": "import {\n  ScrollArea as ScrollAreaPrimitive,\n  ScrollAreaContent,\n  ScrollAreaScrollbar,\n  ScrollAreaThumb,\n  ScrollAreaViewport,\n} from \"@ui-sdk/react/scroll-area\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\n\nfunction ScrollArea({\n  className,\n  children,\n  type = \"hover\",\n  ...props\n}: ComponentProps<typeof ScrollAreaPrimitive>) {\n  return (\n    <ScrollAreaPrimitive type={type} className={withClass(\"relative min-h-0 overflow-hidden\", className)} {...props}>\n      <ScrollAreaViewport className=\"size-full overscroll-contain outline-none\">\n        <ScrollAreaContent>{children}</ScrollAreaContent>\n      </ScrollAreaViewport>\n      <ScrollBar orientation=\"vertical\" />\n      <ScrollBar orientation=\"horizontal\" />\n    </ScrollAreaPrimitive>\n  )\n}\n\nfunction ScrollBar({ className, ...props }: ComponentProps<typeof ScrollAreaScrollbar>) {\n  return (\n    <ScrollAreaScrollbar\n      className={withClass(\n        \"flex touch-none p-0.5 opacity-0 transition-opacity duration-150 select-none data-visible:opacity-100 data-[orientation=horizontal]:inset-x-0 data-[orientation=horizontal]:bottom-0 data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:inset-y-0 data-[orientation=vertical]:right-0 data-[orientation=vertical]:w-2.5\",\n        className,\n      )}\n      {...props}\n    >\n      <ScrollAreaThumb className=\"flex-1 rounded-full bg-border-strong\" />\n    </ScrollAreaScrollbar>\n  )\n}\n\nexport { ScrollArea, ScrollBar }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

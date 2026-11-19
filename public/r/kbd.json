@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "registryDependencies": [
+    "@dockkit/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/kbd.tsx",
+      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\nfunction Kbd({ className, ...props }: ComponentProps<\"kbd\">) {\n  return (\n    <kbd\n      className={cn(\n        \"inline-flex h-5 min-w-5 items-center justify-center rounded-sm border border-border bg-muted px-1 font-sans text-2xs font-medium text-muted-foreground\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Kbd }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

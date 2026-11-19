@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon",
+  "title": "Icon",
+  "description": "Hugeicons wrapper with the design system's stroke width, hidden from screen readers.",
+  "dependencies": [
+    "@hugeicons/react",
+    "@hugeicons/core-free-icons"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/icon.tsx",
+      "content": "import { HugeiconsIcon, type HugeiconsIconProps, type IconSvgElement } from \"@hugeicons/react\"\n\n/** A Hugeicons icon, hidden from screen readers. Size it with `size-*` or a parent's `[&_svg]:size-*`. */\nfunction Icon({ strokeWidth = 1.75, ...props }: HugeiconsIconProps) {\n  return <HugeiconsIcon aria-hidden strokeWidth={strokeWidth} {...props} />\n}\n\nexport { Icon, type IconSvgElement }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

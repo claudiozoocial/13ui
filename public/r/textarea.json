@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "dependencies": [
+    "@ui-sdk/react",
+    "@ui-sdk/core"
+  ],
+  "registryDependencies": [
+    "@dockkit/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/textarea.tsx",
+      "content": "import { Textarea as TextareaPrimitive } from \"@ui-sdk/react/textarea\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\n\nfunction Textarea({ className, ...props }: ComponentProps<typeof TextareaPrimitive>) {\n  return (\n    <TextareaPrimitive\n      className={withClass(\n        \"w-full min-w-0 resize-none bg-transparent text-sm text-foreground outline-none placeholder:text-subtle-foreground focus-visible:outline-none data-disabled:opacity-50\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Textarea }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

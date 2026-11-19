@@ -1,0 +1,82 @@
+# Dockkit
+
+A design system for panel-based interfaces, like an IDE or the Claude app: panels resize, collapse, move between groups and dock to any edge. Built with React 19, Tailwind v4 and [UI SDK](https://ui-sdk.dev) for behavior (keyboard, focus, ARIA, resizing). Icons are [Hugeicons](https://hugeicons.com). It ships as a shadcn registry: components are copied into your project.
+
+## Development
+
+```bash
+pnpm install
+pnpm dev            # workbench at http://localhost:5173, docs at /#/docs
+pnpm test           # dock model tests
+pnpm typecheck
+pnpm registry:build # writes public/r/*.json
+```
+
+## What's included
+
+| Item | What it is |
+| --- | --- |
+| `theme` | Tokens on Tailwind's zinc scale, light and dark, density sizes (`h-control`, `h-tabbar`, `text-ui`…), radii, shadows |
+| `icon` | Hugeicons wrapper with the system's stroke width |
+| `button`, `input`, `textarea`, `separator`, `kbd`, `tooltip`, `menu`, `tabs`, `scroll-area`, `resizable`, `command` | Base components on UI SDK, styled with Tailwind |
+| `dock` | Docking engine: resizable splits, tab groups, drag tabs to another group or an edge, maximize, layout saved to localStorage |
+| `app-shell` | Title bar, collapsible sidebar (⌘B), sidebar parts and panel chrome |
+| `chat` | Composer, message and tool call |
+| `workbench` | A full example: the app you see in `pnpm dev` |
+
+## Install in another project
+
+Host `public/r` anywhere static, then in that project's `components.json`:
+
+```json
+{ "registries": { "@dockkit": "https://your-domain.com/r/{name}.json" } }
+```
+
+```bash
+npx shadcn add @dockkit/theme @dockkit/dock @dockkit/app-shell
+```
+
+Then use `src/styles/dockkit.css` as your global CSS. It already includes `@import "tailwindcss"`.
+
+## Using the dock
+
+```tsx
+import { Dock, useDock } from "@/components/dock/dock"
+import { column, group, row } from "@/components/dock/model"
+
+const initial = () => ({
+  root: row([group(["chat"]), column([group(["diff", "files"]), group(["terminal"])], [60, 40])], [55, 45]),
+  maximized: null,
+})
+
+function Workbench() {
+  const dock = useDock({ initial, storageKey: "app:layout" })
+  return (
+    <Dock
+      dock={dock}
+      panels={{
+        chat: { title: "Chat", content: <Chat />, closable: false, minSize: "320px" },
+        diff: { title: "Diff", content: <Diff /> },
+        files: { title: "Files", content: <Files /> },
+        terminal: { title: "Terminal", content: <Terminal /> },
+      }}
+    />
+  )
+}
+```
+
+- `dock.open(id, { position: "right" })` opens or focuses a panel. There are also `close`, `activate`, `isOpen`, `reset`, and `dispatch` for any model action.
+- Each panel's content mounts once and moves through a portal, so it keeps its state when dragged, split or switched.
+- The model (`model.ts`) is pure and tested: you can store the layout on your backend instead of localStorage.
+
+## Structure
+
+```
+src/styles/globals.css      tokens and theme
+src/components/ui/          base components (UI SDK + Tailwind)
+src/components/dock/        dock model and view
+src/components/shell/       app shell, sidebar, panel, chat
+src/docs/                   documentation site and live examples
+src/demo/App.tsx            example workbench
+registry.json               shadcn registry definition
+```

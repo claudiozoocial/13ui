@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "dependencies": [
+    "@ui-sdk/react",
+    "@ui-sdk/core"
+  ],
+  "registryDependencies": [
+    "@dockkit/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/input.tsx",
+      "content": "import { Input as InputPrimitive } from \"@ui-sdk/react/input\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\n\nfunction Input({ className, ...props }: ComponentProps<typeof InputPrimitive>) {\n  return (\n    <InputPrimitive\n      className={withClass(\n        \"h-control w-full min-w-0 rounded-md border border-input bg-surface px-2.5 text-ui text-foreground outline-none transition-colors placeholder:text-subtle-foreground focus-visible:border-ring focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/25 data-disabled:opacity-50\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
