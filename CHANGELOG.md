@@ -2,6 +2,12 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.8 — 2026-11-19
+
+- The Tokens page shows each section's CSS variables in a Code tab, and the whole theme file at the end.
+- ScrollArea takes scrollbars ("vertical", "horizontal" or "both"). Vertical, the default, fits content to the width, so long lines no longer widen the page.
+- "Radii" now reads "border radius" across the docs.
+
 ## 0.1.0-beta.7 — 2026-11-19
 
 - New Alert Dialog for confirmations, with a built-in backdrop and answers styled as buttons.
@@ -49,7 +55,7 @@ All notable changes to 13UI. Versions follow semver; while in beta, any release 
 ## 0.1.0-beta.1 — 2026-11-19
 
 - First beta release.
-- Theme: zinc color tokens for light and dark, density sizes, type scale and radii.
+- Theme: zinc color tokens for light and dark, density sizes, type scale and border radius.
 - Base components on UI SDK: button, input, textarea, separator, kbd, icon, tooltip, menu, tabs, scroll area, resizable and command palette.
 - Dock: tab groups, resizable splits, drag tabs to another group or any edge, maximize, and a layout saved to localStorage.
 - App shell with a collapsible sidebar, panel chrome, and chat blocks (composer, message, tool call).

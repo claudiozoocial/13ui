@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils"
 import { useTheme } from "@/lib/use-theme"
 import { isPrerelease, version } from "@/version"
 import changelog from "../../CHANGELOG.md?raw"
+import themeCss from "../styles/globals.css?raw"
 import { type DocPage, groups, pages } from "./pages"
 
 const modules = import.meta.glob<{ default: ComponentType }>("./examples/*.tsx", { eager: true })
@@ -373,10 +374,49 @@ const typeTokens = [
   { name: "text-base", value: "15 / 24", sample: "Section headings" },
 ]
 
+function blockOf(css: string, selector: string) {
+  const start = css.indexOf(`${selector} {`)
+  if (start === -1) return ""
+  return css.slice(start, css.indexOf("\n}", start) + 2)
+}
+
+function tokenCode() {
+  const root = blockOf(themeCss, ":root").split("\n")
+  const blank = root.indexOf("")
+  const rootColors = [...root.slice(0, blank), "}"].join("\n")
+  const rootSizes = [":root {", ...root.slice(blank + 1)].join("\n")
+  const themeLines = blockOf(themeCss, "@theme inline").split("\n")
+  const pick = (test: (line: string) => boolean) =>
+    ["@theme inline {", ...themeLines.filter((line) => test(line.trim())), "}"].join("\n")
+  return {
+    color: `${rootColors}\n\n${blockOf(themeCss, ".dark")}\n\n${pick((l) => l.startsWith("--color-"))}`,
+    sizes: `${rootSizes}\n\n${pick((l) => l.startsWith("--spacing-") || l.startsWith("--radius-"))}`,
+    type: pick((l) => l.startsWith("--text-") || l.startsWith("--font-")),
+  }
+}
+
+function TokenBlock({ title, code, children }: { title: string; code: string; children: ReactNode }) {
+  return (
+    <Section title={title}>
+      <Tabs defaultValue="preview" className="flex flex-col gap-2">
+        <TabsList aria-label={`${title}: view`} className="self-start">
+          <TabsTab value="preview">Preview</TabsTab>
+          <TabsTab value="code">Code</TabsTab>
+        </TabsList>
+        <TabsPanel value="preview">{children}</TabsPanel>
+        <TabsPanel value="code">
+          <CodeBlock code={code} />
+        </TabsPanel>
+      </Tabs>
+    </Section>
+  )
+}
+
 function Tokens() {
+  const code = tokenCode()
   return (
     <>
-      <Section title="Color">
+      <TokenBlock title="Color" code={code.color}>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {colorTokens.map((token) => (
             <div key={token.name} className="flex items-center gap-3 rounded-lg border border-border p-2">
@@ -393,11 +433,11 @@ function Tokens() {
             </div>
           ))}
         </div>
-      </Section>
-      <Section title="Sizes">
+      </TokenBlock>
+      <TokenBlock title="Sizes and border radius" code={code.sizes}>
         <TokenTable rows={sizeTokens.map((t) => [t.name, t.value, t.use])} headers={["Class", "Value", "Use"]} />
-      </Section>
-      <Section title="Typography">
+      </TokenBlock>
+      <TokenBlock title="Typography" code={code.type}>
         <div className="flex flex-col divide-y divide-border rounded-lg border border-border">
           {typeTokens.map((t) => (
             <div key={t.name} className="flex items-baseline gap-4 px-3 py-2.5">
@@ -407,6 +447,13 @@ function Tokens() {
             </div>
           ))}
         </div>
+      </TokenBlock>
+      <Section title="The whole theme file">
+        <p className="text-sm text-muted-foreground">
+          Everything above lives in one stylesheet. <code className="font-mono text-xs">npx shadcn add @13ui/theme</code>{" "}
+          copies it to <code className="font-mono text-xs">src/styles/13ui.css</code>.
+        </p>
+        <CodeBlock code={themeCss.trimEnd()} />
       </Section>
     </>
   )

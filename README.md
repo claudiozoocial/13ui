@@ -2,7 +2,7 @@
 
 By [Claudio Castillo](https://claudiocastillo.design/).
 
-> **Beta** — 13UI is at 0.1.0-beta.7. APIs and the dock layout format may change; see [CHANGELOG.md](CHANGELOG.md).
+> **Beta** — 13UI is at 0.1.0-beta.8. APIs and the dock layout format may change; see [CHANGELOG.md](CHANGELOG.md).
 
 A design system for panel-based interfaces, like an IDE or an AI assistant app: panels resize, collapse, move between groups and dock to any edge. Built with [React 19](https://react.dev), [Tailwind CSS v4](https://tailwindcss.com) and [UI SDK](https://ui-sdk.dev) for behavior (keyboard, focus, ARIA, resizing). Icons are [Hugeicons](https://hugeicons.com). It ships as a [shadcn](https://ui.shadcn.com) registry: components are copied into your project.
 
@@ -20,7 +20,7 @@ pnpm registry:build # writes public/r/*.json
 
 | Item | What it is |
 | --- | --- |
-| `theme` | Tokens on Tailwind's zinc scale, light and dark, density sizes (`h-control`, `h-tabbar`, `text-ui`…), radii, shadows |
+| `theme` | Tokens on Tailwind's zinc scale, light and dark, density sizes (`h-control`, `h-tabbar`, `text-ui`…), border radius, shadows |
 | `icon` | Hugeicons wrapper with the system's stroke width |
 | `button`, `input`, `textarea`, `separator`, `kbd`, `tooltip`, `menu`, `tabs`, `scroll-area`, `resizable`, `command`, `select`, `combobox`, `avatar`, `label`, `checkbox`, `radio`, `alert-dialog`, `toast`, `menubar`, `navigation-menu` | Base components on UI SDK, styled with Tailwind |
 | `dock` | Docking engine: resizable splits, tab groups, drag tabs to another group or an edge, maximize, layout saved to localStorage |

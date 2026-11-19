@@ -8,19 +8,23 @@ import {
 import type { ComponentProps } from "react"
 import { withClass } from "@/lib/utils"
 
-function ScrollArea({
-  className,
-  children,
-  type = "hover",
-  ...props
-}: ComponentProps<typeof ScrollAreaPrimitive>) {
+interface ScrollAreaProps extends ComponentProps<typeof ScrollAreaPrimitive> {
+  /**
+   * Which ways it scrolls. "vertical", the default, fits the content to the width, so long lines
+   * wrap or scroll inside their own block instead of widening the page.
+   */
+  scrollbars?: "vertical" | "horizontal" | "both"
+}
+
+function ScrollArea({ className, children, type = "hover", scrollbars = "vertical", ...props }: ScrollAreaProps) {
   return (
     <ScrollAreaPrimitive type={type} className={withClass("relative min-h-0 overflow-hidden", className)} {...props}>
       <ScrollAreaViewport className="size-full overscroll-contain outline-none">
-        <ScrollAreaContent>{children}</ScrollAreaContent>
+        {/* UI SDK sets min-width: fit-content inline so content can scroll sideways; undo it for vertical-only. */}
+        <ScrollAreaContent className={scrollbars === "vertical" ? "min-w-0!" : undefined}>{children}</ScrollAreaContent>
       </ScrollAreaViewport>
-      <ScrollBar orientation="vertical" />
-      <ScrollBar orientation="horizontal" />
+      {scrollbars !== "horizontal" && <ScrollBar orientation="vertical" />}
+      {scrollbars !== "vertical" && <ScrollBar orientation="horizontal" />}
     </ScrollAreaPrimitive>
   )
 }

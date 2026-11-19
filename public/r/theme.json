@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "theme",
   "title": "13UI theme",
-  "description": "Design tokens on Tailwind's zinc scale, light and dark, density sizes, radii and the ui-sdk layer. Import it from your global stylesheet.",
+  "description": "Design tokens on Tailwind's zinc scale, light and dark, density sizes, border radius and the ui-sdk layer. Import it from your global stylesheet.",
   "files": [
     {
       "path": "src/styles/globals.css",

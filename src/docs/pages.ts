@@ -32,7 +32,7 @@ export const pages: DocPage[] = [
     slug: "tokens",
     title: "Tokens",
     group: "Foundations",
-    description: "Colors on Tailwind's zinc scale, density sizes, type scale and radii, all in one CSS file.",
+    description: "Colors on Tailwind's zinc scale, density sizes, type scale and border radius, all in one CSS file. Switch any section to Code to see its variables.",
     install: ["theme"],
   },
   {
