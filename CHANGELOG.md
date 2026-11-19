@@ -11,3 +11,4 @@ All notable changes to 13UI. Versions follow semver; while in beta, any release 
 - App shell with a collapsible sidebar, panel chrome, and chat blocks (composer, message, tool call).
 - Documentation site with live examples, and a shadcn registry at 13ui.vercel.app/r.
 - Icons from Hugeicons.
+- Released under the MIT license.

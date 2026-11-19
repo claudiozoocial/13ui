@@ -82,3 +82,7 @@ src/docs/                   documentation site and live examples
 src/demo/App.tsx            example workbench
 registry.json               shadcn registry definition
 ```
+
+## License
+
+MIT. See [LICENSE](LICENSE).

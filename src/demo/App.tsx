@@ -198,9 +198,9 @@ function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <div className="grid size-7 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-          C
+          A
         </div>
-        <span className="truncate text-ui">Claudio</span>
+        <span className="truncate text-ui">Alex Rivera</span>
       </SidebarFooter>
     </Sidebar>
   )
