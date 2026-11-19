@@ -5,6 +5,7 @@ import {
   HelpCircleIcon,
   Logout01Icon,
   Settings02Icon,
+  UnfoldMoreIcon,
   UserCircleIcon,
   ComputerTerminal01Icon,
   DashboardSquare01Icon,
@@ -20,7 +21,6 @@ import {
 import { useEffect, useMemo, useState } from "react"
 import { Dock, type DockPanels, useDock } from "@/components/dock/dock"
 import { column, group, row } from "@/components/dock/model"
-import { AccountMenu } from "@/components/shell/account-menu"
 import { AppShell, SidebarToggle, TitleBar, TitleBarTitle, useAppShell } from "@/components/shell/app-shell"
 import { Composer } from "@/components/shell/composer"
 import { Message, ToolCall } from "@/components/shell/message"
@@ -39,7 +39,8 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Kbd } from "@/components/ui/kbd"
-import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/menu"
+import { Avatar, AvatarFallback, initials } from "@/components/ui/avatar"
+import { Menu, MenuContent, MenuHeader, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/menu"
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs"
 import { useTheme } from "@/lib/use-theme"
 import { Icon } from "@/components/ui/icon"
@@ -54,6 +55,8 @@ const initialLayout = () => ({
   ),
   maximized: null,
 })
+
+const user = { name: "John Lennon", email: "john@example.com" }
 
 const sessions = [
   "Panel design system",
@@ -203,29 +206,51 @@ function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-1.5">
-        <AccountMenu name="John Lennon" email="john@example.com">
-          <MenuItem value="account">
-            <Icon icon={UserCircleIcon} />
-            My account
-          </MenuItem>
-          <MenuItem value="settings">
-            <Icon icon={Settings02Icon} />
-            Settings
-          </MenuItem>
-          <MenuItem value="billing">
-            <Icon icon={CreditCardIcon} />
-            Billing
-          </MenuItem>
-          <MenuItem value="help">
-            <Icon icon={HelpCircleIcon} />
-            Help
-          </MenuItem>
-          <MenuSeparator />
-          <MenuItem value="logout">
-            <Icon icon={Logout01Icon} />
-            Log out
-          </MenuItem>
-        </AccountMenu>
+        <Menu>
+          <MenuTrigger render={<SidebarItem className="h-11 text-foreground" />}>
+            <Avatar size="sm">
+              <AvatarFallback>{initials(user.name)}</AvatarFallback>
+            </Avatar>
+            <span className="flex min-w-0 flex-1 flex-col">
+              <span className="truncate font-medium">{user.name}</span>
+              <span className="truncate text-2xs text-muted-foreground">{user.email}</span>
+            </span>
+            <Icon icon={UnfoldMoreIcon} className="ml-auto text-muted-foreground" />
+          </MenuTrigger>
+          <MenuContent side="top" align="start" className="w-(--anchor-width) min-w-56">
+            <MenuHeader>
+              <Avatar size="sm">
+                <AvatarFallback>{initials(user.name)}</AvatarFallback>
+              </Avatar>
+              <div className="flex min-w-0 flex-col">
+                <span className="truncate font-medium">{user.name}</span>
+                <span className="truncate text-2xs text-muted-foreground">{user.email}</span>
+              </div>
+            </MenuHeader>
+            <MenuSeparator />
+            <MenuItem value="account">
+              <Icon icon={UserCircleIcon} />
+              My account
+            </MenuItem>
+            <MenuItem value="settings" shortcut="mod+,">
+              <Icon icon={Settings02Icon} />
+              Settings
+            </MenuItem>
+            <MenuItem value="billing">
+              <Icon icon={CreditCardIcon} />
+              Billing
+            </MenuItem>
+            <MenuItem value="help">
+              <Icon icon={HelpCircleIcon} />
+              Help
+            </MenuItem>
+            <MenuSeparator />
+            <MenuItem value="logout">
+              <Icon icon={Logout01Icon} />
+              Log out
+            </MenuItem>
+          </MenuContent>
+        </Menu>
       </SidebarFooter>
     </Sidebar>
   )

@@ -84,9 +84,28 @@ export const pages: DocPage[] = [
     slug: "menu",
     title: "Menu",
     group: "Components",
-    description: "A list of actions opened from a button. onAction receives the chosen item's value.",
+    description:
+      "A general dropdown menu, opened from any trigger: actions with shortcuts, checkboxes, radio groups, submenus and groups. onAction receives the chosen item's value.",
     install: ["menu"],
-    examples: [{ name: "menu-basic", title: "Groups and a destructive action" }],
+    examples: [
+      { name: "menu-basic", title: "Groups and a destructive action" },
+      { name: "menu-shortcuts", title: "Shortcuts and submenus" },
+      { name: "menu-checkbox-radio", title: "Checkboxes and radio groups" },
+      { name: "menu-account", title: "Account menu, composed from Menu and Avatar" },
+    ],
+    notes: [
+      "Any element can open it: pass it to MenuTrigger with render, like render={<Button variant=\"outline\" />}.",
+      "A shortcut prop like \"mod+s\" shows ⌘S on Apple platforms and Ctrl+S elsewhere. Your app still handles the keys.",
+      "MenuHeader holds content that isn't an item, like the signed-in user.",
+    ],
+  },
+  {
+    slug: "avatar",
+    title: "Avatar",
+    group: "Components",
+    description: "A user's image, with a fallback such as initials while it loads or if it fails.",
+    install: ["avatar"],
+    examples: [{ name: "avatar-basic", title: "Sizes, initials and image" }],
   },
   {
     slug: "tabs",
@@ -184,16 +203,6 @@ export const pages: DocPage[] = [
     description: "The window frame: title bar, collapsible sidebar and main area. useAppShell() exposes the toggle.",
     install: ["app-shell"],
     examples: [{ name: "app-shell-basic", title: "With a sidebar" }],
-  },
-  {
-    slug: "account-menu",
-    title: "Account Menu",
-    group: "Layout",
-    description:
-      "The signed-in user at the foot of a sidebar. Pressing it opens a menu above it for account, settings and log out.",
-    install: ["account-menu"],
-    examples: [{ name: "account-menu-basic", title: "In a sidebar footer" }],
-    notes: ["Pass MenuItems as children and handle choices with onAction. Avatar shows initials, or an image with avatar."],
   },
   {
     slug: "panel",

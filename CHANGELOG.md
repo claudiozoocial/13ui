@@ -2,6 +2,12 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.3 — 2026-11-19
+
+- Menu is now a general dropdown: shortcuts shown from the shortcut prop, checkbox and radio items, submenus with their arrow built in, and MenuHeader for non-item content.
+- New Avatar component with sizes, an image and a fallback, plus an initials helper.
+- Removed Account Menu. Build it from Menu, Avatar and SidebarItem instead; the Menu docs show how. If you installed @13ui/account-menu, keep your copy or switch to the composed version.
+
 ## 0.1.0-beta.2 — 2026-11-19
 
 - New Select component, with an optional search field, groups and an empty state inside the dropdown.
