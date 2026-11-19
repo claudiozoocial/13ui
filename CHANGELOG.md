@@ -2,6 +2,13 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.2 — 2026-11-19
+
+- New Select component, with an optional search field, groups and an empty state inside the dropdown.
+- New Combobox component that filters a list as you type.
+- New Account Menu for the sidebar footer: avatar, name and email, opening a menu for account, settings and log out.
+- Tooltips now close when the pointer leaves the window, so a tooltip on a button at the window edge no longer stays open.
+
 ## 0.1.0-beta.1 — 2026-11-19
 
 - First beta release.

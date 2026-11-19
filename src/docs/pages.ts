@@ -97,6 +97,26 @@ export const pages: DocPage[] = [
     examples: [{ name: "tabs-basic", title: "Segmented" }],
   },
   {
+    slug: "select",
+    title: "Select",
+    group: "Components",
+    description:
+      "Pick one option from a dropdown. Add SelectInput inside the content to search the options, with groups and an empty state.",
+    install: ["select"],
+    examples: [
+      { name: "select-basic", title: "Basic" },
+      { name: "select-search", title: "With search and groups" },
+    ],
+  },
+  {
+    slug: "combobox",
+    title: "Combobox",
+    group: "Components",
+    description: "A text field that filters a list as you type, for long lists where typing is faster than scrolling.",
+    install: ["combobox"],
+    examples: [{ name: "combobox-basic", title: "Filter as you type" }],
+  },
+  {
     slug: "command",
     title: "Command",
     group: "Components",
@@ -164,6 +184,16 @@ export const pages: DocPage[] = [
     description: "The window frame: title bar, collapsible sidebar and main area. useAppShell() exposes the toggle.",
     install: ["app-shell"],
     examples: [{ name: "app-shell-basic", title: "With a sidebar" }],
+  },
+  {
+    slug: "account-menu",
+    title: "Account Menu",
+    group: "Layout",
+    description:
+      "The signed-in user at the foot of a sidebar. Pressing it opens a menu above it for account, settings and log out.",
+    install: ["account-menu"],
+    examples: [{ name: "account-menu-basic", title: "In a sidebar footer" }],
+    notes: ["Pass MenuItems as children and handle choices with onAction. Avatar shows initials, or an image with avatar."],
   },
   {
     slug: "panel",

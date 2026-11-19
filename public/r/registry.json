@@ -233,6 +233,44 @@
       ]
     },
     {
+      "name": "select",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13",
+        "@hugeicons/core-free-icons@^4.4.0"
+      ],
+      "registryDependencies": [
+        "@13ui/utils",
+        "@13ui/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "dependencies": [
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13",
+        "@hugeicons/core-free-icons@^4.4.0"
+      ],
+      "registryDependencies": [
+        "@13ui/utils",
+        "@13ui/icon"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "dock",
       "type": "registry:component",
       "title": "Dock",
@@ -304,6 +342,29 @@
       ]
     },
     {
+      "name": "account-menu",
+      "type": "registry:component",
+      "title": "Account menu",
+      "description": "The signed-in user at the foot of a sidebar, opening a menu for account, settings and log out.",
+      "dependencies": [
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13",
+        "@hugeicons/core-free-icons@^4.4.0"
+      ],
+      "registryDependencies": [
+        "@13ui/menu",
+        "@13ui/icon",
+        "@13ui/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/shell/account-menu.tsx",
+          "type": "registry:component",
+          "target": "components/shell/account-menu.tsx"
+        }
+      ]
+    },
+    {
       "name": "chat",
       "type": "registry:component",
       "title": "Chat",
@@ -342,7 +403,8 @@
         "@13ui/command",
         "@13ui/kbd",
         "@13ui/menu",
-        "@13ui/tabs"
+        "@13ui/tabs",
+        "@13ui/account-menu"
       ],
       "files": [
         {

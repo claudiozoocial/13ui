@@ -1,11 +1,39 @@
 import {
-  Tooltip,
+  Tooltip as TooltipPrimitive,
   TooltipContent as TooltipContentPrimitive,
   TooltipShortcut as TooltipShortcutPrimitive,
   TooltipTrigger,
 } from "@ui-sdk/react/tooltip"
-import type { ComponentProps } from "react"
+import { type ComponentProps, useEffect, useState } from "react"
 import { withClass } from "@/lib/utils"
+
+/**
+ * Closes when the pointer leaves the window. Browsers skip the trigger's pointerleave when the
+ * pointer exits through a window edge, which would otherwise leave an edge tooltip open.
+ */
+function Tooltip({ open: openProp, defaultOpen, onOpenChange, ...props }: ComponentProps<typeof TooltipPrimitive>) {
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen ?? false)
+  const controlled = openProp !== undefined
+  const open = controlled ? openProp : uncontrolledOpen
+
+  useEffect(() => {
+    if (!open || controlled) return
+    const close = () => setUncontrolledOpen(false)
+    document.documentElement.addEventListener("mouseleave", close)
+    return () => document.documentElement.removeEventListener("mouseleave", close)
+  }, [open, controlled])
+
+  return (
+    <TooltipPrimitive
+      open={open}
+      onOpenChange={(next, details) => {
+        if (!controlled) setUncontrolledOpen(next)
+        onOpenChange?.(next, details)
+      }}
+      {...props}
+    />
+  )
+}
 
 function TooltipContent({
   className,

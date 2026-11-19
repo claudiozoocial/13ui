@@ -1,6 +1,11 @@
 import {
   BookOpen01Icon,
   BubbleChatIcon,
+  CreditCardIcon,
+  HelpCircleIcon,
+  Logout01Icon,
+  Settings02Icon,
+  UserCircleIcon,
   ComputerTerminal01Icon,
   DashboardSquare01Icon,
   FileDiffIcon,
@@ -15,6 +20,7 @@ import {
 import { useEffect, useMemo, useState } from "react"
 import { Dock, type DockPanels, useDock } from "@/components/dock/dock"
 import { column, group, row } from "@/components/dock/model"
+import { AccountMenu } from "@/components/shell/account-menu"
 import { AppShell, SidebarToggle, TitleBar, TitleBarTitle, useAppShell } from "@/components/shell/app-shell"
 import { Composer } from "@/components/shell/composer"
 import { Message, ToolCall } from "@/components/shell/message"
@@ -33,7 +39,7 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Kbd } from "@/components/ui/kbd"
-import { Menu, MenuContent, MenuItem, MenuTrigger } from "@/components/ui/menu"
+import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/menu"
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs"
 import { useTheme } from "@/lib/use-theme"
 import { Icon } from "@/components/ui/icon"
@@ -196,11 +202,30 @@ function AppSidebar() {
           ))}
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
-        <div className="grid size-7 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-          A
-        </div>
-        <span className="truncate text-ui">Alex Rivera</span>
+      <SidebarFooter className="p-1.5">
+        <AccountMenu name="John Lennon" email="john@example.com">
+          <MenuItem value="account">
+            <Icon icon={UserCircleIcon} />
+            My account
+          </MenuItem>
+          <MenuItem value="settings">
+            <Icon icon={Settings02Icon} />
+            Settings
+          </MenuItem>
+          <MenuItem value="billing">
+            <Icon icon={CreditCardIcon} />
+            Billing
+          </MenuItem>
+          <MenuItem value="help">
+            <Icon icon={HelpCircleIcon} />
+            Help
+          </MenuItem>
+          <MenuSeparator />
+          <MenuItem value="logout">
+            <Icon icon={Logout01Icon} />
+            Log out
+          </MenuItem>
+        </AccountMenu>
       </SidebarFooter>
     </Sidebar>
   )
