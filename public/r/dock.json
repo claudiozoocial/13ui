@@ -4,9 +4,9 @@
   "title": "Dock",
   "description": "Docking layout: resizable splits, tab groups, drag tabs between groups or to any edge, maximize, and a saved layout.",
   "dependencies": [
-    "@ui-sdk/react",
-    "@ui-sdk/core",
-    "@hugeicons/core-free-icons"
+    "@ui-sdk/react@0.1.0-beta.13",
+    "@ui-sdk/core@0.1.0-beta.13",
+    "@hugeicons/core-free-icons@^4.4.0"
   ],
   "registryDependencies": [
     "@13ui/button",

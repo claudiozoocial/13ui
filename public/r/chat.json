@@ -4,7 +4,7 @@
   "title": "Chat",
   "description": "Composer, message and tool-call blocks for an assistant panel.",
   "dependencies": [
-    "@hugeicons/core-free-icons"
+    "@hugeicons/core-free-icons@^4.4.0"
   ],
   "registryDependencies": [
     "@13ui/button",

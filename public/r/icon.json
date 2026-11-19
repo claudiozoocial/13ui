@@ -4,8 +4,8 @@
   "title": "Icon",
   "description": "Hugeicons wrapper with the design system's stroke width, hidden from screen readers.",
   "dependencies": [
-    "@hugeicons/react",
-    "@hugeicons/core-free-icons"
+    "@hugeicons/react@^1.1.10",
+    "@hugeicons/core-free-icons@^4.4.0"
   ],
   "files": [
     {

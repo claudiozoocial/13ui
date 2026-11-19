@@ -14,6 +14,8 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { useTheme } from "@/lib/use-theme"
+import { isPrerelease, version } from "@/version"
+import changelog from "../../CHANGELOG.md?raw"
 import { type DocPage, groups, pages } from "./pages"
 
 const modules = import.meta.glob<{ default: ComponentType }>("./examples/*.tsx", { eager: true })
@@ -46,6 +48,12 @@ export function Docs({ route }: { route: string }) {
             13UI
           </a>
           <span className="text-ui text-subtle-foreground">Docs</span>
+          <a
+            href="#/docs/changelog"
+            className="ml-1 rounded-full border border-border px-2 py-0.5 font-mono text-2xs text-muted-foreground hover:bg-accent"
+          >
+            v{version}
+          </a>
           <div className="flex-1" />
           <Button variant="ghost" size="sm" render={<a href="#/" />}>
             <Icon icon={DashboardSquare01Icon} />
@@ -88,8 +96,10 @@ export function Docs({ route }: { route: string }) {
             <p className="text-sm text-muted-foreground">{page.description}</p>
           </header>
 
+          {isPrerelease && page.slug === "introduction" && <BetaNotice />}
           {page.install && <Install items={page.install} />}
           {page.slug === "introduction" && <Introduction />}
+          {page.slug === "changelog" && <Changelog />}
           {page.slug === "tokens" && <Tokens />}
 
           {page.examples?.map((example) => {
@@ -359,6 +369,45 @@ function TokenTable({ headers, rows }: { headers: string[]; rows: string[][] }) 
           ))}
         </tbody>
       </table>
+    </div>
+  )
+}
+
+function BetaNotice() {
+  return (
+    <div className="flex gap-3 rounded-lg border border-border bg-muted px-4 py-3 text-sm">
+      <span className="mt-0.5 h-fit rounded-full bg-primary px-2 py-0.5 text-2xs font-medium text-primary-foreground">
+        Beta
+      </span>
+      <p className="text-muted-foreground">
+        13UI {version} is a beta. Component APIs and the dock layout format may change between releases; check the{" "}
+        <a href="#/docs/changelog" className="text-foreground underline underline-offset-2">
+          changelog
+        </a>{" "}
+        before updating.
+      </p>
+    </div>
+  )
+}
+
+function Changelog() {
+  const releases = changelog.split(/^## /m).slice(1)
+  return (
+    <div className="flex flex-col gap-8">
+      {releases.map((release) => {
+        const [heading, ...body] = release.trim().split("\n")
+        return (
+          <Section key={heading} title={heading}>
+            <ul className="flex list-disc flex-col gap-1.5 pl-5 text-sm text-muted-foreground">
+              {body
+                .filter((line) => line.startsWith("- "))
+                .map((line) => (
+                  <li key={line}>{line.slice(2)}</li>
+                ))}
+            </ul>
+          </Section>
+        )
+      })}
     </div>
   )
 }

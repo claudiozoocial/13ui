@@ -23,6 +23,12 @@ export const pages: DocPage[] = [
       "Components for panel-based interfaces: panels resize, collapse, move between groups and dock to any edge. Built with React 19, Tailwind v4 and UI SDK.",
   },
   {
+    slug: "changelog",
+    title: "Changelog",
+    group: "Foundations",
+    description: "Every release of 13UI and what changed in it.",
+  },
+  {
     slug: "tokens",
     title: "Tokens",
     group: "Foundations",

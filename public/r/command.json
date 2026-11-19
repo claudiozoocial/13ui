@@ -2,9 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "command",
   "dependencies": [
-    "@ui-sdk/react",
-    "@ui-sdk/core",
-    "@hugeicons/core-free-icons"
+    "@ui-sdk/react@0.1.0-beta.13",
+    "@ui-sdk/core@0.1.0-beta.13",
+    "@hugeicons/core-free-icons@^4.4.0"
   ],
   "registryDependencies": [
     "@13ui/utils",

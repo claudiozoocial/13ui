@@ -20,8 +20,8 @@
       "name": "utils",
       "type": "registry:lib",
       "dependencies": [
-        "clsx",
-        "tailwind-merge"
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.7.0"
       ],
       "files": [
         {
@@ -34,9 +34,9 @@
       "name": "button",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core",
-        "class-variance-authority"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13",
+        "class-variance-authority@^0.7.1"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -52,8 +52,8 @@
       "name": "input",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -69,8 +69,8 @@
       "name": "textarea",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -86,8 +86,8 @@
       "name": "separator",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -118,8 +118,8 @@
       "title": "Icon",
       "description": "Hugeicons wrapper with the design system's stroke width, hidden from screen readers.",
       "dependencies": [
-        "@hugeicons/react",
-        "@hugeicons/core-free-icons"
+        "@hugeicons/react@^1.1.10",
+        "@hugeicons/core-free-icons@^4.4.0"
       ],
       "files": [
         {
@@ -132,8 +132,8 @@
       "name": "tooltip",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -149,8 +149,8 @@
       "name": "menu",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -166,8 +166,8 @@
       "name": "tabs",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -183,8 +183,8 @@
       "name": "scroll-area",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -200,8 +200,8 @@
       "name": "resizable",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13"
       ],
       "registryDependencies": [
         "@13ui/utils"
@@ -217,9 +217,9 @@
       "name": "command",
       "type": "registry:ui",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core",
-        "@hugeicons/core-free-icons"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13",
+        "@hugeicons/core-free-icons@^4.4.0"
       ],
       "registryDependencies": [
         "@13ui/utils",
@@ -238,9 +238,9 @@
       "title": "Dock",
       "description": "Docking layout: resizable splits, tab groups, drag tabs between groups or to any edge, maximize, and a saved layout.",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core",
-        "@hugeicons/core-free-icons"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13",
+        "@hugeicons/core-free-icons@^4.4.0"
       ],
       "registryDependencies": [
         "@13ui/button",
@@ -273,9 +273,9 @@
       "title": "App shell",
       "description": "Window frame with a title bar, a collapsible sidebar and a main area, plus sidebar parts and panel chrome.",
       "dependencies": [
-        "@ui-sdk/react",
-        "@ui-sdk/core",
-        "@hugeicons/core-free-icons"
+        "@ui-sdk/react@0.1.0-beta.13",
+        "@ui-sdk/core@0.1.0-beta.13",
+        "@hugeicons/core-free-icons@^4.4.0"
       ],
       "registryDependencies": [
         "@13ui/button",
@@ -309,7 +309,7 @@
       "title": "Chat",
       "description": "Composer, message and tool-call blocks for an assistant panel.",
       "dependencies": [
-        "@hugeicons/core-free-icons"
+        "@hugeicons/core-free-icons@^4.4.0"
       ],
       "registryDependencies": [
         "@13ui/button",

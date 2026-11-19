@@ -2,9 +2,9 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "button",
   "dependencies": [
-    "@ui-sdk/react",
-    "@ui-sdk/core",
-    "class-variance-authority"
+    "@ui-sdk/react@0.1.0-beta.13",
+    "@ui-sdk/core@0.1.0-beta.13",
+    "class-variance-authority@^0.7.1"
   ],
   "registryDependencies": [
     "@13ui/utils"
