@@ -7,7 +7,7 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "@dockkit/utils"
+    "@13ui/utils"
   ],
   "files": [
     {

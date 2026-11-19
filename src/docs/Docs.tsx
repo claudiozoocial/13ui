@@ -33,17 +33,17 @@ export function Docs({ route }: { route: string }) {
   const page = pages.find((p) => p.slug === slug) ?? pages[0]
 
   useEffect(() => {
-    document.title = `${page.title} · Dockkit`
+    document.title = `${page.title} · 13UI`
   }, [page])
 
   return (
     <AppShell
-      autoSaveId="dockkit:docs-shell"
+      autoSaveId="13ui:docs-shell"
       titleBar={
         <TitleBar>
           <SidebarToggle />
           <a href="#/docs" className="px-2 text-ui font-semibold">
-            Dockkit
+            13UI
           </a>
           <span className="text-ui text-subtle-foreground">Docs</span>
           <div className="flex-1" />
@@ -170,7 +170,7 @@ function CodeBlock({ code, className }: { code: string; className?: string }) {
 }
 
 function Install({ items }: { items: string[] }) {
-  const command = `npx shadcn add ${items.map((item) => `@dockkit/${item}`).join(" ")}`
+  const command = `npx shadcn add ${items.map((item) => `@13ui/${item}`).join(" ")}`
   return (
     <Section title="Installation">
       <CodeBlock code={command} />
@@ -223,7 +223,7 @@ function PageNav({ page }: { page: DocPage }) {
 
 const setup = `{
   "registries": {
-    "@dockkit": "https://dockkit.vercel.app/r/{name}.json"
+    "@13ui": "https://13ui.vercel.app/r/{name}.json"
   }
 }`
 
@@ -244,14 +244,14 @@ function Introduction() {
         <CodeBlock code={setup} />
       </Section>
       <Section title="2. Install the theme">
-        <CodeBlock code="npx shadcn add @dockkit/theme" />
+        <CodeBlock code="npx shadcn add @13ui/theme" />
         <p className="text-sm text-muted-foreground">
-          It copies <code className="font-mono text-xs">src/styles/dockkit.css</code>. Import it as your global CSS; it
+          It copies <code className="font-mono text-xs">src/styles/13ui.css</code>. Import it as your global CSS; it
           already includes <code className="font-mono text-xs">@import "tailwindcss"</code>.
         </p>
       </Section>
       <Section title="3. Add components">
-        <CodeBlock code="npx shadcn add @dockkit/dock @dockkit/app-shell" />
+        <CodeBlock code="npx shadcn add @13ui/dock @13ui/app-shell" />
         <p className="text-sm text-muted-foreground">
           Every page in these docs has its own command. Dependencies between components install automatically.
         </p>

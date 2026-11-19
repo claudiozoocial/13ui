@@ -58,7 +58,7 @@ const sessions = [
 ]
 
 export function App() {
-  const dock = useDock({ initial: initialLayout, storageKey: "dockkit:layout" })
+  const dock = useDock({ initial: initialLayout, storageKey: "13ui:layout" })
   const [paletteOpen, setPaletteOpen] = useState(false)
   const { dark, toggle: toggleTheme } = useTheme()
 
@@ -88,7 +88,7 @@ export function App() {
 
   return (
     <AppShell
-      autoSaveId="dockkit:shell"
+      autoSaveId="13ui:shell"
       titleBar={
         <TitleBar>
           <SidebarToggle />

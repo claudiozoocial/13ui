@@ -9,11 +9,11 @@
     "@hugeicons/core-free-icons"
   ],
   "registryDependencies": [
-    "@dockkit/button",
-    "@dockkit/menu",
-    "@dockkit/resizable",
-    "@dockkit/utils",
-    "@dockkit/icon"
+    "@13ui/button",
+    "@13ui/menu",
+    "@13ui/resizable",
+    "@13ui/utils",
+    "@13ui/icon"
   ],
   "files": [
     {

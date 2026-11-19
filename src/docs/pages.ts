@@ -8,7 +8,7 @@ export interface DocPage {
   title: string
   group: "Foundations" | "Components" | "Layout" | "Chat"
   description: string
-  /** Registry items to install, without the @dockkit/ prefix. */
+  /** Registry items to install, without the @13ui/ prefix. */
   install?: string[]
   examples?: DocExample[]
   notes?: string[]

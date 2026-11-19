@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "kbd",
   "registryDependencies": [
-    "@dockkit/utils"
+    "@13ui/utils"
   ],
   "files": [
     {

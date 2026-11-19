@@ -7,8 +7,8 @@
     "@hugeicons/core-free-icons"
   ],
   "registryDependencies": [
-    "@dockkit/utils",
-    "@dockkit/icon"
+    "@13ui/utils",
+    "@13ui/icon"
   ],
   "files": [
     {

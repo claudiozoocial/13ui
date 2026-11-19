@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const KEY = "dockkit:theme"
+const KEY = "13ui:theme"
 
 function initialDark() {
   try {

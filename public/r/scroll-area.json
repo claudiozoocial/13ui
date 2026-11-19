@@ -6,7 +6,7 @@
     "@ui-sdk/core"
   ],
   "registryDependencies": [
-    "@dockkit/utils"
+    "@13ui/utils"
   ],
   "files": [
     {

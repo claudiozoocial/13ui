@@ -1,4 +1,4 @@
-# Dockkit
+# 13UI
 
 A design system for panel-based interfaces, like an IDE or the Claude app: panels resize, collapse, move between groups and dock to any edge. Built with React 19, Tailwind v4 and [UI SDK](https://ui-sdk.dev) for behavior (keyboard, focus, ARIA, resizing). Icons are [Hugeicons](https://hugeicons.com). It ships as a shadcn registry: components are copied into your project.
 
@@ -26,17 +26,17 @@ pnpm registry:build # writes public/r/*.json
 
 ## Install in another project
 
-The registry is live at https://dockkit.vercel.app/r. In your project's `components.json`:
+The registry is live at https://13ui.vercel.app/r. In your project's `components.json`:
 
 ```json
-{ "registries": { "@dockkit": "https://dockkit.vercel.app/r/{name}.json" } }
+{ "registries": { "@13ui": "https://13ui.vercel.app/r/{name}.json" } }
 ```
 
 ```bash
-npx shadcn add @dockkit/theme @dockkit/dock @dockkit/app-shell
+npx shadcn add @13ui/theme @13ui/dock @13ui/app-shell
 ```
 
-Then use `src/styles/dockkit.css` as your global CSS. It already includes `@import "tailwindcss"`.
+Then use `src/styles/13ui.css` as your global CSS. It already includes `@import "tailwindcss"`.
 
 ## Using the dock
 
