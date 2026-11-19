@@ -1,31 +1,39 @@
 import {
   BookOpen01Icon,
   BubbleChatIcon,
-  CreditCardIcon,
-  HelpCircleIcon,
-  Logout01Icon,
-  Settings02Icon,
-  UnfoldMoreIcon,
-  UserCircleIcon,
   ComputerTerminal01Icon,
+  CreditCardIcon,
   DashboardSquare01Icon,
   FileDiffIcon,
   FolderTreeIcon,
   Globe02Icon,
-  Moon02Icon,
+  HelpCircleIcon,
+  Logout01Icon,
   PlusSignIcon,
   RotateLeft01Icon,
   Search01Icon,
-  Sun03Icon,
+  Settings02Icon,
+  UnfoldMoreIcon,
+  UserCircleIcon,
 } from "@hugeicons/core-free-icons"
 import { useEffect, useMemo, useState } from "react"
-import { Dock, type DockPanels, useDock } from "@/components/dock/dock"
+import { Dock, type DockApi, type DockPanels, useDock } from "@/components/dock/dock"
 import { column, group, row } from "@/components/dock/model"
-import { AppShell, SidebarToggle, TitleBar, TitleBarTitle } from "@/components/shell/app-shell"
+import { AppShell, SidebarToggle } from "@/components/shell/app-shell"
 import { Composer } from "@/components/shell/composer"
 import { Message, ToolCall } from "@/components/shell/message"
 import { Panel, PanelBody, PanelToolbar } from "@/components/shell/panel"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader, SidebarItem } from "@/components/shell/sidebar"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarItem,
+  SidebarItemTrailing,
+  SidebarTitle,
+} from "@/components/shell/sidebar"
+import { Avatar, AvatarFallback, initials } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -38,12 +46,18 @@ import {
   CommandItemIcon,
   CommandList,
 } from "@/components/ui/command"
-import { Kbd } from "@/components/ui/kbd"
-import { Avatar, AvatarFallback, initials } from "@/components/ui/avatar"
-import { Menu, MenuContent, MenuHeader, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/menu"
+import { Icon } from "@/components/ui/icon"
+import {
+  Menu,
+  MenuCheckboxItem,
+  MenuContent,
+  MenuHeader,
+  MenuItem,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/components/ui/menu"
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs"
 import { useTheme } from "@/lib/use-theme"
-import { Icon } from "@/components/ui/icon"
 
 const initialLayout = () => ({
   root: row(
@@ -69,7 +83,6 @@ const sessions = [
 export function App() {
   const dock = useDock({ initial: initialLayout, storageKey: "13ui:layout" })
   const [paletteOpen, setPaletteOpen] = useState(false)
-  const { dark, toggle: toggleTheme } = useTheme()
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -98,43 +111,15 @@ export function App() {
   return (
     <AppShell
       autoSaveId="13ui:shell"
-      titleBar={
-        <TitleBar>
-          <SidebarToggle />
-          <TitleBarTitle>Panel design system</TitleBarTitle>
-          <Button variant="ghost" size="sm" aria-label="Search" onClick={() => setPaletteOpen(true)} className="text-muted-foreground">
-            <Icon icon={Search01Icon} />
-            <span className="hidden sm:inline">Search</span>
-            <Kbd className="hidden sm:inline-flex">⌘K</Kbd>
-          </Button>
-          <Menu onAction={(id) => dock.open(id, { position: "right" })}>
-            <MenuTrigger render={<Button variant="ghost" size="sm" aria-label="Panels" />}>
-              <Icon icon={DashboardSquare01Icon} />
-              <span className="hidden sm:inline">Panels</span>
-            </MenuTrigger>
-            <MenuContent align="end">
-              {panelCommands.map((panel) => (
-                <MenuItem key={panel.id} value={panel.id}>
-                  {panel.icon}
-                  {panel.title}
-                  {dock.isOpen(panel.id) && <span className="ml-auto text-2xs text-subtle-foreground">open</span>}
-                </MenuItem>
-              ))}
-            </MenuContent>
-          </Menu>
-          <Button variant="ghost" size="sm" aria-label="Docs" render={<a href="#/docs" />}>
-            <Icon icon={BookOpen01Icon} />
-            <span className="hidden sm:inline">Docs</span>
-          </Button>
-          <Button variant="ghost" size="icon-sm" aria-label="Reset layout" onClick={dock.reset}>
-            <Icon icon={RotateLeft01Icon} />
-          </Button>
-          <Button variant="ghost" size="icon-sm" aria-label="Toggle theme" onClick={toggleTheme}>
-            {dark ? <Icon icon={Sun03Icon} /> : <Icon icon={Moon02Icon} />}
-          </Button>
-        </TitleBar>
+      sidebarLabel="Navigation"
+      mobileHeader="Panel design system"
+      sidebar={
+        <AppSidebar
+          dock={dock}
+          panelCommands={panelCommands}
+          onSearch={() => setPaletteOpen(true)}
+        />
       }
-      sidebar={<AppSidebar />}
     >
       <Dock dock={dock} panels={panels} />
       <CommandDialog title="Command palette" open={paletteOpen} onOpenChange={setPaletteOpen}>
@@ -173,18 +158,59 @@ export function App() {
   )
 }
 
-function AppSidebar() {
+interface AppSidebarProps {
+  dock: DockApi
+  panelCommands: { id: string; title: string; icon?: React.ReactNode }[]
+  onSearch: () => void
+}
+
+function AppSidebar({ dock, panelCommands, onSearch }: AppSidebarProps) {
   const [active, setActive] = useState(sessions[0])
+  const { dark, toggle: toggleTheme } = useTheme()
+
   return (
-    <Sidebar aria-label="Sessions">
+    <Sidebar aria-label="Navigation">
       <SidebarHeader>
-        <SidebarItem className="text-foreground">
-          <Icon icon={PlusSignIcon} />
-          <span>New session</span>
-        </SidebarItem>
+        <SidebarTitle>13UI</SidebarTitle>
+        <SidebarToggle />
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup label="Recent">
+        <SidebarGroup>
+          <SidebarItem className="text-foreground">
+            <Icon icon={PlusSignIcon} />
+            <span>New session</span>
+          </SidebarItem>
+          <SidebarItem onClick={onSearch}>
+            <Icon icon={Search01Icon} />
+            <span>Search</span>
+            <SidebarItemTrailing>⌘K</SidebarItemTrailing>
+          </SidebarItem>
+          <Menu onAction={(id) => dock.open(id, { position: "right" })}>
+            <MenuTrigger render={<SidebarItem closesSidebar={false} />}>
+              <Icon icon={DashboardSquare01Icon} />
+              <span>Panels</span>
+            </MenuTrigger>
+            <MenuContent side="right" align="start">
+              {panelCommands.map((panel) => (
+                <MenuItem key={panel.id} value={panel.id}>
+                  {panel.icon}
+                  {panel.title}
+                  {dock.isOpen(panel.id) && <span className="ml-auto text-2xs text-subtle-foreground">open</span>}
+                </MenuItem>
+              ))}
+              <MenuSeparator />
+              <MenuItem value="__reset" onSelect={() => dock.reset()}>
+                <Icon icon={RotateLeft01Icon} />
+                Reset layout
+              </MenuItem>
+            </MenuContent>
+          </Menu>
+          <SidebarItem render={<a href="#/docs" />}>
+            <Icon icon={BookOpen01Icon} />
+            <span>Docs</span>
+          </SidebarItem>
+        </SidebarGroup>
+        <SidebarGroup label="Recent" hideOnRail>
           {sessions.map((session) => (
             <SidebarItem key={session} active={session === active} onClick={() => setActive(session)}>
               <span>{session}</span>
@@ -192,7 +218,7 @@ function AppSidebar() {
           ))}
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-1.5">
+      <SidebarFooter>
         <Menu>
           <MenuTrigger render={<SidebarItem closesSidebar={false} className="h-11 text-foreground" />}>
             <Avatar size="sm">
@@ -202,7 +228,9 @@ function AppSidebar() {
               <span className="truncate font-medium">{user.name}</span>
               <span className="truncate text-2xs text-muted-foreground">{user.email}</span>
             </span>
-            <Icon icon={UnfoldMoreIcon} className="ml-auto text-muted-foreground" />
+            <SidebarItemTrailing>
+              <Icon icon={UnfoldMoreIcon} />
+            </SidebarItemTrailing>
           </MenuTrigger>
           <MenuContent side="top" align="start" className="w-(--anchor-width) min-w-56">
             <MenuHeader>
@@ -227,6 +255,9 @@ function AppSidebar() {
               <Icon icon={CreditCardIcon} />
               Billing
             </MenuItem>
+            <MenuCheckboxItem value="dark" checked={dark} onCheckedChange={() => toggleTheme()}>
+              Dark mode
+            </MenuCheckboxItem>
             <MenuItem value="help">
               <Icon icon={HelpCircleIcon} />
               Help

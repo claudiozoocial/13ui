@@ -6,8 +6,16 @@ import {
   Tick02Icon,
 } from "@hugeicons/core-free-icons"
 import { type ComponentType, type ReactNode, useEffect, useRef, useState } from "react"
-import { AppShell, SidebarToggle, TitleBar } from "@/components/shell/app-shell"
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarItem } from "@/components/shell/sidebar"
+import { AppShell, SidebarToggle } from "@/components/shell/app-shell"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarItem,
+  SidebarTitle,
+} from "@/components/shell/sidebar"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/ui/icon"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -41,34 +49,35 @@ export function Docs({ route }: { route: string }) {
   return (
     <AppShell
       autoSaveId="13ui:docs-shell"
-      titleBar={
-        <TitleBar>
-          <SidebarToggle />
-          <a href="#/docs" className="px-2 text-ui font-semibold">
-            13UI
-          </a>
-          <span className="hidden text-ui text-subtle-foreground sm:inline">Docs</span>
-          <a
-            href="#/docs/changelog"
-            className="ml-1 rounded-full border border-border px-2 py-0.5 font-mono text-2xs text-muted-foreground hover:bg-accent"
-          >
-            v{version}
-          </a>
-          <div className="flex-1" />
-          <Button variant="ghost" size="sm" aria-label="Workbench" render={<a href="#/" />}>
-            <Icon icon={DashboardSquare01Icon} />
-            <span className="hidden sm:inline">Workbench</span>
-          </Button>
-          <Button variant="ghost" size="icon-sm" aria-label="Toggle theme" onClick={toggle}>
-            <Icon icon={dark ? Sun03Icon : Moon02Icon} />
-          </Button>
-        </TitleBar>
-      }
+      sidebarLabel="Documentation"
+      mobileHeader={page.title}
       sidebar={
         <Sidebar aria-label="Documentation">
-          <SidebarContent className="pt-2">
+          <SidebarHeader>
+            <SidebarTitle>
+              <a href="#/docs/introduction">13UI</a>
+              <a
+                href="#/docs/changelog"
+                className="rounded-full border border-border px-2 py-0.5 font-mono text-2xs font-normal text-muted-foreground hover:bg-accent"
+              >
+                v{version}
+              </a>
+            </SidebarTitle>
+            <SidebarToggle />
+          </SidebarHeader>
+          <SidebarContent>
+            <SidebarGroup>
+              <SidebarItem render={<a href="#/" />}>
+                <Icon icon={DashboardSquare01Icon} />
+                <span>Workbench</span>
+              </SidebarItem>
+              <SidebarItem closesSidebar={false} onClick={toggle}>
+                <Icon icon={dark ? Sun03Icon : Moon02Icon} />
+                <span>{dark ? "Light mode" : "Dark mode"}</span>
+              </SidebarItem>
+            </SidebarGroup>
             {groups.map((group) => (
-              <SidebarGroup key={group} label={group}>
+              <SidebarGroup key={group} label={group} hideOnRail>
                 {pages
                   .filter((p) => p.group === group)
                   .map((p) => (
@@ -85,8 +94,8 @@ export function Docs({ route }: { route: string }) {
               </SidebarGroup>
             ))}
           </SidebarContent>
-          <SidebarFooter className="text-xs text-muted-foreground">
-            <span>
+          <SidebarFooter className="text-xs text-muted-foreground group-data-collapsed/sidebar:hidden">
+            <span className="px-2 py-1">
               Made by{" "}
               <a
                 href="https://claudiocastillo.design/"

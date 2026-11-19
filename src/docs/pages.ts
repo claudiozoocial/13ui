@@ -201,11 +201,13 @@ export const pages: DocPage[] = [
     slug: "app-shell",
     title: "App Shell",
     group: "Layout",
-    description: "The window frame: title bar, collapsible sidebar and main area. useAppShell() exposes the toggle.",
+    description:
+      "The window frame: a full-height sidebar with the main area beside it, and no header. Navigation and actions live in the sidebar, which collapses to an icon rail. useAppShell() exposes its state.",
     install: ["app-shell"],
     examples: [{ name: "app-shell-basic", title: "With a sidebar" }],
     notes: [
-      "Responsive: below breakpoint (768px of viewport by default) the sidebar becomes a drawer that slides over the page, opened by SidebarToggle.",
+      "Put SidebarToggle in the SidebarHeader. Collapsed, the sidebar becomes a 52px rail: span labels turn screen-reader-only, SidebarTitle and SidebarItemTrailing hide, and groups with hideOnRail disappear.",
+      "Responsive: below breakpoint (768px of viewport by default) the sidebar becomes a drawer that slides over the page. A slim bar with the sidebar button and mobileHeader opens it.",
       "SidebarItem closes the drawer when pressed, for navigation. Pass closesSidebar={false} to items that open something in place, like a menu trigger.",
       "Command+B (Ctrl+B elsewhere) toggles the sidebar. Pass shortcut={false} to turn it off.",
     ],

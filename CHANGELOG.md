@@ -2,6 +2,14 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.5 — 2026-11-19
+
+- AppShell has no header: the sidebar runs the full height with the main area beside it. Breaking: the titleBar prop, TitleBar and TitleBarTitle are removed; put navigation and actions in the sidebar.
+- Collapsing the sidebar leaves a 52px icon rail instead of hiding it, so the toggle stays in reach. Labels stay readable to screen readers.
+- New SidebarTitle, SidebarItemTrailing and SidebarGroup hideOnRail for the rail. SidebarHeader now holds a title and the toggle in one row.
+- On mobile, a slim bar with the sidebar button and the new mobileHeader prop opens the drawer.
+- The workbench and docs moved Search, Panels, Docs, Workbench and the theme into the sidebar.
+
 ## 0.1.0-beta.4 — 2026-11-19
 
 - Responsive layout. On narrow screens the AppShell sidebar becomes a drawer that slides over the page; set the width with breakpoint.

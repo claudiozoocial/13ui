@@ -1,6 +1,6 @@
 import { SidebarLeft01Icon } from "@hugeicons/core-free-icons"
 import { Drawer, DrawerBackdrop, DrawerContent, DrawerTitle } from "@ui-sdk/react/drawer"
-import { type ComponentProps, createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react"
+import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/ui/icon"
 import {
@@ -16,6 +16,8 @@ import { cn } from "@/lib/utils"
 
 interface AppShellContextValue {
   sidebar: ResizableController
+  /** True while the desktop sidebar is collapsed to its icon rail. */
+  collapsed: boolean
   /** True below the breakpoint, where the sidebar is a drawer over the page. */
   isMobile: boolean
   /** Whether the sidebar is showing: expanded on desktop, open as a drawer on mobile. */
@@ -41,9 +43,11 @@ export function useOptionalAppShell() {
 const SIDEBAR_ID = "app-shell-sidebar"
 
 interface AppShellProps {
+  /** Runs the full height of the window, beside the main area. */
   sidebar: ReactNode
-  titleBar?: ReactNode
   children: ReactNode
+  /** On mobile, shown beside the sidebar button in the slim bar above the main area, like a page title. */
+  mobileHeader?: ReactNode
   /** Saves the sidebar width under this key. */
   autoSaveId?: string
   /** Below this viewport width, in pixels, the sidebar becomes a drawer. */
@@ -56,13 +60,14 @@ interface AppShellProps {
 }
 
 /**
- * A window frame: a title bar across the top, a sidebar and the main area beside it.
- * On wide screens the sidebar resizes and collapses; on narrow ones it slides over the page.
+ * A window frame: a full-height sidebar with the main area beside it, and no header.
+ * On wide screens the sidebar resizes and collapses to an icon rail; on narrow ones it is a
+ * drawer that slides over the page, opened from a slim bar holding the sidebar button.
  */
 export function AppShell({
   sidebar,
-  titleBar,
   children,
+  mobileHeader,
   autoSaveId,
   breakpoint = 768,
   sidebarLabel = "Sidebar",
@@ -100,6 +105,7 @@ export function AppShell({
 
   const value: AppShellContextValue = {
     sidebar: controller,
+    collapsed: !isMobile && collapsed,
     isMobile,
     sidebarOpen: isMobile ? drawerOpen : !collapsed,
     toggleSidebar,
@@ -113,9 +119,15 @@ export function AppShell({
         data-mobile={isMobile ? "" : undefined}
         className={cn("flex h-full flex-col bg-background text-foreground", className)}
       >
-        {titleBar}
         {isMobile ? (
           <>
+            <div
+              data-slot="app-shell-mobile-bar"
+              className="flex h-titlebar shrink-0 items-center gap-1 border-b border-border bg-sidebar px-2"
+            >
+              <SidebarToggle />
+              <div className="min-w-0 flex-1 truncate px-1 text-ui font-medium">{mobileHeader}</div>
+            </div>
             <div className="min-h-0 flex-1">{children}</div>
             <Drawer side="left" open={drawerOpen} onOpenChange={setDrawerOpen}>
               <DrawerBackdrop className="fixed inset-0 bg-black/30 dark:bg-black/50" />
@@ -138,6 +150,7 @@ export function AppShell({
               minSize="200px"
               maxSize="420px"
               collapsible
+              collapsedSize="52px"
               className="bg-sidebar"
             >
               {sidebar}
@@ -175,23 +188,4 @@ export function SidebarToggle({ className }: { className?: string }) {
       </TooltipContent>
     </Tooltip>
   )
-}
-
-export function TitleBar({ className, children, ...props }: ComponentProps<"header">) {
-  return (
-    <header
-      data-slot="title-bar"
-      className={cn(
-        "flex h-titlebar shrink-0 select-none items-center gap-1 border-b border-border bg-sidebar px-2",
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </header>
-  )
-}
-
-export function TitleBarTitle({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cn("min-w-0 flex-1 truncate px-2 text-ui font-medium", className)} {...props} />
 }
