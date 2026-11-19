@@ -47,7 +47,7 @@ export function Docs({ route }: { route: string }) {
           <a href="#/docs" className="px-2 text-ui font-semibold">
             13UI
           </a>
-          <span className="text-ui text-subtle-foreground">Docs</span>
+          <span className="hidden text-ui text-subtle-foreground sm:inline">Docs</span>
           <a
             href="#/docs/changelog"
             className="ml-1 rounded-full border border-border px-2 py-0.5 font-mono text-2xs text-muted-foreground hover:bg-accent"
@@ -55,9 +55,9 @@ export function Docs({ route }: { route: string }) {
             v{version}
           </a>
           <div className="flex-1" />
-          <Button variant="ghost" size="sm" render={<a href="#/" />}>
+          <Button variant="ghost" size="sm" aria-label="Workbench" render={<a href="#/" />}>
             <Icon icon={DashboardSquare01Icon} />
-            Workbench
+            <span className="hidden sm:inline">Workbench</span>
           </Button>
           <Button variant="ghost" size="icon-sm" aria-label="Toggle theme" onClick={toggle}>
             <Icon icon={dark ? Sun03Icon : Moon02Icon} />
@@ -102,7 +102,7 @@ export function Docs({ route }: { route: string }) {
       }
     >
       <ScrollArea key={page.slug} className="size-full bg-surface">
-        <article className="mx-auto flex max-w-3xl flex-col gap-8 px-8 pt-10 pb-24">
+        <article className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pt-6 pb-24 sm:px-8 sm:pt-10">
           <header className="flex flex-col gap-2">
             <p className="text-xs font-medium text-subtle-foreground">{page.group}</p>
             <h1 className="text-2xl font-semibold tracking-tight">{page.title}</h1>
@@ -210,7 +210,7 @@ function ExampleBlock({ title, source, children }: { title: string; source: stri
           <TabsTab value="code">Code</TabsTab>
         </TabsList>
         <TabsPanel value="preview">
-          <div className="flex min-h-48 items-center justify-center rounded-lg border border-border bg-background p-8">
+          <div className="flex min-h-48 items-center justify-center overflow-x-auto rounded-lg border border-border bg-background p-4 sm:p-8">
             {children}
           </div>
         </TabsPanel>
@@ -250,6 +250,22 @@ const setup = `{
   }
 }`
 
+const builtWith = [
+  { name: "React 19", href: "https://react.dev", role: "UI library. 13UI needs React 19 or newer." },
+  { name: "Tailwind CSS v4", href: "https://tailwindcss.com", role: "Styling and the zinc color scale behind the tokens." },
+  { name: "UI SDK", href: "https://ui-sdk.dev", role: "Behavior: keyboard, focus, accessibility, popups, resizing." },
+  { name: "Hugeicons", href: "https://hugeicons.com", role: "Icons, from the free set." },
+  { name: "shadcn/ui CLI", href: "https://ui.shadcn.com/docs/cli", role: "Installs components from the 13UI registry." },
+]
+
+function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener" className="text-foreground underline underline-offset-2">
+      {children}
+    </a>
+  )
+}
+
 function Introduction() {
   return (
     <>
@@ -267,10 +283,28 @@ function Introduction() {
       </p>
       <Section title="How it works">
         <p className="text-sm leading-6 text-muted-foreground">
-          Like shadcn, components aren't installed as a dependency: the CLI copies the code into your project and it's
-          yours. Behavior (keyboard, focus, accessibility, dragging and resizing) comes from UI SDK; styles are Tailwind
-          on zinc tokens; icons are Hugeicons.
+          Like <ExternalLink href="https://ui.shadcn.com">shadcn/ui</ExternalLink>, components aren't installed as a
+          dependency: the CLI copies the code into your project and it's yours. Behavior (keyboard, focus,
+          accessibility, dragging and resizing) comes from <ExternalLink href="https://ui-sdk.dev">UI SDK</ExternalLink>;
+          styles are Tailwind on zinc tokens; icons are Hugeicons.
         </p>
+      </Section>
+      <Section title="Built with">
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {builtWith.map((item) => (
+            <li key={item.name}>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener"
+                className="flex h-full flex-col gap-0.5 rounded-lg border border-border p-3 transition-colors hover:bg-muted"
+              >
+                <span className="text-sm font-medium text-foreground">{item.name}</span>
+                <span className="text-xs text-muted-foreground">{item.role}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </Section>
       <Section title="1. Point your project at the registry">
         <p className="text-sm text-muted-foreground">
@@ -371,7 +405,7 @@ function Tokens() {
 
 function TokenTable({ headers, rows }: { headers: string[]; rows: string[][] }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-border">
+    <div className="overflow-x-auto rounded-lg border border-border">
       <table className="w-full text-left text-ui">
         <thead className="bg-muted text-xs text-muted-foreground">
           <tr>

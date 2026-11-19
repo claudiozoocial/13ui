@@ -21,7 +21,7 @@ import {
 import { useEffect, useMemo, useState } from "react"
 import { Dock, type DockPanels, useDock } from "@/components/dock/dock"
 import { column, group, row } from "@/components/dock/model"
-import { AppShell, SidebarToggle, TitleBar, TitleBarTitle, useAppShell } from "@/components/shell/app-shell"
+import { AppShell, SidebarToggle, TitleBar, TitleBarTitle } from "@/components/shell/app-shell"
 import { Composer } from "@/components/shell/composer"
 import { Message, ToolCall } from "@/components/shell/message"
 import { Panel, PanelBody, PanelToolbar } from "@/components/shell/panel"
@@ -102,15 +102,15 @@ export function App() {
         <TitleBar>
           <SidebarToggle />
           <TitleBarTitle>Panel design system</TitleBarTitle>
-          <Button variant="ghost" size="sm" onClick={() => setPaletteOpen(true)} className="text-muted-foreground">
+          <Button variant="ghost" size="sm" aria-label="Search" onClick={() => setPaletteOpen(true)} className="text-muted-foreground">
             <Icon icon={Search01Icon} />
-            Search
-            <Kbd>⌘K</Kbd>
+            <span className="hidden sm:inline">Search</span>
+            <Kbd className="hidden sm:inline-flex">⌘K</Kbd>
           </Button>
           <Menu onAction={(id) => dock.open(id, { position: "right" })}>
-            <MenuTrigger render={<Button variant="ghost" size="sm" />}>
+            <MenuTrigger render={<Button variant="ghost" size="sm" aria-label="Panels" />}>
               <Icon icon={DashboardSquare01Icon} />
-              Panels
+              <span className="hidden sm:inline">Panels</span>
             </MenuTrigger>
             <MenuContent align="end">
               {panelCommands.map((panel) => (
@@ -122,9 +122,9 @@ export function App() {
               ))}
             </MenuContent>
           </Menu>
-          <Button variant="ghost" size="sm" render={<a href="#/docs" />}>
+          <Button variant="ghost" size="sm" aria-label="Docs" render={<a href="#/docs" />}>
             <Icon icon={BookOpen01Icon} />
-            Docs
+            <span className="hidden sm:inline">Docs</span>
           </Button>
           <Button variant="ghost" size="icon-sm" aria-label="Reset layout" onClick={dock.reset}>
             <Icon icon={RotateLeft01Icon} />
@@ -175,19 +175,6 @@ export function App() {
 
 function AppSidebar() {
   const [active, setActive] = useState(sessions[0])
-  const { sidebar } = useAppShell()
-  useEffect(() => {
-    const onKey = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "b") {
-        event.preventDefault()
-        if (sidebar.isCollapsed("app-shell-sidebar")) sidebar.expand("app-shell-sidebar")
-        else sidebar.collapse("app-shell-sidebar")
-      }
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [sidebar])
-
   return (
     <Sidebar aria-label="Sessions">
       <SidebarHeader>
@@ -207,7 +194,7 @@ function AppSidebar() {
       </SidebarContent>
       <SidebarFooter className="p-1.5">
         <Menu>
-          <MenuTrigger render={<SidebarItem className="h-11 text-foreground" />}>
+          <MenuTrigger render={<SidebarItem closesSidebar={false} className="h-11 text-foreground" />}>
             <Avatar size="sm">
               <AvatarFallback>{initials(user.name)}</AvatarFallback>
             </Avatar>
@@ -268,7 +255,7 @@ function ChatPanel() {
 
   return (
     <Panel>
-      <PanelBody className="px-6">
+      <PanelBody className="px-4 sm:px-6">
         <div className="mx-auto flex max-w-2xl flex-col gap-5 py-6">
           {messages.map((message) => (
             <Message key={message.id} from={message.from}>
@@ -278,7 +265,7 @@ function ChatPanel() {
           ))}
         </div>
       </PanelBody>
-      <div className="mx-auto w-full max-w-2xl shrink-0 px-6 pb-4">
+      <div className="mx-auto w-full max-w-2xl shrink-0 px-3 pb-3 sm:px-6 sm:pb-4">
         <Composer
           onSubmit={(text) => setMessages((list) => [...list, { id: Date.now(), from: "user", text }])}
           actions={

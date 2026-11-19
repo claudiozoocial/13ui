@@ -358,6 +358,10 @@
           "path": "src/components/shell/panel.tsx",
           "type": "registry:component",
           "target": "components/shell/panel.tsx"
+        },
+        {
+          "path": "src/lib/use-media-query.ts",
+          "type": "registry:lib"
         }
       ]
     },

@@ -32,6 +32,7 @@ import {
   type DropPosition,
   dockReducer,
   dropPositionAt,
+  firstGroup,
   isDockState,
   openPanels,
 } from "./model"
@@ -119,6 +120,8 @@ interface DockContextValue {
   drag: DragInfo | null
   setDrag: (drag: DragInfo | null) => void
   hosts: Map<string, HTMLDivElement>
+  /** True when the dock is too narrow for splits and shows every panel as one row of tabs. */
+  stacked: boolean
 }
 
 const DockContext = createContext<DockContextValue | null>(null)
@@ -137,14 +140,31 @@ interface DockProps {
   className?: string
   /** Shown when every panel is closed. */
   empty?: ReactNode
+  /**
+   * Below this width, in pixels, the dock stacks every panel into one tab group, without splits or
+   * dragging. It measures its own width, so it also stacks inside a narrow container. The saved
+   * layout is kept and returns when the dock is wide again. Pass 0 to never stack.
+   */
+  stackBelow?: number
 }
 
 /**
  * Renders a dock layout. Each panel's content mounts once into its own host element
  * and is moved between groups, so its state survives drags, splits and tab switches.
  */
-export function Dock({ dock, panels, className, empty }: DockProps) {
+export function Dock({ dock, panels, className, empty, stackBelow = 640 }: DockProps) {
   const [drag, setDrag] = useState<DragInfo | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [stacked, setStacked] = useState(false)
+  const [stackActive, setStackActive] = useState<string | null>(null)
+
+  useEffect(() => {
+    const element = rootRef.current
+    if (!element) return
+    const observer = new ResizeObserver(([entry]) => setStacked(entry.contentRect.width < stackBelow))
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [stackBelow])
   const hostsRef = useRef(new Map<string, HTMLDivElement>())
   const hosts = hostsRef.current
 
@@ -170,28 +190,41 @@ export function Dock({ dock, panels, className, empty }: DockProps) {
     }
   }, [drag])
 
-  const context = useMemo<DockContextValue>(() => ({ dock, panels, drag, setDrag, hosts }), [dock, panels, drag, hosts])
+  const context = useMemo<DockContextValue>(
+    () => ({ dock, panels, drag, setDrag, hosts, stacked }),
+    [dock, panels, drag, hosts, stacked],
+  )
   const { root, maximized } = dock.state
   const maximizedNode = maximized ? findGroup(root, maximized) : null
   const isEmpty = root.type === "group" && root.panels.length === 0
+  const stackGroup: DockGroup = {
+    type: "group",
+    id: "dock-stack",
+    panels: open,
+    active: stackActive && open.includes(stackActive) ? stackActive : (maximizedNode?.active ?? firstGroup(root).active ?? open[0] ?? null),
+  }
 
   return (
     <DockContext.Provider value={context}>
       <div
+        ref={rootRef}
         data-slot="dock"
         data-dragging={drag ? "" : undefined}
+        data-stacked={stacked ? "" : undefined}
         className={cn("relative flex size-full min-h-0 min-w-0 bg-background", className)}
       >
         {isEmpty ? (
           <div className="grid size-full place-items-center text-ui text-subtle-foreground">
             {empty ?? "No panels open"}
           </div>
+        ) : stacked ? (
+          <DockGroupView node={stackGroup} onActivate={setStackActive} />
         ) : maximizedNode ? (
           <DockGroupView node={maximizedNode} />
         ) : (
           <DockNodeView node={root} />
         )}
-        {drag && !isEmpty && <RootDropEdges />}
+        {drag && !isEmpty && !stacked && <RootDropEdges />}
       </div>
       {open.map((id) => {
         const host = hosts.get(id)
@@ -247,8 +280,8 @@ function DockSplitView({ node }: { node: DockSplit }) {
   )
 }
 
-function DockGroupView({ node }: { node: DockGroup }) {
-  const { dock, panels, drag, setDrag } = useDockContext()
+function DockGroupView({ node, onActivate }: { node: DockGroup; onActivate?: (panelId: string) => void }) {
+  const { dock, panels, drag, setDrag, stacked } = useDockContext()
   const [dropZone, setDropZone] = useState<DropPosition | null>(null)
   const [tabDropIndex, setTabDropIndex] = useState<number | null>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
@@ -320,7 +353,11 @@ function DockGroupView({ node }: { node: DockGroup }) {
   return (
     <Tabs
       value={node.active}
-      onValueChange={(value) => value && dock.activate(String(value))}
+      onValueChange={(value) => {
+        if (!value) return
+        onActivate?.(String(value))
+        dock.activate(String(value))
+      }}
       data-dock-group={node.id}
       className="flex size-full min-h-0 flex-col bg-surface"
     >
@@ -354,7 +391,7 @@ function DockGroupView({ node }: { node: DockGroup }) {
             <span aria-hidden className="my-1.5 w-0.5 shrink-0 rounded-full bg-ring" />
           )}
         </TabsList>
-        <div className="flex shrink-0 items-center gap-0.5 px-1.5">
+        <div className={cn("flex shrink-0 items-center gap-0.5 px-1.5", stacked && "hidden")}>
           <Button
             variant="ghost"
             size="icon-xs"
@@ -425,7 +462,7 @@ function DockTab({
   dragging: boolean
   onClose: () => void
 }) {
-  const { setDrag } = useDockContext()
+  const { setDrag, stacked } = useDockContext()
   const closable = def?.closable !== false
 
   return (
@@ -439,7 +476,7 @@ function DockTab({
     >
       <TabsTab
         value={id}
-        draggable
+        draggable={!stacked}
         onDragStart={(event: DragEvent<HTMLButtonElement>) => {
           event.dataTransfer.effectAllowed = "move"
           event.dataTransfer.setData(DRAG_MIME, id)

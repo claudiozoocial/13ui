@@ -2,6 +2,16 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.4 — 2026-11-19
+
+- Responsive layout. On narrow screens the AppShell sidebar becomes a drawer that slides over the page; set the width with breakpoint.
+- The Dock stacks every panel into one row of tabs when its own width is below stackBelow (640px by default), and restores the saved split layout when it widens again.
+- AppShell handles Command+B (Ctrl+B elsewhere) itself; turn it off with shortcut={false}.
+- SidebarItem closes the mobile drawer when pressed, unless closesSidebar={false}.
+- New useMediaQuery hook.
+- The docs and the workbench adapt to phone widths.
+- The docs introduction links to React, Tailwind CSS, UI SDK, Hugeicons and the shadcn CLI.
+
 ## 0.1.0-beta.3 — 2026-11-19
 
 - Menu is now a general dropdown: shortcuts shown from the shortcut prop, checkbox and radio items, submenus with their arrow built in, and MenuHeader for non-item content.

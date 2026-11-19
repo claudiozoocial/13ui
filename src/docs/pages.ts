@@ -194,6 +194,7 @@ export const pages: DocPage[] = [
       "useDock({ initial, storageKey }) saves the layout to localStorage when you pass storageKey.",
       'dock.open(id, { position: "right" }) opens or focuses a panel; there are also close, activate, isOpen and reset.',
       "Each panel's content mounts once and keeps its state when you move it.",
+      "Responsive: below stackBelow (640px by default) of its own width, the dock shows every panel as one row of tabs, without splits or dragging. The saved layout returns when it's wide again. Narrow this page to see it.",
     ],
   },
   {
@@ -203,6 +204,11 @@ export const pages: DocPage[] = [
     description: "The window frame: title bar, collapsible sidebar and main area. useAppShell() exposes the toggle.",
     install: ["app-shell"],
     examples: [{ name: "app-shell-basic", title: "With a sidebar" }],
+    notes: [
+      "Responsive: below breakpoint (768px of viewport by default) the sidebar becomes a drawer that slides over the page, opened by SidebarToggle.",
+      "SidebarItem closes the drawer when pressed, for navigation. Pass closesSidebar={false} to items that open something in place, like a menu trigger.",
+      "Command+B (Ctrl+B elsewhere) toggles the sidebar. Pass shortcut={false} to turn it off.",
+    ],
   },
   {
     slug: "panel",

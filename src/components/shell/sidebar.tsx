@@ -1,5 +1,6 @@
 import { Button as ButtonPrimitive } from "@ui-sdk/react/button"
 import type { ComponentProps } from "react"
+import { useOptionalAppShell } from "@/components/shell/app-shell"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { cn, withClass } from "@/lib/utils"
 
@@ -32,11 +33,24 @@ export function SidebarGroup({ label, className, children, ...props }: Component
   )
 }
 
-type SidebarItemProps = ComponentProps<typeof ButtonPrimitive> & { active?: boolean }
+type SidebarItemProps = ComponentProps<typeof ButtonPrimitive> & {
+  active?: boolean
+  /**
+   * Whether pressing it closes the sidebar drawer on mobile. Defaults to true, for navigation.
+   * Pass false for items that open something in place, like a menu trigger.
+   */
+  closesSidebar?: boolean
+}
 
-export function SidebarItem({ className, active, ...props }: SidebarItemProps) {
+export function SidebarItem({ className, active, closesSidebar = true, onClick, ...props }: SidebarItemProps) {
+  const shell = useOptionalAppShell()
   return (
     <ButtonPrimitive
+      onClick={(event, details) => {
+        const result = onClick?.(event, details)
+        if (closesSidebar && shell?.isMobile) shell.closeSidebar()
+        return result
+      }}
       data-active={active ? "" : undefined}
       aria-current={active ? "page" : undefined}
       className={withClass(

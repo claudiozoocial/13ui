@@ -17,7 +17,7 @@ export default function Example() {
   return (
     <div className="w-64 rounded-lg border border-border bg-sidebar p-1.5">
       <Menu>
-        <MenuTrigger render={<SidebarItem className="h-11 text-foreground" />}>
+        <MenuTrigger render={<SidebarItem closesSidebar={false} className="h-11 text-foreground" />}>
           <Avatar size="sm">
             <AvatarFallback>{initials(user.name)}</AvatarFallback>
           </Avatar>
