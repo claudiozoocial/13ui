@@ -126,6 +126,59 @@
   color: var(--muted-foreground);
 }
 
+/* Toast stack, driven by the variables UI SDK sets on the region and each toast. */
+@layer components {
+  [data-slot="toast-region"] {
+    position: fixed;
+    z-index: 60;
+    width: min(356px, calc(100vw - 32px));
+    height: var(--toast-front-height);
+    margin: 16px;
+    transition: height 300ms;
+  }
+  [data-slot="toast-region"][data-side="bottom"] { bottom: 0; }
+  [data-slot="toast-region"][data-side="top"] { top: 0; }
+  [data-slot="toast-region"][data-align="end"] { right: 0; }
+  [data-slot="toast-region"][data-align="start"] { left: 0; }
+  [data-slot="toast-region"][data-align="center"] { left: 50%; translate: -50% 0; margin-inline: 0; }
+  [data-slot="toast-region"][data-expanded] {
+    height: calc(var(--toast-stack-height) + (var(--toast-count) - 1) * 8px);
+  }
+  [data-slot="toast"] {
+    --gap: 8px;
+    --peek: 10px;
+    --dir: -1;
+    --y: calc(var(--dir) * var(--toast-index) * var(--peek));
+    position: absolute;
+    inset-inline: 0;
+    z-index: calc(100 - var(--toast-index));
+    overflow: hidden;
+    height: var(--toast-height);
+    translate: var(--toast-swipe-x, 0px) calc(var(--y) + var(--toast-swipe-y, 0px));
+    scale: calc(1 - var(--toast-index) * 0.04);
+    transition-property: translate, scale, opacity, height;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+    user-select: none;
+  }
+  [data-slot="toast-region"][data-side="bottom"] [data-slot="toast"] { bottom: 0; }
+  [data-slot="toast-region"][data-side="top"] [data-slot="toast"] { top: 0; --dir: 1; }
+  [data-slot="toast"]:not([data-front], [data-expanded]) {
+    height: var(--toast-front-height);
+  }
+  [data-slot="toast"][data-expanded] {
+    --y: calc(var(--dir) * (var(--toast-offset) + var(--toast-index) * var(--gap)));
+    scale: 1;
+  }
+  [data-slot="toast"][data-starting-style] { transition: none; }
+  [data-slot="toast"][data-starting-style][data-front] { --y: calc(var(--dir) * -100%); }
+  [data-slot="toast"]:is([data-starting-style]:not([data-front]), [data-ending-style]) { opacity: 0; }
+  [data-slot="toast"][data-swiping] { transition: none; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-slot="toast"] { transition-property: opacity; }
+  }
+}
+
 @layer base {
   *,
   ::before,

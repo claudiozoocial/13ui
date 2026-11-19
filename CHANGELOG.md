@@ -2,6 +2,14 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.7 — 2026-11-19
+
+- New Alert Dialog for confirmations, with a built-in backdrop and answers styled as buttons.
+- New Toast: call toast() from anywhere, with success, error, warning, info, loading and promise toasts, actions, a stack that fans out on hover, and swipe to dismiss. Render <Toaster /> once.
+- New Menubar for application menus, built from Menu.
+- New Navigation Menu for site navigation with panels of links.
+- New Checkbox (with a mixed state and groups), Radio and Label.
+
 ## 0.1.0-beta.6 — 2026-11-19
 
 - Fixed menu shortcuts: an item with a shortcut showed an unstyled copy from UI SDK next to an empty one. It now shows one shortcut, styled as a key cap.

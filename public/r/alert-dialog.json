@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-dialog",
+  "dependencies": [
+    "@ui-sdk/react@0.1.0-beta.13",
+    "@ui-sdk/core@0.1.0-beta.13",
+    "class-variance-authority@^0.7.1"
+  ],
+  "registryDependencies": [
+    "@13ui/utils",
+    "@13ui/button"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/alert-dialog.tsx",
+      "content": "import {\n  AlertDialog,\n  AlertDialogBackdrop,\n  AlertDialogClose as AlertDialogClosePrimitive,\n  AlertDialogContent as AlertDialogContentPrimitive,\n  AlertDialogDescription as AlertDialogDescriptionPrimitive,\n  AlertDialogTitle as AlertDialogTitlePrimitive,\n  AlertDialogTrigger,\n} from \"@ui-sdk/react/alert-dialog\"\nimport type { VariantProps } from \"class-variance-authority\"\nimport type { ComponentProps } from \"react\"\nimport { buttonVariants } from \"@/components/ui/button\"\nimport { cn, withClass } from \"@/lib/utils\"\n\n/** The dialog panel, centered over a dimmed page. The backdrop is built in. */\nfunction AlertDialogContent({ className, ...props }: ComponentProps<typeof AlertDialogContentPrimitive>) {\n  return (\n    <>\n      <AlertDialogBackdrop className=\"fixed inset-0 z-50 bg-black/30 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:bg-black/60\" />\n      <AlertDialogContentPrimitive\n        className={withClass(\n          \"fixed top-1/2 left-1/2 z-50 m-0 flex w-[min(440px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-xl border-0 bg-surface-raised p-5 text-foreground shadow-popover outline-none transition-[opacity,scale] duration-150 data-ending-style:scale-97 data-ending-style:opacity-0 data-starting-style:scale-97 data-starting-style:opacity-0 motion-reduce:transition-none\",\n          className,\n        )}\n        {...props}\n      />\n    </>\n  )\n}\n\nfunction AlertDialogHeader({ className, ...props }: ComponentProps<\"div\">) {\n  return <div className={cn(\"flex flex-col gap-1.5\", className)} {...props} />\n}\n\nfunction AlertDialogFooter({ className, ...props }: ComponentProps<\"div\">) {\n  return <div className={cn(\"flex flex-col-reverse gap-2 sm:flex-row sm:justify-end\", className)} {...props} />\n}\n\nfunction AlertDialogTitle({ className, ...props }: ComponentProps<typeof AlertDialogTitlePrimitive>) {\n  return <AlertDialogTitlePrimitive className={withClass(\"text-base font-semibold\", className)} {...props} />\n}\n\nfunction AlertDialogDescription({ className, ...props }: ComponentProps<typeof AlertDialogDescriptionPrimitive>) {\n  return (\n    <AlertDialogDescriptionPrimitive className={withClass(\"text-sm text-muted-foreground\", className)} {...props} />\n  )\n}\n\n/**\n * An answer that closes the dialog, styled as a button. `value=\"confirm\"` is the agreeing answer;\n * give it `variant=\"destructive\"` for a dangerous action.\n */\nfunction AlertDialogClose({\n  className,\n  variant = \"outline\",\n  size,\n  ...props\n}: ComponentProps<typeof AlertDialogClosePrimitive> & VariantProps<typeof buttonVariants>) {\n  return <AlertDialogClosePrimitive className={withClass(buttonVariants({ variant, size }), className)} {...props} />\n}\n\nexport {\n  AlertDialog,\n  AlertDialogClose,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n  AlertDialogTrigger,\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

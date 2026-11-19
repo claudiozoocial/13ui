@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast",
+  "dependencies": [
+    "@ui-sdk/react@0.1.0-beta.13",
+    "@ui-sdk/core@0.1.0-beta.13",
+    "@hugeicons/core-free-icons@^4.4.0"
+  ],
+  "registryDependencies": [
+    "@13ui/utils",
+    "@13ui/icon",
+    "@13ui/button",
+    "@13ui/theme"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/toast.tsx",
+      "content": "import {\n  Alert02Icon,\n  AlertCircleIcon,\n  Cancel01Icon,\n  CheckmarkCircle02Icon,\n  InformationCircleIcon,\n  Loading03Icon,\n} from \"@hugeicons/core-free-icons\"\nimport {\n  createToaster,\n  Toast as ToastPrimitive,\n  ToastAction as ToastActionPrimitive,\n  ToastClose as ToastClosePrimitive,\n  ToastDescription as ToastDescriptionPrimitive,\n  ToastRegion,\n  type ToastRegionProps,\n  ToastTitle as ToastTitlePrimitive,\n  toast,\n} from \"@ui-sdk/react/toast\"\nimport type { ComponentProps } from \"react\"\nimport { buttonVariants } from \"@/components/ui/button\"\nimport { Icon } from \"@/components/ui/icon\"\nimport { cn, withClass } from \"@/lib/utils\"\n\n// The stack's positions and motion live in the theme, under [data-slot=\"toast\"]: they read the\n// CSS variables UI SDK sets on each toast, which utility classes can't express.\n\nfunction Toast({ className, ...props }: ComponentProps<typeof ToastPrimitive>) {\n  return (\n    <ToastPrimitive\n      className={withClass(\n        \"group/toast flex items-start gap-2.5 rounded-lg border border-border bg-surface-raised p-3 text-ui text-foreground shadow-popover\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\n/** The icon for the toast's type: success, error, warning, info or loading. Shows nothing for default. */\nfunction ToastIcon() {\n  return (\n    <span className=\"mt-px hidden shrink-0 group-data-[type=error]/toast:block group-data-[type=info]/toast:block group-data-[type=loading]/toast:block group-data-[type=success]/toast:block group-data-[type=warning]/toast:block [&_svg]:hidden [&_svg]:size-4\">\n      <Icon icon={CheckmarkCircle02Icon} className=\"text-success group-data-[type=success]/toast:block\" />\n      <Icon icon={AlertCircleIcon} className=\"text-destructive group-data-[type=error]/toast:block\" />\n      <Icon icon={Alert02Icon} className=\"text-foreground group-data-[type=warning]/toast:block\" />\n      <Icon icon={InformationCircleIcon} className=\"text-muted-foreground group-data-[type=info]/toast:block\" />\n      <Icon\n        icon={Loading03Icon}\n        className=\"animate-spin text-muted-foreground group-data-[type=loading]/toast:block motion-reduce:animate-none\"\n      />\n    </span>\n  )\n}\n\nfunction ToastTitle({ className, ...props }: ComponentProps<typeof ToastTitlePrimitive>) {\n  return <ToastTitlePrimitive className={withClass(\"font-medium empty:hidden\", className)} {...props} />\n}\n\nfunction ToastDescription({ className, ...props }: ComponentProps<typeof ToastDescriptionPrimitive>) {\n  return (\n    <ToastDescriptionPrimitive className={withClass(\"text-xs text-muted-foreground empty:hidden\", className)} {...props} />\n  )\n}\n\nfunction ToastAction({ className, ...props }: ComponentProps<typeof ToastActionPrimitive>) {\n  return (\n    <ToastActionPrimitive\n      className={withClass(cn(buttonVariants({ variant: \"outline\", size: \"sm\" }), \"ml-auto empty:hidden\"), className)}\n      {...props}\n    />\n  )\n}\n\nfunction ToastClose({ className, ...props }: ComponentProps<typeof ToastClosePrimitive>) {\n  return (\n    <ToastClosePrimitive\n      aria-label=\"Dismiss\"\n      className={withClass(cn(buttonVariants({ variant: \"ghost\", size: \"icon-xs\" }), \"-mt-0.5 -mr-1 shrink-0\"), className)}\n      {...props}\n    >\n      <Icon icon={Cancel01Icon} />\n    </ToastClosePrimitive>\n  )\n}\n\n/**\n * Shows the toasts from `toast()`. Render it once near your app's root. Toasts stack in a corner,\n * fan out on hover, and can be swiped away.\n */\nfunction Toaster({ side = \"bottom\", align = \"end\", ...props }: Omit<ToastRegionProps, \"children\">) {\n  return (\n    <ToastRegion side={side} align={align} {...props}>\n      {() => (\n        <Toast>\n          <ToastIcon />\n          <div className=\"flex min-w-0 flex-1 flex-col gap-0.5\">\n            <ToastTitle />\n            <ToastDescription />\n          </div>\n          <ToastAction />\n          <ToastClose />\n        </Toast>\n      )}\n    </ToastRegion>\n  )\n}\n\nexport {\n  createToaster,\n  Toast,\n  ToastAction,\n  ToastClose,\n  ToastDescription,\n  Toaster,\n  ToastIcon,\n  ToastRegion,\n  ToastTitle,\n  toast,\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

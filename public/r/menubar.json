@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "menubar",
+  "dependencies": [
+    "@ui-sdk/react@0.1.0-beta.13",
+    "@ui-sdk/core@0.1.0-beta.13"
+  ],
+  "registryDependencies": [
+    "@13ui/utils",
+    "@13ui/menu"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/menubar.tsx",
+      "content": "import { Menubar as MenubarPrimitive } from \"@ui-sdk/react/menubar\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\n\n/**\n * An application menu bar: put Menus inside, and they join it. Arrow keys move between menus,\n * and once one is open, hovering another opens it. Use the Menu parts for the contents.\n */\nfunction Menubar({ className, ...props }: ComponentProps<typeof MenubarPrimitive>) {\n  return (\n    <MenubarPrimitive\n      className={withClass(\n        \"inline-flex h-control items-center gap-0.5 rounded-md border border-border bg-surface p-0.5 [&_[data-slot=menu-trigger]]:flex [&_[data-slot=menu-trigger]]:h-full [&_[data-slot=menu-trigger]]:cursor-default [&_[data-slot=menu-trigger]]:select-none [&_[data-slot=menu-trigger]]:items-center [&_[data-slot=menu-trigger]]:rounded-sm [&_[data-slot=menu-trigger]]:px-2.5 [&_[data-slot=menu-trigger]]:text-ui [&_[data-slot=menu-trigger]]:outline-none [&_[data-slot=menu-trigger]]:hover:bg-accent [&_[data-slot=menu-trigger]]:focus-visible:bg-accent [&_[data-slot=menu-trigger]]:data-open:bg-accent\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Menubar }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

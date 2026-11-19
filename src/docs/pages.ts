@@ -100,6 +100,49 @@ export const pages: DocPage[] = [
     ],
   },
   {
+    slug: "alert-dialog",
+    title: "Alert Dialog",
+    group: "Components",
+    description:
+      "Asks for confirmation before an action, over a dimmed page. Each answer is an AlertDialogClose; value=\"confirm\" is the agreeing one.",
+    install: ["alert-dialog"],
+    examples: [{ name: "alert-dialog-basic", title: "Destructive confirmation" }],
+    notes: ["onOpenChange receives details.returnValue: the value of the answer that closed it."],
+  },
+  {
+    slug: "toast",
+    title: "Toast",
+    group: "Components",
+    description:
+      "Brief notifications that stack in a corner. Call toast() from anywhere; render <Toaster /> once near your app's root.",
+    install: ["toast"],
+    examples: [{ name: "toast-basic", title: "Types, actions and promises" }],
+    notes: [
+      "toast.success, .error, .warning, .info and .loading set the icon. toast.promise follows a promise from loading to done.",
+      "Hover the stack to fan it out. Swipe a toast toward the edge to dismiss it.",
+      "Toaster takes side (top or bottom) and align (start, center or end).",
+    ],
+  },
+  {
+    slug: "menubar",
+    title: "Menubar",
+    group: "Components",
+    description:
+      "An application menu bar, like File, Edit, View. Put Menus inside; they join it, and arrow keys move between them.",
+    install: ["menubar", "menu"],
+    examples: [{ name: "menubar-basic", title: "File, Edit and View" }],
+  },
+  {
+    slug: "navigation-menu",
+    title: "Navigation Menu",
+    group: "Components",
+    description:
+      "Site navigation: triggers that open panels of links, and plain links. For actions, use Menu instead.",
+    install: ["navigation-menu"],
+    examples: [{ name: "navigation-menu-basic", title: "Panels and a plain link" }],
+    notes: ["current on a link marks the current page. Render your router's link with render={<Link … />}."],
+  },
+  {
     slug: "avatar",
     title: "Avatar",
     group: "Components",
@@ -114,6 +157,23 @@ export const pages: DocPage[] = [
     description: "Switches between views in the same space.",
     install: ["tabs"],
     examples: [{ name: "tabs-basic", title: "Segmented" }],
+  },
+  {
+    slug: "checkbox",
+    title: "Checkbox",
+    group: "Components",
+    description:
+      "Toggles an option on or off, or shows a mixed state for a partly checked set. Wrap it with its text in a Label.",
+    install: ["checkbox", "label"],
+    examples: [{ name: "checkbox-basic", title: "Group with a parent checkbox" }],
+  },
+  {
+    slug: "radio",
+    title: "Radio",
+    group: "Components",
+    description: "Picks one option from a few, all visible. Give each Radio a value inside a RadioGroup.",
+    install: ["radio", "label"],
+    examples: [{ name: "radio-basic", title: "With descriptions" }],
   },
   {
     slug: "select",
