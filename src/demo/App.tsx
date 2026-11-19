@@ -47,6 +47,7 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Icon } from "@/components/ui/icon"
+import { Kbd } from "@/components/ui/kbd"
 import {
   Menu,
   MenuCheckboxItem,
@@ -183,7 +184,9 @@ function AppSidebar({ dock, panelCommands, onSearch }: AppSidebarProps) {
           <SidebarItem onClick={onSearch}>
             <Icon icon={Search01Icon} />
             <span>Search</span>
-            <SidebarItemTrailing>⌘K</SidebarItemTrailing>
+            <SidebarItemTrailing>
+              <Kbd>⌘K</Kbd>
+            </SidebarItemTrailing>
           </SidebarItem>
           <Menu onAction={(id) => dock.open(id, { position: "right" })}>
             <MenuTrigger render={<SidebarItem closesSidebar={false} />}>

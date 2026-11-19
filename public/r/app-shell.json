@@ -14,7 +14,8 @@
     "@13ui/scroll-area",
     "@13ui/tooltip",
     "@13ui/utils",
-    "@13ui/icon"
+    "@13ui/icon",
+    "@13ui/theme"
   ],
   "files": [
     {

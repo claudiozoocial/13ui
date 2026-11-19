@@ -25,7 +25,7 @@ const popupClass =
   "z-50 m-0 min-w-44 origin-(--transform-origin) overflow-y-auto rounded-lg border-0 bg-surface-raised p-1 text-ui text-foreground shadow-popover outline-none transition-[opacity,scale] duration-100 max-h-(--available-height) data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 motion-reduce:transition-none"
 
 const itemClass =
-  "flex h-control-sm cursor-default select-none items-center gap-2 rounded-sm px-2 outline-none data-disabled:opacity-50 data-highlighted:bg-accent data-destructive:text-destructive [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground data-destructive:[&_svg]:text-destructive"
+  "flex h-control-sm cursor-default select-none items-center gap-2 rounded-sm px-2 outline-none data-disabled:opacity-50 data-highlighted:bg-accent data-destructive:text-destructive [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-muted-foreground data-destructive:[&_svg]:text-destructive [&_[data-slot=menu-shortcut]]:kbd [&_[data-slot=menu-shortcut]]:ml-auto"
 
 function MenuContent({ className, sideOffset = 4, ...props }: ComponentProps<typeof MenuContentPrimitive>) {
   return <MenuContentPrimitive sideOffset={sideOffset} className={withClass(popupClass, className)} {...props} />
@@ -35,27 +35,14 @@ function MenuSubContent({ className, ...props }: ComponentProps<typeof MenuSubCo
   return <MenuSubContentPrimitive className={withClass(popupClass, className)} {...props} />
 }
 
+/** Shows an item's shortcut keys. Items with a `shortcut` prop already render one. */
 function MenuShortcut({ className, ...props }: ComponentProps<typeof MenuShortcutPrimitive>) {
-  return (
-    <MenuShortcutPrimitive
-      className={withClass("ml-auto pl-4 text-2xs tracking-wide text-subtle-foreground", className)}
-      {...props}
-    />
-  )
+  return <MenuShortcutPrimitive className={withClass("kbd ml-auto", className)} {...props} />
 }
 
-/** Runs an action. With `shortcut`, like "mod+s", it shows the platform's keys at its end. */
-function MenuItem({ className, children, shortcut, ...props }: ComponentProps<typeof MenuItemPrimitive>) {
-  return (
-    <MenuItemPrimitive shortcut={shortcut} className={withClass(itemClass, className)} {...props}>
-      {(state) => (
-        <>
-          {typeof children === "function" ? children(state) : children}
-          {shortcut && <MenuShortcut />}
-        </>
-      )}
-    </MenuItemPrimitive>
-  )
+/** Runs an action. With `shortcut`, like "mod+s", it shows the platform's keys at its end as a key cap. */
+function MenuItem({ className, ...props }: ComponentProps<typeof MenuItemPrimitive>) {
+  return <MenuItemPrimitive className={withClass(itemClass, className)} {...props} />
 }
 
 function MenuCheckboxItem({ className, children, ...props }: ComponentProps<typeof MenuCheckboxItemPrimitive>) {

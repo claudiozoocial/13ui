@@ -2,6 +2,11 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.6 — 2026-11-19
+
+- Fixed menu shortcuts: an item with a shortcut showed an unstyled copy from UI SDK next to an empty one. It now shows one shortcut, styled as a key cap.
+- New kbd utility in the theme. Kbd, menu shortcuts and sidebar shortcuts all use it, so every shortcut looks the same.
+
 ## 0.1.0-beta.5 — 2026-11-19
 
 - AppShell has no header: the sidebar runs the full height with the main area beside it. Breaking: the titleBar prop, TitleBar and TitleBarTitle are removed; put navigation and actions in the sidebar.

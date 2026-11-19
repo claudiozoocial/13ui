@@ -103,7 +103,8 @@
       "name": "kbd",
       "type": "registry:ui",
       "registryDependencies": [
-        "@13ui/utils"
+        "@13ui/utils",
+        "@13ui/theme"
       ],
       "files": [
         {
@@ -155,7 +156,8 @@
       ],
       "registryDependencies": [
         "@13ui/utils",
-        "@13ui/icon"
+        "@13ui/icon",
+        "@13ui/theme"
       ],
       "files": [
         {
@@ -341,7 +343,8 @@
         "@13ui/scroll-area",
         "@13ui/tooltip",
         "@13ui/utils",
-        "@13ui/icon"
+        "@13ui/icon",
+        "@13ui/theme"
       ],
       "files": [
         {

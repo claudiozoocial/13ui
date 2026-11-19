@@ -10,6 +10,7 @@ import {
   SidebarTitle,
 } from "@/components/shell/sidebar"
 import { Icon } from "@/components/ui/icon"
+import { Kbd } from "@/components/ui/kbd"
 
 export default function Example() {
   return (
@@ -32,7 +33,9 @@ export default function Example() {
                 <SidebarItem>
                   <Icon icon={Search01Icon} />
                   <span>Search</span>
-                  <SidebarItemTrailing>⌘K</SidebarItemTrailing>
+                  <SidebarItemTrailing>
+              <Kbd>⌘K</Kbd>
+            </SidebarItemTrailing>
                 </SidebarItem>
                 <SidebarItem>
                   <Icon icon={BookOpen01Icon} />
