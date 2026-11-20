@@ -1,7 +1,8 @@
 import { Button as ButtonPrimitive } from "@ui-sdk/react/button"
-import type { ComponentProps, ReactNode } from "react"
+import { Children, type ComponentProps, isValidElement, type ReactNode } from "react"
 import { useOptionalAppShell } from "@/components/shell/app-shell"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn, withClass } from "@/lib/utils"
 
 // In an AppShell, a collapsed desktop sidebar becomes a narrow icon rail. Parts below style the
@@ -88,15 +89,43 @@ type SidebarItemProps = ComponentProps<typeof ButtonPrimitive> & {
    * Pass false for items that open something in place, like a menu trigger.
    */
   closesSidebar?: boolean
+  /**
+   * Shown beside the item on the icon rail, where its label is hidden. Defaults to the item's
+   * text, leaving out SidebarItemTrailing. Pass false for no tooltip.
+   */
+  tooltip?: ReactNode | false
+}
+
+/** The visible text of an item's children, without trailing parts like shortcuts. */
+function textOf(node: ReactNode): string {
+  return Children.toArray(node)
+    .map((child) => {
+      if (typeof child === "string" || typeof child === "number") return String(child)
+      if (!isValidElement<{ children?: ReactNode; "data-sidebar-trailing"?: string }>(child)) return ""
+      if (child.type === SidebarItemTrailing || child.props["data-sidebar-trailing"] !== undefined) return ""
+      return textOf(child.props.children)
+    })
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim()
 }
 
 /**
  * A row in the sidebar: an icon and a label in a span. Render it as a link with
- * `render={<a href="…" />}`. On the rail, span labels become screen-reader-only.
+ * `render={<a href="…" />}`. On the rail, span labels become screen-reader-only and the
+ * label shows as a tooltip instead.
  */
-export function SidebarItem({ className, active, closesSidebar = true, onClick, ...props }: SidebarItemProps) {
+export function SidebarItem({
+  className,
+  active,
+  closesSidebar = true,
+  tooltip,
+  onClick,
+  children,
+  ...props
+}: SidebarItemProps) {
   const shell = useOptionalAppShell()
-  return (
+  const item = (
     <ButtonPrimitive
       onClick={(event, details) => {
         const result = onClick?.(event, details)
@@ -113,7 +142,19 @@ export function SidebarItem({ className, active, closesSidebar = true, onClick, 
         className,
       )}
       {...props}
-    />
+    >
+      {children}
+    </ButtonPrimitive>
+  )
+
+  const label = tooltip === false ? null : (tooltip ?? (typeof children === "function" ? "" : textOf(children)))
+  if (!shell?.collapsed || !label) return item
+
+  return (
+    <Tooltip>
+      <TooltipTrigger render={item} />
+      <TooltipContent side="right">{label}</TooltipContent>
+    </Tooltip>
   )
 }
 

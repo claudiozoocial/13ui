@@ -238,7 +238,7 @@ export const pages: DocPage[] = [
       "Text with a light sweeping across it, for work in progress like \"Thinking\" or \"Searching files\". Set active to false when the work ends and the text stays in place.",
     install: ["shimmer"],
     examples: [{ name: "shimmer-basic", title: "Active and finished" }],
-    notes: ["It paints the text with a gradient, so it uses the muted and foreground colors of the theme. With reduced motion the sweep is replaced by a gentle fade."],
+    notes: ["It paints the text with a gradient, so it uses the muted and foreground colors of the theme. Only the color moves, never the text, so it keeps running with reduced motion."],
   },
   {
     slug: "spinner",
@@ -294,6 +294,7 @@ export const pages: DocPage[] = [
     examples: [{ name: "app-shell-basic", title: "With a sidebar" }],
     notes: [
       "Put SidebarToggle in the SidebarHeader. Collapsed, the sidebar becomes a 52px rail: span labels turn screen-reader-only, SidebarTitle and SidebarItemTrailing hide, and groups with hideOnRail disappear.",
+      "On the rail, each SidebarItem shows its label as a tooltip. Pass tooltip to set different text, or tooltip={false} to leave it out.",
       "Responsive: below breakpoint (768px of viewport by default) the sidebar becomes a drawer that slides over the page. A slim bar with the sidebar button and mobileHeader opens it.",
       "SidebarItem closes the drawer when pressed, for navigation. Pass closesSidebar={false} to items that open something in place, like a menu trigger.",
       "Command+B (Ctrl+B elsewhere) toggles the sidebar. Pass shortcut={false} to turn it off.",

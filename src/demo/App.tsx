@@ -232,7 +232,7 @@ function AppSidebar({ dock, panelCommands, onSearch }: AppSidebarProps) {
       </SidebarContent>
       <SidebarFooter>
         <Menu>
-          <MenuTrigger render={<SidebarItem closesSidebar={false} className="h-11 text-foreground" />}>
+          <MenuTrigger render={<SidebarItem closesSidebar={false} tooltip={user.name} className="h-11 text-foreground" />}>
             <Avatar size="sm">
               <AvatarFallback>{initials(user.name)}</AvatarFallback>
             </Avatar>

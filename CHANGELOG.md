@@ -2,6 +2,11 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.12 — 2026-11-19
+
+- On the collapsed sidebar rail, each SidebarItem shows its label as a tooltip on the right. It defaults to the item's text; pass tooltip to change it, or tooltip={false} for none.
+- Shimmer keeps its sweep with reduced motion: only the color moves, never the text. Loading Dots fade instead of bouncing.
+
 ## 0.1.0-beta.11 — 2026-11-19
 
 - New home page at the site root: what 13UI is for, a live dock to try, what's inside, why use it, and how to start. The workbench moved to #/workbench.
