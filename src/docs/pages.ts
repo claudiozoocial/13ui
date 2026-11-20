@@ -231,6 +231,33 @@ export const pages: DocPage[] = [
     examples: [{ name: "kbd-basic", title: "Shortcut" }],
   },
   {
+    slug: "shimmer",
+    title: "Shimmer",
+    group: "Components",
+    description:
+      "Text with a light sweeping across it, for work in progress like \"Thinking\" or \"Searching files\". Set active to false when the work ends and the text stays in place.",
+    install: ["shimmer"],
+    examples: [{ name: "shimmer-basic", title: "Active and finished" }],
+    notes: ["It paints the text with a gradient, so it uses the muted and foreground colors of the theme. With reduced motion the sweep is replaced by a gentle fade."],
+  },
+  {
+    slug: "spinner",
+    title: "Spinner",
+    group: "Components",
+    description: "A spinning ring for work of unknown length. It takes the current text color.",
+    install: ["spinner"],
+    examples: [{ name: "spinner-basic", title: "Sizes, with text and in a button" }],
+    notes: ["It announces \"Loading\" to screen readers. Pass label=\"\" when nearby text already says what is happening."],
+  },
+  {
+    slug: "loading-dots",
+    title: "Loading Dots",
+    group: "Components",
+    description: "Three pulsing dots, like someone typing. It takes the current text color.",
+    install: ["loading-dots"],
+    examples: [{ name: "loading-dots-basic", title: "Waiting for a reply" }],
+  },
+  {
     slug: "resizable",
     title: "Resizable",
     group: "Layout",
@@ -284,7 +311,8 @@ export const pages: DocPage[] = [
     slug: "composer",
     title: "Composer",
     group: "Chat",
-    description: "Message input: Enter sends, Shift+Enter adds a line, and it grows with its content.",
+    description:
+      "Message input: Enter sends, Shift+Enter adds a line, and it grows with its content. While pending, sending waits; with onStop the send button becomes a stop button.",
     install: ["chat"],
     examples: [{ name: "composer-basic", title: "With actions" }],
   },
@@ -292,9 +320,25 @@ export const pages: DocPage[] = [
     slug: "message",
     title: "Message",
     group: "Chat",
-    description: "User and assistant messages, plus collapsible tool calls.",
+    description: "User and assistant messages, collapsible tool calls, and a Caret for text that is still streaming in.",
     install: ["chat"],
-    examples: [{ name: "message-basic", title: "Conversation" }],
+    examples: [
+      { name: "message-basic", title: "Conversation" },
+      { name: "message-streaming", title: "Thinking, streaming and stop" },
+    ],
+    notes: [
+      "A running ToolCall shows a spinner and shimmers its title.",
+      "Put Caret at the end of the text while it streams, and remove it when the reply is complete.",
+    ],
+  },
+  {
+    slug: "reasoning",
+    title: "Reasoning",
+    group: "Chat",
+    description:
+      "A model's reasoning, folded behind one line. While streaming, the line shimmers \"Thinking\"; once done it reads \"Thought for 4s\" and opens to show the thoughts.",
+    install: ["chat"],
+    examples: [{ name: "reasoning-basic", title: "Thinking, done and a custom label" }],
   },
 ]
 

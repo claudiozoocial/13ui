@@ -106,6 +106,44 @@
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
+@theme {
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-dot: dot 1.2s ease-in-out infinite;
+  --animate-caret: caret 1s steps(1) infinite;
+  --animate-breathe: breathe 2s ease-in-out infinite;
+
+  @keyframes shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: 0% 0;
+    }
+  }
+  @keyframes dot {
+    0%,
+    80%,
+    100% {
+      opacity: 0.3;
+      transform: translateY(0);
+    }
+    40% {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+  }
+  @keyframes breathe {
+    50% {
+      opacity: 0.45;
+    }
+  }
+  @keyframes caret {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
 /* A key cap, like ⌘K. Kbd uses it, and parts that render their own shortcut text apply it with a variant. */
 @utility kbd {
   display: inline-flex;

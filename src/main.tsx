@@ -17,7 +17,7 @@ function Root() {
   const route = useHashRoute()
   return (
     <>
-      {route.startsWith("docs") ? <Docs route={route} /> : <App />}
+      {route.startsWith("workbench") ? <App /> : <Docs route={route} />}
       <Toaster />
     </>
   )

@@ -2,6 +2,15 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.11 — 2026-11-19
+
+- New home page at the site root: what 13UI is for, a live dock to try, what's inside, why use it, and how to start. The workbench moved to #/workbench.
+- New Shimmer: text with a light sweeping across it for work in progress. With reduced motion it fades gently instead.
+- New Spinner and Loading Dots for work of unknown length.
+- Chat: new Reasoning, which shimmers "Thinking" and then reads "Thought for 4s" and folds the thoughts; new Caret for text that is still streaming; a running ToolCall shows a spinner and a shimmering title.
+- Composer takes pending and onStop: sending waits while a reply comes in, and the send button becomes a stop button.
+- The workbench chat answers: it thinks, streams the reply word by word, and can be stopped.
+
 ## 0.1.0-beta.10 — 2026-11-19
 
 - AppShell: a sidebar saved as collapsed now loads as a clean icon rail. Before, it restored at rail width but drew the full sidebar squeezed inside it.

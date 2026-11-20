@@ -1,6 +1,6 @@
 # 13UI
 
-By [Claudio Castillo](https://claudiocastillo.design/). Docs and workbench at [13ui.vercel.app](https://13ui.vercel.app).
+By [Claudio Castillo](https://claudiocastillo.design/). Home, docs and workbench at [13ui.vercel.app](https://13ui.vercel.app).
 
 > **Beta** — 13UI is at 0.1.0-beta.8. APIs and the dock layout format may change; see [CHANGELOG.md](CHANGELOG.md).
 
@@ -10,7 +10,7 @@ A design system for panel-based interfaces, like an IDE or an AI assistant app: 
 
 ```bash
 pnpm install
-pnpm dev            # workbench at http://localhost:5173, docs at /#/docs
+pnpm dev            # home at http://localhost:5173, docs at /#/docs, workbench at /#/workbench
 pnpm test           # dock model tests
 pnpm typecheck
 pnpm registry:build # writes public/r/*.json
@@ -24,11 +24,11 @@ Pushes to `main` deploy to [13ui.vercel.app](https://13ui.vercel.app) through Ve
 | --- | --- |
 | `theme` | Tokens on Tailwind's zinc scale, light and dark, density sizes (`h-control`, `h-tabbar`, `text-ui`…), border radius, shadows |
 | `icon` | Hugeicons wrapper with the system's stroke width |
-| `button`, `input`, `textarea`, `separator`, `kbd`, `tooltip`, `menu`, `tabs`, `scroll-area`, `resizable`, `command`, `select`, `combobox`, `avatar`, `label`, `checkbox`, `radio`, `alert-dialog`, `toast`, `menubar`, `navigation-menu` | Base components on UI SDK, styled with Tailwind |
+| `button`, `input`, `textarea`, `separator`, `kbd`, `tooltip`, `menu`, `tabs`, `scroll-area`, `resizable`, `command`, `select`, `combobox`, `avatar`, `label`, `checkbox`, `radio`, `alert-dialog`, `toast`, `menubar`, `navigation-menu`, `shimmer`, `spinner`, `loading-dots` | Base components on UI SDK, styled with Tailwind |
 | `dock` | Docking engine: resizable splits, tab groups, drag tabs to another group or an edge, maximize, layout saved to localStorage |
 | `app-shell` | Full-height sidebar beside the main area, no header; collapses to an icon rail (⌘B) and becomes a drawer on mobile. Sidebar parts and panel chrome |
-| `chat` | Composer, message and tool call |
-| `workbench` | A full example: the app you see in `pnpm dev` |
+| `chat` | Composer with stop, message, reasoning, tool call and streaming caret |
+| `workbench` | A full example: the app at `/#/workbench` |
 
 ## Install in another project
 

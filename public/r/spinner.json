@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "A spinning ring for work of unknown length.",
+  "registryDependencies": [
+    "@13ui/utils"
+  ],
+  "files": [
+    {
+      "path": "src/components/ui/spinner.tsx",
+      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ninterface SpinnerProps extends ComponentProps<\"svg\"> {\n  size?: \"sm\" | \"default\" | \"lg\"\n  /** Read by screen readers. Pass an empty string when nearby text already says what is loading. */\n  label?: string\n}\n\nconst sizes = { sm: \"size-3.5\", default: \"size-4\", lg: \"size-6\" }\n\n/** A spinning ring for work of unknown length. Its color follows the text color. */\nexport function Spinner({ size = \"default\", label = \"Loading\", className, ...props }: SpinnerProps) {\n  return (\n    <svg\n      data-slot=\"spinner\"\n      viewBox=\"0 0 16 16\"\n      fill=\"none\"\n      role={label ? \"status\" : undefined}\n      aria-label={label || undefined}\n      aria-hidden={label ? undefined : true}\n      className={cn(\"shrink-0 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]\", sizes[size], className)}\n      {...props}\n    >\n      <circle cx=\"8\" cy=\"8\" r=\"6.25\" stroke=\"currentColor\" strokeOpacity=\"0.2\" strokeWidth=\"1.5\" />\n      <path d=\"M14.25 8A6.25 6.25 0 0 0 8 1.75\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n    </svg>\n  )\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -349,6 +349,51 @@
       ]
     },
     {
+      "name": "shimmer",
+      "type": "registry:ui",
+      "title": "Shimmer",
+      "description": "Text with a sweeping light for work in progress.",
+      "registryDependencies": [
+        "@13ui/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/shimmer.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "A spinning ring for work of unknown length.",
+      "registryDependencies": [
+        "@13ui/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "loading-dots",
+      "type": "registry:ui",
+      "title": "Loading Dots",
+      "description": "Three pulsing dots, like someone typing.",
+      "registryDependencies": [
+        "@13ui/utils"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/loading-dots.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "resizable",
       "type": "registry:ui",
       "dependencies": [
@@ -502,7 +547,7 @@
       "name": "chat",
       "type": "registry:component",
       "title": "Chat",
-      "description": "Composer, message and tool-call blocks for an assistant panel.",
+      "description": "Composer with stop, messages, reasoning, tool calls and a streaming caret for an assistant panel.",
       "dependencies": [
         "@hugeicons/core-free-icons@^4.4.0"
       ],
@@ -510,7 +555,9 @@
         "@13ui/button",
         "@13ui/textarea",
         "@13ui/utils",
-        "@13ui/icon"
+        "@13ui/icon",
+        "@13ui/shimmer",
+        "@13ui/spinner"
       ],
       "files": [
         {

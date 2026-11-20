@@ -17,12 +17,12 @@ import {
   UnfoldMoreIcon,
   UserCircleIcon,
 } from "@hugeicons/core-free-icons"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { Dock, type DockApi, type DockPanels, useDock } from "@/components/dock/dock"
 import { column, group, row } from "@/components/dock/model"
 import { AppShell, SidebarToggle } from "@/components/shell/app-shell"
 import { Composer } from "@/components/shell/composer"
-import { Message, ToolCall } from "@/components/shell/message"
+import { Caret, Message, Reasoning, ToolCall } from "@/components/shell/message"
 import { Panel, PanelBody, PanelToolbar } from "@/components/shell/panel"
 import {
   Sidebar,
@@ -89,6 +89,10 @@ const sessions = [
 export function App() {
   const dock = useDock({ initial: initialLayout, storageKey: "13ui:layout" })
   const [paletteOpen, setPaletteOpen] = useState(false)
+
+  useEffect(() => {
+    document.title = "Workbench · 13UI"
+  }, [])
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -213,7 +217,7 @@ function AppSidebar({ dock, panelCommands, onSearch }: AppSidebarProps) {
               </MenuItem>
             </MenuContent>
           </Menu>
-          <SidebarItem render={<a href="#/docs" />}>
+          <SidebarItem render={<a href="#/docs/introduction" />}>
             <Icon icon={BookOpen01Icon} />
             <span>Docs</span>
           </SidebarItem>
@@ -292,31 +296,127 @@ function AppSidebar({ dock, panelCommands, onSearch }: AppSidebarProps) {
   )
 }
 
+interface ChatMessage {
+  id: number
+  from: "user" | "assistant"
+  text: string
+  /** Assistant only: still thinking, and seconds spent once done. */
+  thinking?: boolean
+  thoughtFor?: number
+  streaming?: boolean
+  thoughts?: string
+  tool?: string
+  toolResult?: string
+}
+
+const replies = [
+  {
+    thoughts: "The user wants this panel to sit beside the editor. Open it to the right of the active group.",
+    text: "Opened it to the right of the editor. Drag its tab to any edge if you want it somewhere else; the layout is saved as you go.",
+    tool: "dock.open(\"browser\", { position: \"right\" })",
+  },
+  {
+    thoughts: "Two panels share one group. Splitting them makes both visible at once.",
+    text: "Split them into two columns so you can see both. Double-click a tab to maximize it, and again to restore the layout.",
+  },
+  {
+    thoughts: "A narrow window stacks every panel into one row of tabs, so nothing gets squeezed.",
+    text: "Below 640px the dock turns into a single row of tabs. Widen the window and your saved layout comes back exactly as it was.",
+  },
+]
+
 function ChatPanel() {
-  const [messages, setMessages] = useState<{ id: number; from: "user" | "assistant"; text: string }[]>([
+  const [messages, setMessages] = useState<ChatMessage[]>([
     { id: 1, from: "user", text: "I want a design system for interfaces with movable panels." },
     {
       id: 2,
       from: "assistant",
       text: "Done. Drag any tab to another group, or to an edge to split it. The edges of the whole layout accept panels too.",
+      thoughtFor: 3,
+      thoughts: "Panels need to move between groups, so the layout is a tree of splits and tab groups.",
+      tool: "Write src/components/dock/dock.tsx",
+      toolResult: "+412 lines",
     },
   ])
+  const [pending, setPending] = useState(false)
+  const timers = useRef<number[]>([])
+  const turn = useRef(0)
+  const end = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    end.current?.scrollIntoView({ block: "end" })
+  }, [messages])
+
+  useEffect(() => () => timers.current.forEach(clearTimeout), [])
+
+  const update = (id: number, patch: Partial<ChatMessage>) =>
+    setMessages((list) => list.map((m) => (m.id === id ? { ...m, ...patch } : m)))
+
+  const stop = () => {
+    timers.current.forEach(clearTimeout)
+    timers.current = []
+    setMessages((list) => list.map((m) => (m.thinking || m.streaming ? { ...m, thinking: false, streaming: false } : m)))
+    setPending(false)
+  }
+
+  const send = (text: string) => {
+    const reply = replies[turn.current++ % replies.length]
+    const id = Date.now()
+    setPending(true)
+    setMessages((list) => [
+      ...list,
+      { id: id - 1, from: "user", text },
+      { id, from: "assistant", text: "", thinking: true, thoughts: reply.thoughts, tool: reply.tool },
+    ])
+    const words = reply.text.split(" ")
+    const later = (ms: number, fn: () => void) => timers.current.push(window.setTimeout(fn, ms))
+    later(1800, () => update(id, { thinking: false, thoughtFor: 2, streaming: true }))
+    words.forEach((_, i) => later(1800 + (i + 1) * 45, () => update(id, { text: words.slice(0, i + 1).join(" ") })))
+    later(1800 + words.length * 45 + 200, () => {
+      update(id, { streaming: false })
+      setPending(false)
+      timers.current = []
+    })
+  }
 
   return (
     <Panel>
       <PanelBody className="px-4 sm:px-6">
         <div className="mx-auto flex max-w-2xl flex-col gap-5 py-6">
-          {messages.map((message) => (
-            <Message key={message.id} from={message.from}>
-              <p>{message.text}</p>
-              {message.id === 2 && <ToolCall title="Write src/components/dock/dock.tsx">+412 lines</ToolCall>}
-            </Message>
-          ))}
+          {messages.map((message) =>
+            message.from === "user" ? (
+              <Message key={message.id} from="user">
+                {message.text}
+              </Message>
+            ) : (
+              <Message key={message.id} from="assistant">
+                {(message.thinking || message.thoughtFor != null) && (
+                  <Reasoning streaming={message.thinking} duration={message.thoughtFor}>
+                    {message.thoughts}
+                  </Reasoning>
+                )}
+                {message.text && (
+                  <p>
+                    {message.text}
+                    {message.streaming && <Caret />}
+                  </p>
+                )}
+                {message.tool && !message.thinking && (
+                  <ToolCall title={message.tool} status={message.streaming ? "running" : "done"}>
+                    {message.toolResult}
+                  </ToolCall>
+                )}
+              </Message>
+            ),
+          )}
+          <div ref={end} />
         </div>
       </PanelBody>
       <div className="mx-auto w-full max-w-2xl shrink-0 px-3 pb-3 sm:px-6 sm:pb-4">
         <Composer
-          onSubmit={(text) => setMessages((list) => [...list, { id: Date.now(), from: "user", text }])}
+          onSubmit={send}
+          pending={pending}
+          onStop={stop}
           actions={
             <Button variant="ghost" size="icon-sm" aria-label="Attach">
               <Icon icon={PlusSignIcon} />

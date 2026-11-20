@@ -1,10 +1,5 @@
-import {
-  Copy01Icon,
-  DashboardSquare01Icon,
-  GithubIcon,
-  Tick02Icon,
-} from "@hugeicons/core-free-icons"
-import { type ComponentType, type ReactNode, useEffect, useRef, useState } from "react"
+import { DashboardSquare01Icon, GithubIcon, Home01Icon } from "@hugeicons/core-free-icons"
+import { type ComponentType, type ReactNode, useEffect } from "react"
 import { AppShell, SidebarToggle } from "@/components/shell/app-shell"
 import {
   Sidebar,
@@ -23,10 +18,16 @@ import { cn } from "@/lib/utils"
 import { isPrerelease, version } from "@/version"
 import changelog from "../../CHANGELOG.md?raw"
 import themeCss from "../styles/globals.css?raw"
+import { Home } from "./Home"
+import { BetaNotice, CodeBlock } from "./parts"
 import { type DocPage, groups, pages } from "./pages"
 
 const modules = import.meta.glob<{ default: ComponentType }>("./examples/*.tsx", { eager: true })
-const sources = import.meta.glob<string>("./examples/*.tsx", { eager: true, query: "?raw", import: "default" })
+const sources = import.meta.glob<string>("./examples/*.tsx", {
+  eager: true,
+  query: "?raw",
+  import: "default",
+})
 
 const exampleName = (path: string) => path.replace("./examples/", "").replace(".tsx", "")
 const examples = Object.fromEntries(
@@ -37,23 +38,24 @@ const examples = Object.fromEntries(
 )
 
 export function Docs({ route }: { route: string }) {
+  const isHome = !route.startsWith("docs")
   const slug = route.split("/")[1] || "introduction"
   const page = pages.find((p) => p.slug === slug) ?? pages[0]
 
   useEffect(() => {
-    document.title = `${page.title} · 13UI`
-  }, [page])
+    document.title = isHome ? "13UI · Components for apps built from panels" : `${page.title} · 13UI`
+  }, [page, isHome])
 
   return (
     <AppShell
       autoSaveId="13ui:docs-shell"
       sidebarLabel="Documentation"
-      mobileHeader={page.title}
+      mobileHeader={isHome ? "13UI" : page.title}
       sidebar={
         <Sidebar aria-label="Documentation">
           <SidebarHeader>
             <SidebarTitle>
-              <a href="#/docs/introduction">13UI</a>
+              <a href="#/">13UI</a>
               <a
                 href="#/docs/changelog"
                 className="rounded-full border border-border px-2 py-0.5 font-mono text-2xs font-normal text-muted-foreground hover:bg-accent"
@@ -65,7 +67,11 @@ export function Docs({ route }: { route: string }) {
           </SidebarHeader>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarItem render={<a href="#/" />}>
+              <SidebarItem active={isHome} render={<a href="#/" />}>
+                <Icon icon={Home01Icon} />
+                <span>Home</span>
+              </SidebarItem>
+              <SidebarItem render={<a href="#/workbench" />}>
                 <Icon icon={DashboardSquare01Icon} />
                 <span>Workbench</span>
               </SidebarItem>
@@ -81,7 +87,7 @@ export function Docs({ route }: { route: string }) {
                   .map((p) => (
                     <SidebarItem
                       key={p.slug}
-                      active={p.slug === page.slug}
+                      active={!isHome && p.slug === page.slug}
                       onClick={() => {
                         location.hash = `#/docs/${p.slug}`
                       }}
@@ -108,42 +114,48 @@ export function Docs({ route }: { route: string }) {
         </Sidebar>
       }
     >
-      <ScrollArea key={page.slug} className="size-full bg-surface">
-        <article className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pt-6 pb-24 sm:px-8 sm:pt-10">
-          <header className="flex flex-col gap-2">
-            <p className="text-xs font-medium text-subtle-foreground">{page.group}</p>
-            <h1 className="text-2xl font-semibold tracking-tight">{page.title}</h1>
-            <p className="text-sm text-muted-foreground">{page.description}</p>
-          </header>
+      {isHome ? (
+        <ScrollArea key="home" className="size-full bg-surface">
+          <Home />
+        </ScrollArea>
+      ) : (
+        <ScrollArea key={page.slug} className="size-full bg-surface">
+          <article className="mx-auto flex max-w-3xl flex-col gap-8 px-4 pt-6 pb-24 sm:px-8 sm:pt-10">
+            <header className="flex flex-col gap-2">
+              <p className="text-xs font-medium text-subtle-foreground">{page.group}</p>
+              <h1 className="text-2xl font-semibold tracking-tight">{page.title}</h1>
+              <p className="text-sm text-muted-foreground">{page.description}</p>
+            </header>
 
-          {isPrerelease && page.slug === "introduction" && <BetaNotice />}
-          {page.install && <Install items={page.install} />}
-          {page.slug === "introduction" && <Introduction />}
-          {page.slug === "changelog" && <Changelog />}
-          {page.slug === "tokens" && <Tokens />}
+            {isPrerelease && page.slug === "introduction" && <BetaNotice />}
+            {page.install && <Install items={page.install} />}
+            {page.slug === "introduction" && <Introduction />}
+            {page.slug === "changelog" && <Changelog />}
+            {page.slug === "tokens" && <Tokens />}
 
-          {page.examples?.map((example) => {
-            const entry = examples[example.name]
-            return entry ? (
-              <ExampleBlock key={example.name} title={example.title} source={entry.source}>
-                <entry.Component />
-              </ExampleBlock>
-            ) : null
-          })}
+            {page.examples?.map((example) => {
+              const entry = examples[example.name]
+              return entry ? (
+                <ExampleBlock key={example.name} title={example.title} source={entry.source}>
+                  <entry.Component />
+                </ExampleBlock>
+              ) : null
+            })}
 
-          {page.notes && (
-            <Section title="Notes">
-              <ul className="flex list-disc flex-col gap-1.5 pl-5 text-sm text-muted-foreground">
-                {page.notes.map((note) => (
-                  <li key={note}>{note}</li>
-                ))}
-              </ul>
-            </Section>
-          )}
+            {page.notes && (
+              <Section title="Notes">
+                <ul className="flex list-disc flex-col gap-1.5 pl-5 text-sm text-muted-foreground">
+                  {page.notes.map((note) => (
+                    <li key={note}>{note}</li>
+                  ))}
+                </ul>
+              </Section>
+            )}
 
-          <PageNav page={page} />
-        </article>
-      </ScrollArea>
+            <PageNav page={page} />
+          </article>
+        </ScrollArea>
+      )}
     </AppShell>
   )
 }
@@ -154,48 +166,6 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
       <h2 className="text-base font-semibold">{title}</h2>
       {children}
     </section>
-  )
-}
-
-function useCopy() {
-  const [copied, setCopied] = useState(false)
-  const timer = useRef<number | undefined>(undefined)
-  const copy = async (text: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopied(true)
-      window.clearTimeout(timer.current)
-      timer.current = window.setTimeout(() => setCopied(false), 1500)
-    } catch {
-      setCopied(false)
-    }
-  }
-  return { copied, copy }
-}
-
-function CopyButton({ text, className }: { text: string; className?: string }) {
-  const { copied, copy } = useCopy()
-  return (
-    <Button
-      variant="ghost"
-      size="icon-xs"
-      aria-label={copied ? "Copied" : "Copy"}
-      onClick={() => copy(text)}
-      className={className}
-    >
-      <Icon icon={copied ? Tick02Icon : Copy01Icon} />
-    </Button>
-  )
-}
-
-function CodeBlock({ code, className }: { code: string; className?: string }) {
-  return (
-    <div className={cn("relative rounded-lg border border-border bg-background", className)}>
-      <CopyButton text={code} className="absolute top-2 right-2" />
-      <pre className="max-h-[480px] overflow-auto p-4 pr-10 font-mono text-xs leading-5 text-foreground">
-        <code>{code}</code>
-      </pre>
-    </div>
   )
 }
 
@@ -258,11 +228,31 @@ const setup = `{
 }`
 
 const builtWith = [
-  { name: "React 19", href: "https://react.dev", role: "UI library. 13UI needs React 19 or newer." },
-  { name: "Tailwind CSS v4", href: "https://tailwindcss.com", role: "Styling and the zinc color scale behind the tokens." },
-  { name: "UI SDK", href: "https://ui-sdk.dev", role: "Behavior: keyboard, focus, accessibility, popups, resizing." },
-  { name: "Hugeicons", href: "https://hugeicons.com", role: "Icons, from the free set." },
-  { name: "shadcn/ui CLI", href: "https://ui.shadcn.com/docs/cli", role: "Installs components from the 13UI registry." },
+  {
+    name: "React 19",
+    href: "https://react.dev",
+    role: "UI library. 13UI needs React 19 or newer.",
+  },
+  {
+    name: "Tailwind CSS v4",
+    href: "https://tailwindcss.com",
+    role: "Styling and the zinc color scale behind the tokens.",
+  },
+  {
+    name: "UI SDK",
+    href: "https://ui-sdk.dev",
+    role: "Behavior: keyboard, focus, accessibility, popups, resizing.",
+  },
+  {
+    name: "Hugeicons",
+    href: "https://hugeicons.com",
+    role: "Icons, from the free set.",
+  },
+  {
+    name: "shadcn/ui CLI",
+    href: "https://ui.shadcn.com/docs/cli",
+    role: "Installs components from the 13UI registry.",
+  },
 ]
 
 function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
@@ -292,13 +282,13 @@ function Introduction() {
         <p className="text-sm leading-6 text-muted-foreground">
           Like <ExternalLink href="https://ui.shadcn.com">shadcn/ui</ExternalLink>, components aren't installed as a
           dependency: the CLI copies the code into your project and it's yours. Behavior (keyboard, focus,
-          accessibility, dragging and resizing) comes from <ExternalLink href="https://ui-sdk.dev">UI SDK</ExternalLink>;
-          styles are Tailwind on zinc tokens; icons are Hugeicons.
+          accessibility, dragging and resizing) comes from <ExternalLink href="https://ui-sdk.dev">UI SDK</ExternalLink>
+          ; styles are Tailwind on zinc tokens; icons are Hugeicons.
         </p>
       </Section>
       <p className="text-sm text-muted-foreground">
-        The source is on{" "}
-        <ExternalLink href="https://github.com/claudiozoocial/13ui">GitHub</ExternalLink>, under the MIT license.
+        The source is on <ExternalLink href="https://github.com/claudiozoocial/13ui">GitHub</ExternalLink>, under the
+        MIT license.
       </p>
       <Section title="Built with">
         <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -451,8 +441,9 @@ function Tokens() {
       </TokenBlock>
       <Section title="The whole theme file">
         <p className="text-sm text-muted-foreground">
-          Everything above lives in one stylesheet. <code className="font-mono text-xs">npx shadcn add @13ui/theme</code>{" "}
-          copies it to <code className="font-mono text-xs">src/styles/13ui.css</code>.
+          Everything above lives in one stylesheet.{" "}
+          <code className="font-mono text-xs">npx shadcn add @13ui/theme</code> copies it to{" "}
+          <code className="font-mono text-xs">src/styles/13ui.css</code>.
         </p>
         <CodeBlock code={themeCss.trimEnd()} />
       </Section>
@@ -485,23 +476,6 @@ function TokenTable({ headers, rows }: { headers: string[]; rows: string[][] }) 
           ))}
         </tbody>
       </table>
-    </div>
-  )
-}
-
-function BetaNotice() {
-  return (
-    <div className="flex gap-3 rounded-lg border border-border bg-muted px-4 py-3 text-sm">
-      <span className="mt-0.5 h-fit rounded-full bg-primary px-2 py-0.5 text-2xs font-medium text-primary-foreground">
-        Beta
-      </span>
-      <p className="text-muted-foreground">
-        13UI {version} is a beta. Component APIs and the dock layout format may change between releases; check the{" "}
-        <a href="#/docs/changelog" className="text-foreground underline underline-offset-2">
-          changelog
-        </a>{" "}
-        before updating.
-      </p>
     </div>
   )
 }

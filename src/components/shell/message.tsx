@@ -1,4 +1,8 @@
+import { ArrowRight01Icon } from "@hugeicons/core-free-icons"
 import type { ComponentProps, ReactNode } from "react"
+import { Icon } from "@/components/ui/icon"
+import { Shimmer } from "@/components/ui/shimmer"
+import { Spinner } from "@/components/ui/spinner"
 import { cn } from "@/lib/utils"
 
 interface MessageProps extends ComponentProps<"div"> {
@@ -22,20 +26,76 @@ export function Message({ from, avatar, className, children, ...props }: Message
   )
 }
 
-export function ToolCall({ title, status = "done", children }: { title: string; status?: "running" | "done" | "error"; children?: ReactNode }) {
+/** A blinking cursor to put at the end of text that is still streaming in. */
+export function Caret({ className }: { className?: string }) {
   return (
-    <details className="group rounded-lg border border-border bg-surface text-ui open:pb-2">
+    <span
+      data-slot="caret"
+      aria-hidden
+      className={cn(
+        "ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[0.2em] animate-caret bg-foreground motion-reduce:animate-none",
+        className,
+      )}
+    />
+  )
+}
+
+interface ReasoningProps {
+  /** True while the model is thinking: the label shimmers. */
+  streaming?: boolean
+  /** Seconds spent thinking, shown once done as "Thought for 4s". */
+  duration?: number
+  /** Replaces the default label. */
+  label?: ReactNode
+  defaultOpen?: boolean
+  children?: ReactNode
+  className?: string
+}
+
+/** A model's reasoning, folded behind a line that shimmers while it thinks. */
+export function Reasoning({ streaming = false, duration, label, defaultOpen, children, className }: ReasoningProps) {
+  const text = label ?? (streaming ? "Thinking" : duration != null ? `Thought for ${duration}s` : "Thoughts")
+  return (
+    <details data-slot="reasoning" open={defaultOpen} className={cn("group/reasoning text-ui", className)}>
+      <summary className="inline-flex h-7 cursor-default list-none items-center gap-1 rounded-sm text-muted-foreground outline-none hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+        <Shimmer active={streaming}>{text}</Shimmer>
+        {children && (
+          <Icon
+            icon={ArrowRight01Icon}
+            className="size-3.5 transition-transform group-open/reasoning:rotate-90 motion-reduce:transition-none"
+          />
+        )}
+      </summary>
+      {children && (
+        <div className="mt-1 border-l-2 border-border pl-3 text-ui leading-5 text-muted-foreground">{children}</div>
+      )}
+    </details>
+  )
+}
+
+export function ToolCall({
+  title,
+  status = "done",
+  children,
+}: {
+  title: string
+  status?: "running" | "done" | "error"
+  children?: ReactNode
+}) {
+  return (
+    <details data-slot="tool-call" data-status={status} className="group rounded-lg border border-border bg-surface text-ui open:pb-2">
       <summary className="flex h-control cursor-default list-none items-center gap-2 px-3 text-muted-foreground [&::-webkit-details-marker]:hidden">
-        <span
-          aria-hidden
-          className={cn(
-            "size-1.5 rounded-full",
-            status === "running" && "animate-pulse bg-muted-foreground",
-            status === "done" && "bg-success",
-            status === "error" && "bg-destructive",
-          )}
-        />
-        <span className="truncate font-mono text-xs">{title}</span>
+        {status === "running" ? (
+          <Spinner size="sm" label="" />
+        ) : (
+          <span
+            aria-hidden
+            className={cn("size-1.5 rounded-full", status === "done" ? "bg-success" : "bg-destructive")}
+          />
+        )}
+        <Shimmer active={status === "running"} className="truncate font-mono text-xs">
+          {title}
+        </Shimmer>
       </summary>
       {children && <div className="px-3 font-mono text-xs text-muted-foreground">{children}</div>}
     </details>
