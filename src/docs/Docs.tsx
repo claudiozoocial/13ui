@@ -2,8 +2,6 @@ import {
   Copy01Icon,
   DashboardSquare01Icon,
   GithubIcon,
-  Moon02Icon,
-  Sun03Icon,
   Tick02Icon,
 } from "@hugeicons/core-free-icons"
 import { type ComponentType, type ReactNode, useEffect, useRef, useState } from "react"
@@ -22,7 +20,6 @@ import { Icon } from "@/components/ui/icon"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
-import { useTheme } from "@/lib/use-theme"
 import { isPrerelease, version } from "@/version"
 import changelog from "../../CHANGELOG.md?raw"
 import themeCss from "../styles/globals.css?raw"
@@ -40,7 +37,6 @@ const examples = Object.fromEntries(
 )
 
 export function Docs({ route }: { route: string }) {
-  const { dark, toggle } = useTheme()
   const slug = route.split("/")[1] || "introduction"
   const page = pages.find((p) => p.slug === slug) ?? pages[0]
 
@@ -76,10 +72,6 @@ export function Docs({ route }: { route: string }) {
               <SidebarItem render={<a href="https://github.com/claudiozoocial/13ui" target="_blank" rel="noopener" />}>
                 <Icon icon={GithubIcon} />
                 <span>GitHub</span>
-              </SidebarItem>
-              <SidebarItem closesSidebar={false} onClick={toggle}>
-                <Icon icon={dark ? Sun03Icon : Moon02Icon} />
-                <span>{dark ? "Light mode" : "Dark mode"}</span>
               </SidebarItem>
             </SidebarGroup>
             {groups.map((group) => (

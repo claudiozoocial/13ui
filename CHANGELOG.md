@@ -2,6 +2,12 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.9 — 2026-11-19
+
+- The theme has three choices: System (follows the device and updates when it changes), Light and Dark. useTheme returns theme, resolved and setTheme, and every caller shares the same choice.
+- In the workbench, the theme is a Theme submenu in the account menu. The docs sidebar no longer has its own toggle; the docs follow the same saved choice.
+- No flash of the wrong theme on load.
+
 ## 0.1.0-beta.8 — 2026-11-19
 
 - The Tokens page shows each section's CSS variables in a Code tab, and the whole theme file at the end.

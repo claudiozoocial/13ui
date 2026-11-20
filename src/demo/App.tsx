@@ -9,6 +9,7 @@ import {
   Globe02Icon,
   HelpCircleIcon,
   Logout01Icon,
+  Moon02Icon,
   PlusSignIcon,
   RotateLeft01Icon,
   Search01Icon,
@@ -50,15 +51,19 @@ import { Icon } from "@/components/ui/icon"
 import { Kbd } from "@/components/ui/kbd"
 import {
   Menu,
-  MenuCheckboxItem,
   MenuContent,
   MenuHeader,
   MenuItem,
+  MenuRadioGroup,
+  MenuRadioItem,
   MenuSeparator,
+  MenuSub,
+  MenuSubContent,
+  MenuSubTrigger,
   MenuTrigger,
 } from "@/components/ui/menu"
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs"
-import { useTheme } from "@/lib/use-theme"
+import { type Theme, useTheme } from "@/lib/use-theme"
 
 const initialLayout = () => ({
   root: row(
@@ -167,7 +172,7 @@ interface AppSidebarProps {
 
 function AppSidebar({ dock, panelCommands, onSearch }: AppSidebarProps) {
   const [active, setActive] = useState(sessions[0])
-  const { dark, toggle: toggleTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
 
   return (
     <Sidebar aria-label="Navigation">
@@ -258,9 +263,19 @@ function AppSidebar({ dock, panelCommands, onSearch }: AppSidebarProps) {
               <Icon icon={CreditCardIcon} />
               Billing
             </MenuItem>
-            <MenuCheckboxItem value="dark" checked={dark} onCheckedChange={() => toggleTheme()}>
-              Dark mode
-            </MenuCheckboxItem>
+            <MenuSub>
+              <MenuSubTrigger>
+                <Icon icon={Moon02Icon} />
+                Theme
+              </MenuSubTrigger>
+              <MenuSubContent className="min-w-36">
+                <MenuRadioGroup value={theme} onValueChange={(value) => value && setTheme(value as Theme)}>
+                  <MenuRadioItem value="system">System</MenuRadioItem>
+                  <MenuRadioItem value="light">Light</MenuRadioItem>
+                  <MenuRadioItem value="dark">Dark</MenuRadioItem>
+                </MenuRadioGroup>
+              </MenuSubContent>
+            </MenuSub>
             <MenuItem value="help">
               <Icon icon={HelpCircleIcon} />
               Help
