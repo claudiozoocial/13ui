@@ -1,6 +1,6 @@
 import { SidebarLeft01Icon } from "@hugeicons/core-free-icons"
 import { Drawer, DrawerBackdrop, DrawerContent, DrawerTitle } from "@ui-sdk/react/drawer"
-import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from "react"
+import { createContext, type ReactNode, useContext, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Icon } from "@/components/ui/icon"
 import {
@@ -82,6 +82,16 @@ export function AppShell({
   useEffect(() => {
     if (!isMobile) setDrawerOpen(false)
   }, [isMobile])
+
+  // A saved layout can restore the sidebar collapsed without a layout change event,
+  // so read the real state once the panels mount, before the first paint.
+  useLayoutEffect(() => {
+    if (isMobile) return
+    const sync = () => setCollapsed(controller.isCollapsed(SIDEBAR_ID))
+    sync()
+    const frame = requestAnimationFrame(sync)
+    return () => cancelAnimationFrame(frame)
+  }, [controller, isMobile])
 
   const toggleSidebar = () => {
     if (isMobile) setDrawerOpen((open) => !open)

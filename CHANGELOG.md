@@ -2,6 +2,10 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.10 — 2026-11-19
+
+- AppShell: a sidebar saved as collapsed now loads as a clean icon rail. Before, it restored at rail width but drew the full sidebar squeezed inside it.
+
 ## 0.1.0-beta.9 — 2026-11-19
 
 - The theme has three choices: System (follows the device and updates when it changes), Light and Dark. useTheme returns theme, resolved and setTheme, and every caller shares the same choice.
