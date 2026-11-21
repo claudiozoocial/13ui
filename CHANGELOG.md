@@ -2,6 +2,10 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.17 — 2026-11-20
+
+- Alert: success and destructive alerts have the plain surface background; only the border and the icon take the color. Their text uses the normal colors.
+
 ## 0.1.0-beta.16 — 2026-11-20
 
 - Alert: AlertActions now sit to the right of the text, centered. In an alert narrower than 28rem they move under it.
