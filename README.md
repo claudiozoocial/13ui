@@ -24,7 +24,7 @@ Pushes to `main` deploy to [13ui.vercel.app](https://13ui.vercel.app) through Ve
 | --- | --- |
 | `theme` | Tokens on Tailwind's zinc scale, light and dark, density sizes (`h-control`, `h-tabbar`, `text-ui`…), border radius, shadows |
 | `icon` | Hugeicons wrapper with the system's stroke width |
-| `button`, `input`, `textarea`, `separator`, `kbd`, `tooltip`, `menu`, `tabs`, `scroll-area`, `resizable`, `command`, `select`, `combobox`, `avatar`, `label`, `checkbox`, `radio`, `alert-dialog`, `toast`, `menubar`, `navigation-menu`, `shimmer`, `spinner`, `loading-dots` | Base components on UI SDK, styled with Tailwind |
+| `button`, `input`, `textarea`, `separator`, `kbd`, `tooltip`, `menu`, `tabs`, `scroll-area`, `resizable`, `command`, `select`, `combobox`, `avatar`, `alert`, `label`, `checkbox`, `radio`, `alert-dialog`, `toast`, `menubar`, `navigation-menu`, `shimmer`, `spinner`, `loading-dots` | Base components on UI SDK, styled with Tailwind |
 | `dock` | Docking engine: resizable splits, tab groups, drag tabs to another group or an edge, maximize, layout saved to localStorage |
 | `app-shell` | Full-height sidebar beside the main area, no header; collapses to an icon rail (⌘B) and becomes a drawer on mobile. Sidebar parts and panel chrome |
 | `chat` | Composer with stop, message, reasoning, tool call and streaming caret |

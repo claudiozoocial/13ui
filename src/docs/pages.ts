@@ -110,6 +110,23 @@ export const pages: DocPage[] = [
     notes: ["onOpenChange receives details.returnValue: the value of the answer that closed it."],
   },
   {
+    slug: "alert",
+    title: "Alert",
+    group: "Components",
+    description:
+      "A message that stays on the page, like a notice above a form or an error in a panel. For brief notifications that come and go, use Toast; to ask before acting, Alert Dialog.",
+    install: ["alert"],
+    examples: [
+      { name: "alert-variants", title: "Variants" },
+      { name: "alert-actions", title: "Actions and dismissing" },
+    ],
+    notes: [
+      "Put an Icon first and the alert lines its text up beside it.",
+      "Warning and destructive alerts use role=\"alert\", so screen readers announce them when they appear. Default and success use role=\"status\". Pass role to change it, or role=\"none\" for a message that's simply part of the page.",
+      "AlertActions holds buttons under the text. AlertAction holds one control in the top-right corner, like a dismiss button.",
+    ],
+  },
+  {
     slug: "toast",
     title: "Toast",
     group: "Components",
