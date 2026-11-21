@@ -2,6 +2,10 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.22 — 2026-11-20
+
+- Shimmer sweeps again with reduced motion, as in beta.12. Reasoning and ToolCall keep opening instantly.
+
 ## 0.1.0-beta.21 — 2026-11-20
 
 - Shimmer fades gently with reduced motion again, instead of sweeping, as before beta.12.

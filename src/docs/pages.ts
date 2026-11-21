@@ -255,7 +255,7 @@ export const pages: DocPage[] = [
       "Text with a light sweeping across it, for work in progress like \"Thinking\" or \"Searching files\". Set active to false when the work ends and the text stays in place.",
     install: ["shimmer"],
     examples: [{ name: "shimmer-basic", title: "Active and finished" }],
-    notes: ["It paints the text with a gradient, so it uses the muted and foreground colors of the theme. With reduced motion the sweep is replaced by a gentle fade."],
+    notes: ["It paints the text with a gradient, so it uses the muted and foreground colors of the theme. Only the color moves, never the text, so it keeps running with reduced motion."],
   },
   {
     slug: "spinner",
