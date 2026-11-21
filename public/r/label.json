@@ -11,7 +11,12 @@
   "files": [
     {
       "path": "src/components/ui/label.tsx",
-      "content": "import { Label as LabelPrimitive } from \"@ui-sdk/react/label\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\n\n/** Names a control. Wrap a checkbox, switch or radio with its text, and pressing the text toggles it. */\nfunction Label({ className, ...props }: ComponentProps<typeof LabelPrimitive>) {\n  return (\n    <LabelPrimitive\n      className={withClass(\n        \"inline-flex cursor-default select-none items-center gap-2 text-ui text-foreground has-data-disabled:text-subtle-foreground\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Label }\n",
+      "content": "import { Label as LabelPrimitive } from \"@ui-sdk/react/label\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\nimport { labelStyles } from \"./label.styles\"\n\n/** Names a control. Wrap a checkbox, switch or radio with its text, and pressing the text toggles it. */\nfunction Label({ className, ...props }: ComponentProps<typeof LabelPrimitive>) {\n  return (\n    <LabelPrimitive\n      className={withClass(\n        labelStyles.root,\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Label }\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "src/components/ui/label.styles.ts",
+      "content": "// Framework-free: plain class strings for each part, so any version of 13UI can share them.\nexport const labelStyles = {\n  root: \"inline-flex cursor-default select-none items-center gap-2 text-ui text-foreground has-data-disabled:text-subtle-foreground\",\n}\n",
       "type": "registry:ui"
     }
   ],

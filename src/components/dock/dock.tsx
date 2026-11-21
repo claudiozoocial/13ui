@@ -37,6 +37,7 @@ import {
   openPanels,
 } from "./model"
 import { Icon } from "@/components/ui/icon"
+import { dockStyles } from "./dock.styles"
 
 export interface DockPanelDef {
   title: string
@@ -211,10 +212,10 @@ export function Dock({ dock, panels, className, empty, stackBelow = 640 }: DockP
         data-slot="dock"
         data-dragging={drag ? "" : undefined}
         data-stacked={stacked ? "" : undefined}
-        className={cn("relative flex size-full min-h-0 min-w-0 bg-background", className)}
+        className={cn(dockStyles.root, className)}
       >
         {isEmpty ? (
-          <div className="grid size-full place-items-center text-ui text-subtle-foreground">
+          <div className={dockStyles.empty}>
             {empty ?? "No panels open"}
           </div>
         ) : stacked ? (
@@ -359,11 +360,11 @@ function DockGroupView({ node, onActivate }: { node: DockGroup; onActivate?: (pa
         dock.activate(String(value))
       }}
       data-dock-group={node.id}
-      className="flex size-full min-h-0 flex-col bg-surface"
+      className={dockStyles.group}
     >
       <div
         data-slot="dock-tabbar"
-        className="flex h-tabbar shrink-0 items-stretch border-b border-border bg-background"
+        className={dockStyles.tabbar}
         onDragOver={onTabsDragOver}
         onDragLeave={() => setTabDropIndex(null)}
         onDrop={onTabsDrop}
@@ -371,7 +372,7 @@ function DockGroupView({ node, onActivate }: { node: DockGroup; onActivate?: (pa
         <TabsList
           ref={listRef}
           aria-label="Panels"
-          className="flex min-w-0 flex-1 items-stretch overflow-x-auto [scrollbar-width:none]"
+          className={dockStyles.tabList}
         >
           {node.panels.map((id) => {
             const def = panels[id]
@@ -388,10 +389,10 @@ function DockGroupView({ node, onActivate }: { node: DockGroup; onActivate?: (pa
             )
           })}
           {tabDropIndex !== null && tabDropIndex >= visibleTabs.length && (
-            <span aria-hidden className="my-1.5 w-0.5 shrink-0 rounded-full bg-ring" />
+            <span aria-hidden className={dockStyles.tabDropEnd} />
           )}
         </TabsList>
-        <div className={cn("flex shrink-0 items-center gap-0.5 px-1.5", stacked && "hidden")}>
+        <div className={cn(dockStyles.groupActions, stacked && "hidden")}>
           <Button
             variant="ghost"
             size="icon-xs"
@@ -438,7 +439,7 @@ function DockGroupView({ node, onActivate }: { node: DockGroup; onActivate?: (pa
         onDrop={onBodyDrop}
       >
         {node.panels.map((id) => (
-          <TabsPanel key={id} value={id} className="absolute inset-0 outline-none">
+          <TabsPanel key={id} value={id} className={dockStyles.tabPanel}>
             {node.active === id && <PanelHost panelId={id} />}
           </TabsPanel>
         ))}
@@ -469,9 +470,9 @@ function DockTab({
     <div
       data-dock-tab={id}
       className={cn(
-        "group/tab relative flex shrink-0 items-stretch",
+        dockStyles.tab,
         dragging && "opacity-40",
-        dropBefore && "before:absolute before:inset-y-1.5 before:-left-px before:z-10 before:w-0.5 before:rounded-full before:bg-ring",
+        dropBefore && dockStyles.tabDropBefore,
       )}
     >
       <TabsTab
@@ -488,7 +489,7 @@ function DockTab({
           if (event.button === 1 && closable) onClose()
         }}
         className={cn(
-          "relative flex max-w-56 cursor-default select-none items-center gap-1.5 border-r border-border pl-3 text-ui text-muted-foreground outline-none transition-colors hover:bg-muted hover:text-foreground focus-visible:-outline-offset-2 data-selected:bg-surface data-selected:text-foreground data-selected:after:absolute data-selected:after:inset-x-0 data-selected:after:-bottom-px data-selected:after:h-px data-selected:after:bg-surface [&_svg]:size-3.5 [&_svg]:shrink-0",
+          dockStyles.tabTrigger,
           closable ? "pr-7" : "pr-3",
         )}
       >
@@ -502,7 +503,7 @@ function DockTab({
           aria-label={`Close ${def?.title ?? id}`}
           tabIndex={-1}
           onClick={onClose}
-          className="absolute top-1/2 right-1 size-5 -translate-y-1/2 opacity-0 group-hover/tab:opacity-100 group-has-data-selected/tab:opacity-100 focus-visible:opacity-100"
+          className={dockStyles.tabClose}
         >
           <Icon icon={Cancel01Icon} />
         </Button>
@@ -520,15 +521,7 @@ function PanelHost({ panelId }: { panelId: string }) {
     },
     [hosts, panelId],
   )
-  return <div ref={ref} data-slot="dock-panel" className="size-full overflow-hidden" />
-}
-
-const indicatorClass: Record<DropPosition, string> = {
-  center: "inset-1.5",
-  left: "inset-y-1.5 left-1.5 w-[calc(50%-6px)]",
-  right: "inset-y-1.5 right-1.5 w-[calc(50%-6px)]",
-  top: "inset-x-1.5 top-1.5 h-[calc(50%-6px)]",
-  bottom: "inset-x-1.5 bottom-1.5 h-[calc(50%-6px)]",
+  return <div ref={ref} data-slot="dock-panel" className={dockStyles.panelHost} />
 }
 
 function DropIndicator({ position, className }: { position: DropPosition; className?: string }) {
@@ -536,8 +529,8 @@ function DropIndicator({ position, className }: { position: DropPosition; classN
     <div
       aria-hidden
       className={cn(
-        "pointer-events-none absolute z-30 rounded-md border border-drop-border bg-drop transition-all duration-100",
-        indicatorClass[position],
+        dockStyles.dropIndicator,
+        dockStyles.dropZone[position],
         className,
       )}
     />
@@ -551,25 +544,12 @@ function RootDropEdges() {
   const { dock, drag, setDrag } = useDockContext()
   const [hover, setHover] = useState<(typeof rootEdges)[number] | null>(null)
 
-  const stripClass = {
-    left: "inset-y-0 left-0 w-2",
-    right: "inset-y-0 right-0 w-2",
-    top: "inset-x-0 top-0 h-2",
-    bottom: "inset-x-0 bottom-0 h-2",
-  }
-  const previewClass = {
-    left: "inset-y-1.5 left-1.5 w-1/4",
-    right: "inset-y-1.5 right-1.5 w-1/4",
-    top: "inset-x-1.5 top-1.5 h-1/4",
-    bottom: "inset-x-1.5 bottom-1.5 h-1/4",
-  }
-
   return (
     <>
       {rootEdges.map((edge) => (
         <div
           key={edge}
-          className={cn("absolute z-40", stripClass[edge])}
+          className={cn("absolute z-40", dockStyles.rootEdgeStrip[edge])}
           onDragOver={(event) => {
             event.preventDefault()
             event.stopPropagation()
@@ -589,8 +569,8 @@ function RootDropEdges() {
         <div
           aria-hidden
           className={cn(
-            "pointer-events-none absolute z-30 rounded-md border border-drop-border bg-drop",
-            previewClass[hover],
+            dockStyles.rootEdgePreviewBase,
+            dockStyles.rootEdgePreview[hover],
           )}
         />
       )}

@@ -4,6 +4,7 @@ import { useOptionalAppShell } from "@/components/shell/app-shell"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn, withClass } from "@/lib/utils"
+import { sidebarStyles } from "./sidebar.styles"
 
 // In an AppShell, a collapsed desktop sidebar becomes a narrow icon rail. Parts below style the
 // rail with group-data-collapsed/sidebar: labels turn screen-reader-only and items center their icon.
@@ -13,7 +14,7 @@ export function Sidebar({ className, ...props }: ComponentProps<"nav">) {
     <nav
       data-slot="sidebar"
       data-collapsed={shell?.collapsed ? "" : undefined}
-      className={cn("group/sidebar flex size-full min-w-0 flex-col", className)}
+      className={cn(sidebarStyles.root, className)}
       {...props}
     />
   )
@@ -24,8 +25,8 @@ export function SidebarHeader({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
       className={cn(
-        "flex h-titlebar shrink-0 items-center gap-1 px-2",
-        `group-data-collapsed/sidebar:justify-center group-data-collapsed/sidebar:px-0`,
+        sidebarStyles.header,
+        sidebarStyles.headerRail,
         className,
       )}
       {...props}
@@ -37,7 +38,7 @@ export function SidebarHeader({ className, ...props }: ComponentProps<"div">) {
 export function SidebarTitle({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
-      className={cn("flex min-w-0 flex-1 items-center gap-2 px-1 text-ui font-semibold", `group-data-collapsed/sidebar:hidden`, className)}
+      className={cn(sidebarStyles.title, `group-data-collapsed/sidebar:hidden`, className)}
       {...props}
     />
   )
@@ -46,7 +47,7 @@ export function SidebarTitle({ className, ...props }: ComponentProps<"div">) {
 export function SidebarContent({ className, children }: { className?: string; children: ReactNode }) {
   return (
     <ScrollArea className={cn("flex-1", className)}>
-      <div className={cn("flex flex-col gap-3 px-2 pb-2", `group-data-collapsed/sidebar:px-1.5`)}>{children}</div>
+      <div className={cn(sidebarStyles.content, `group-data-collapsed/sidebar:px-1.5`)}>{children}</div>
     </ScrollArea>
   )
 }
@@ -54,7 +55,7 @@ export function SidebarContent({ className, children }: { className?: string; ch
 export function SidebarFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
-      className={cn("flex shrink-0 flex-col gap-px border-t border-border p-2", `group-data-collapsed/sidebar:px-1.5`, className)}
+      className={cn(sidebarStyles.footer, `group-data-collapsed/sidebar:px-1.5`, className)}
       {...props}
     />
   )
@@ -75,7 +76,7 @@ export function SidebarGroup({ label, hideOnRail, className, children, ...props 
       {...props}
     >
       {label && (
-        <div className={cn("px-2 pb-1 pt-1 text-2xs font-medium text-subtle-foreground", `group-data-collapsed/sidebar:hidden`)}>{label}</div>
+        <div className={cn(sidebarStyles.groupLabel, `group-data-collapsed/sidebar:hidden`)}>{label}</div>
       )}
       {children}
     </div>
@@ -136,8 +137,8 @@ export function SidebarItem({
       aria-current={active ? "page" : undefined}
       className={withClass(
         cn(
-          "flex h-control w-full min-w-0 cursor-default select-none items-center gap-2 rounded-md px-2 text-left text-ui text-muted-foreground no-underline outline-none transition-colors hover:bg-accent hover:text-foreground data-active:bg-accent data-active:text-foreground [&_svg]:size-4 [&_svg]:shrink-0 [&>span]:truncate",
-          `group-data-collapsed/sidebar:justify-center group-data-collapsed/sidebar:px-0 group-data-collapsed/sidebar:[&>span:not([data-slot=avatar])]:sr-only group-data-collapsed/sidebar:[&>[data-sidebar-trailing]]:hidden`,
+          sidebarStyles.item,
+          sidebarStyles.itemRail,
         ),
         className,
       )}
@@ -163,7 +164,7 @@ export function SidebarItemTrailing({ className, ...props }: ComponentProps<"spa
   return (
     <span
       data-sidebar-trailing=""
-      className={cn("ml-auto flex shrink-0 items-center text-2xs text-subtle-foreground", className)}
+      className={cn(sidebarStyles.itemTrailing, className)}
       {...props}
     />
   )

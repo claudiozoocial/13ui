@@ -7,6 +7,7 @@ import {
 } from "@ui-sdk/react/scroll-area"
 import type { ComponentProps } from "react"
 import { withClass } from "@/lib/utils"
+import { scrollAreaStyles } from "./scroll-area.styles"
 
 interface ScrollAreaProps extends ComponentProps<typeof ScrollAreaPrimitive> {
   /**
@@ -18,8 +19,8 @@ interface ScrollAreaProps extends ComponentProps<typeof ScrollAreaPrimitive> {
 
 function ScrollArea({ className, children, type = "hover", scrollbars = "vertical", ...props }: ScrollAreaProps) {
   return (
-    <ScrollAreaPrimitive type={type} className={withClass("relative min-h-0 overflow-hidden", className)} {...props}>
-      <ScrollAreaViewport className="size-full overscroll-contain outline-none">
+    <ScrollAreaPrimitive type={type} className={withClass(scrollAreaStyles.root, className)} {...props}>
+      <ScrollAreaViewport className={scrollAreaStyles.viewport}>
         {/* UI SDK sets min-width: fit-content inline so content can scroll sideways; undo it for vertical-only. */}
         <ScrollAreaContent className={scrollbars === "vertical" ? "min-w-0!" : undefined}>{children}</ScrollAreaContent>
       </ScrollAreaViewport>
@@ -33,12 +34,12 @@ function ScrollBar({ className, ...props }: ComponentProps<typeof ScrollAreaScro
   return (
     <ScrollAreaScrollbar
       className={withClass(
-        "flex touch-none p-0.5 opacity-0 transition-opacity duration-150 select-none data-visible:opacity-100 data-[orientation=horizontal]:inset-x-0 data-[orientation=horizontal]:bottom-0 data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:inset-y-0 data-[orientation=vertical]:right-0 data-[orientation=vertical]:w-2.5",
+        scrollAreaStyles.scrollbar,
         className,
       )}
       {...props}
     >
-      <ScrollAreaThumb className="flex-1 rounded-full bg-border-strong" />
+      <ScrollAreaThumb className={scrollAreaStyles.thumb} />
     </ScrollAreaScrollbar>
   )
 }

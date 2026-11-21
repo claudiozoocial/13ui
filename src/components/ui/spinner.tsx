@@ -1,5 +1,6 @@
 import type { ComponentProps } from "react"
 import { cn } from "@/lib/utils"
+import { spinnerStyles } from "./spinner.styles"
 
 interface SpinnerProps extends ComponentProps<"svg"> {
   size?: "sm" | "default" | "lg"
@@ -19,7 +20,7 @@ export function Spinner({ size = "default", label = "Loading", className, ...pro
       role={label ? "status" : undefined}
       aria-label={label || undefined}
       aria-hidden={label ? undefined : true}
-      className={cn("shrink-0 animate-spin motion-reduce:animate-[spin_1.5s_linear_infinite]", sizes[size], className)}
+      className={cn(spinnerStyles.root, sizes[size], className)}
       {...props}
     >
       <circle cx="8" cy="8" r="6.25" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.5" />

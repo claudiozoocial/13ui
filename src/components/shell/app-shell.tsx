@@ -13,6 +13,7 @@ import {
 import { Tooltip, TooltipContent, TooltipShortcut, TooltipTrigger } from "@/components/ui/tooltip"
 import { useMediaQuery } from "@/lib/use-media-query"
 import { cn } from "@/lib/utils"
+import { appShellStyles } from "./app-shell.styles"
 
 interface AppShellContextValue {
   sidebar: ResizableController
@@ -127,21 +128,21 @@ export function AppShell({
       <div
         data-slot="app-shell"
         data-mobile={isMobile ? "" : undefined}
-        className={cn("flex h-full flex-col bg-background text-foreground", className)}
+        className={cn(appShellStyles.root, className)}
       >
         {isMobile ? (
           <>
             <div
               data-slot="app-shell-mobile-bar"
-              className="flex h-titlebar shrink-0 items-center gap-1 border-b border-border bg-sidebar px-2"
+              className={appShellStyles.mobileBar}
             >
               <SidebarToggle />
-              <div className="min-w-0 flex-1 truncate px-1 text-ui font-medium">{mobileHeader}</div>
+              <div className={appShellStyles.mobileHeader}>{mobileHeader}</div>
             </div>
             <div className="min-h-0 flex-1">{children}</div>
             <Drawer side="left" open={drawerOpen} onOpenChange={setDrawerOpen}>
-              <DrawerBackdrop className="fixed inset-0 bg-black/30 dark:bg-black/50" />
-              <DrawerContent className="h-full w-[min(300px,85vw)] border-r border-border bg-sidebar shadow-popover outline-none">
+              <DrawerBackdrop className={appShellStyles.drawerBackdrop} />
+              <DrawerContent className={appShellStyles.drawerContent}>
                 <DrawerTitle className="sr-only">{sidebarLabel}</DrawerTitle>
                 {sidebar}
               </DrawerContent>

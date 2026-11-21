@@ -5,18 +5,19 @@ import {
 } from "@ui-sdk/react/resizable"
 import type { ComponentProps } from "react"
 import { withClass } from "@/lib/utils"
+import { resizableStyles } from "./resizable.styles"
 
 function Resizable({ className, ...props }: ComponentProps<typeof ResizablePrimitive>) {
   return (
     <ResizablePrimitive
-      className={withClass("flex size-full data-[orientation=vertical]:flex-col", className)}
+      className={withClass(resizableStyles.root, className)}
       {...props}
     />
   )
 }
 
 function ResizablePanel({ className, ...props }: ComponentProps<typeof ResizablePanelPrimitive>) {
-  return <ResizablePanelPrimitive className={withClass("relative min-h-0 min-w-0 overflow-hidden", className)} {...props} />
+  return <ResizablePanelPrimitive className={withClass(resizableStyles.panel, className)} {...props} />
 }
 
 /** A hairline divider whose hit area is wider than what it draws. */
@@ -24,7 +25,7 @@ function ResizableHandle({ className, ...props }: ComponentProps<typeof Resizabl
   return (
     <ResizableHandlePrimitive
       className={withClass(
-        "relative z-10 shrink-0 bg-border outline-none transition-colors after:absolute after:transition-colors data-[orientation=horizontal]:w-px data-[orientation=horizontal]:cursor-col-resize data-[orientation=horizontal]:after:inset-y-0 data-[orientation=horizontal]:after:-left-px data-[orientation=horizontal]:after:w-[3px] data-[orientation=vertical]:h-px data-[orientation=vertical]:cursor-row-resize data-[orientation=vertical]:after:inset-x-0 data-[orientation=vertical]:after:-top-px data-[orientation=vertical]:after:h-[3px] data-hovering:after:bg-ring/60 data-dragging:after:bg-ring focus-visible:after:bg-ring data-disabled:cursor-default",
+        resizableStyles.handle,
         className,
       )}
       {...props}

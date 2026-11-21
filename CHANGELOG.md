@@ -2,6 +2,11 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.13 — 2026-11-20
+
+- Each component's classes now live in a framework-free *.styles.ts file beside it (menu.styles.ts, dock.styles.ts…), and install with it. The rendered CSS is unchanged. This prepares a future Vue version that shares the same styles.
+- buttonVariants and avatarVariants moved to button.styles.ts and avatar.styles.ts; they are still exported from button and avatar.
+
 ## 0.1.0-beta.12 — 2026-11-19
 
 - On the collapsed sidebar rail, each SidebarItem shows its label as a tooltip on the right. It defaults to the item's text; pass tooltip to change it, or tooltip={false} for none.

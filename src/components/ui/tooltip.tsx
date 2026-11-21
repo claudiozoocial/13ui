@@ -6,6 +6,7 @@ import {
 } from "@ui-sdk/react/tooltip"
 import { type ComponentProps, useEffect, useState } from "react"
 import { withClass } from "@/lib/utils"
+import { tooltipStyles } from "./tooltip.styles"
 
 /**
  * Closes when the pointer leaves the window. Browsers skip the trigger's pointerleave when the
@@ -44,7 +45,7 @@ function TooltipContent({
     <TooltipContentPrimitive
       sideOffset={sideOffset}
       className={withClass(
-        "z-50 flex origin-(--transform-origin) items-center gap-2 rounded-md bg-primary px-2 py-1 text-xs text-primary-foreground transition-[opacity,scale] duration-100 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 data-instant:transition-none motion-reduce:transition-none",
+        tooltipStyles.content,
         className,
       )}
       {...props}
@@ -55,7 +56,7 @@ function TooltipContent({
 function TooltipShortcut({ className, ...props }: ComponentProps<typeof TooltipShortcutPrimitive>) {
   return (
     <TooltipShortcutPrimitive
-      className={withClass("text-2xs text-primary-foreground/60", className)}
+      className={withClass(tooltipStyles.shortcut, className)}
       {...props}
     />
   )
