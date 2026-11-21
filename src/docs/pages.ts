@@ -123,7 +123,7 @@ export const pages: DocPage[] = [
     notes: [
       "Put an Icon first and the alert lines its text up beside it.",
       "Warning and destructive alerts use role=\"alert\", so screen readers announce them when they appear. Default and success use role=\"status\". Pass role to change it, or role=\"none\" for a message that's simply part of the page.",
-      "AlertActions holds buttons under the text. AlertAction holds one control in the top-right corner, like a dismiss button.",
+      "AlertActions holds buttons to the right of the text; when the alert is narrower than 28rem they move under it. AlertAction holds one control in the top-right corner, like a dismiss button.",
     ],
   },
   {

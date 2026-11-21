@@ -3,7 +3,7 @@ import type { ComponentProps } from "react"
 import { cn } from "@/lib/utils"
 
 const alertVariants = cva(
-  "relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-3.5 py-3 text-ui has-[>svg]:grid-cols-[16px_1fr] has-[>svg]:gap-x-2.5 has-data-[slot=alert-action]:pr-11 [&>svg]:row-span-2 [&>svg]:mt-px [&>svg]:size-4 [&>svg]:shrink-0",
+  "@container relative grid w-full grid-cols-[0_1fr_auto] items-start gap-y-0.5 rounded-lg border px-3.5 py-3 text-ui has-[>svg]:grid-cols-[26px_1fr_auto] has-data-[slot=alert-action]:pr-11 [&>svg]:row-span-2 [&>svg]:mt-px [&>svg]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -52,9 +52,21 @@ function AlertDescription({ className, ...props }: ComponentProps<"div">) {
   )
 }
 
-/** Buttons under the text, like "Retry" or "Review changes". */
+/**
+ * Buttons beside the text, like "Retry" or "Review changes". When the alert is narrower than
+ * 28rem they move under the text.
+ */
 function AlertActions({ className, ...props }: ComponentProps<"div">) {
-  return <div data-slot="alert-actions" className={cn("col-start-2 mt-2 flex flex-wrap gap-2", className)} {...props} />
+  return (
+    <div
+      data-slot="alert-actions"
+      className={cn(
+        "col-start-3 row-span-2 row-start-1 ml-4 flex shrink-0 items-center gap-2 self-center @max-md:col-start-2 @max-md:row-span-1 @max-md:row-start-auto @max-md:ml-0 @max-md:mt-2 @max-md:flex-wrap @max-md:self-start",
+        className,
+      )}
+      {...props}
+    />
+  )
 }
 
 /** One control in the top-right corner, usually a button that dismisses the alert. */

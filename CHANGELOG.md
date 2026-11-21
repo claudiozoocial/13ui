@@ -2,6 +2,10 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.16 — 2026-11-20
+
+- Alert: AlertActions now sit to the right of the text, centered. In an alert narrower than 28rem they move under it.
+
 ## 0.1.0-beta.15 — 2026-11-20
 
 - New Alert: a message that stays on the page, with default, success, warning and destructive variants, an icon column, actions under the text and an optional control in the corner, like a dismiss button.
