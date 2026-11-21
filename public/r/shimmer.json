@@ -9,12 +9,7 @@
   "files": [
     {
       "path": "src/components/ui/shimmer.tsx",
-      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport { shimmerStyles } from \"./shimmer.styles\"\n\ninterface ShimmerProps extends ComponentProps<\"span\"> {\n  /** Runs the sweep. When false, the text shows plainly, so it can stay mounted as work finishes. */\n  active?: boolean\n}\n\n/**\n * Text with a light sweeping across it, for work in progress: \"Thinking\", \"Searching files\".\n * It keeps running with reduced motion: only the color moves, never the text.\n */\nexport function Shimmer({ active = true, className, ...props }: ShimmerProps) {\n  return (\n    <span\n      data-slot=\"shimmer\"\n      data-active={active ? \"\" : undefined}\n      className={cn(\n        active &&\n          shimmerStyles.active,\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n",
-      "type": "registry:ui"
-    },
-    {
-      "path": "src/components/ui/shimmer.styles.ts",
-      "content": "// Framework-free: plain class strings for each part, so any version of 13UI can share them.\nexport const shimmerStyles = {\n  active: \"animate-shimmer bg-[linear-gradient(90deg,var(--muted-foreground)_40%,var(--foreground)_50%,var(--muted-foreground)_60%)] bg-size-[250%_100%] bg-no-repeat bg-clip-text text-transparent\",\n}\n",
+      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ninterface ShimmerProps extends ComponentProps<\"span\"> {\n  /** Runs the sweep. When false, the text shows plainly, so it can stay mounted as work finishes. */\n  active?: boolean\n}\n\n/**\n * Text with a light sweeping across it, for work in progress: \"Thinking\", \"Searching files\".\n * It keeps running with reduced motion: only the color moves, never the text.\n */\nexport function Shimmer({ active = true, className, ...props }: ShimmerProps) {\n  return (\n    <span\n      data-slot=\"shimmer\"\n      data-active={active ? \"\" : undefined}\n      className={cn(\n        active &&\n          \"animate-shimmer bg-[linear-gradient(90deg,var(--muted-foreground)_40%,var(--foreground)_50%,var(--muted-foreground)_60%)] bg-size-[250%_100%] bg-no-repeat bg-clip-text text-transparent\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n",
       "type": "registry:ui"
     }
   ],

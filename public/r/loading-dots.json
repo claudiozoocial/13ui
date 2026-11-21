@@ -9,12 +9,7 @@
   "files": [
     {
       "path": "src/components/ui/loading-dots.tsx",
-      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport { loadingDotsStyles } from \"./loading-dots.styles\"\n\ninterface LoadingDotsProps extends ComponentProps<\"span\"> {\n  /** Read by screen readers. Pass an empty string when nearby text already says what is happening. */\n  label?: string\n}\n\n/** Three pulsing dots, like someone typing. Their color follows the text color. */\nexport function LoadingDots({ label = \"Loading\", className, ...props }: LoadingDotsProps) {\n  return (\n    <span\n      data-slot=\"loading-dots\"\n      role={label ? \"status\" : undefined}\n      aria-label={label || undefined}\n      className={cn(loadingDotsStyles.root, className)}\n      {...props}\n    >\n      {[0, 1, 2].map((i) => (\n        <span\n          key={i}\n          aria-hidden\n          className={loadingDotsStyles.dot}\n          style={{ animationDelay: `${i * 160}ms` }}\n        />\n      ))}\n    </span>\n  )\n}\n",
-      "type": "registry:ui"
-    },
-    {
-      "path": "src/components/ui/loading-dots.styles.ts",
-      "content": "// Framework-free: plain class strings for each part, so any version of 13UI can share them.\nexport const loadingDotsStyles = {\n  root: \"inline-flex items-center gap-1\",\n  dot: \"size-1.5 animate-dot rounded-full bg-current opacity-30 motion-reduce:animate-breathe motion-reduce:opacity-70\",\n}\n",
+      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ninterface LoadingDotsProps extends ComponentProps<\"span\"> {\n  /** Read by screen readers. Pass an empty string when nearby text already says what is happening. */\n  label?: string\n}\n\n/** Three pulsing dots, like someone typing. Their color follows the text color. */\nexport function LoadingDots({ label = \"Loading\", className, ...props }: LoadingDotsProps) {\n  return (\n    <span\n      data-slot=\"loading-dots\"\n      role={label ? \"status\" : undefined}\n      aria-label={label || undefined}\n      className={cn(\"inline-flex items-center gap-1\", className)}\n      {...props}\n    >\n      {[0, 1, 2].map((i) => (\n        <span\n          key={i}\n          aria-hidden\n          className=\"size-1.5 animate-dot rounded-full bg-current opacity-30 motion-reduce:animate-breathe motion-reduce:opacity-70\"\n          style={{ animationDelay: `${i * 160}ms` }}\n        />\n      ))}\n    </span>\n  )\n}\n",
       "type": "registry:ui"
     }
   ],

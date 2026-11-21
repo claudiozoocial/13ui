@@ -21,7 +21,6 @@ import type { ComponentProps } from "react"
 import { buttonVariants } from "@/components/ui/button"
 import { Icon } from "@/components/ui/icon"
 import { cn, withClass } from "@/lib/utils"
-import { toastStyles } from "./toast.styles"
 
 // The stack's positions and motion live in the theme, under [data-slot="toast"]: they read the
 // CSS variables UI SDK sets on each toast, which utility classes can't express.
@@ -30,7 +29,7 @@ function Toast({ className, ...props }: ComponentProps<typeof ToastPrimitive>) {
   return (
     <ToastPrimitive
       className={withClass(
-        toastStyles.root,
+        "group/toast flex items-start gap-2.5 rounded-lg border border-border bg-surface-raised p-3 text-ui text-foreground shadow-popover",
         className,
       )}
       {...props}
@@ -41,14 +40,14 @@ function Toast({ className, ...props }: ComponentProps<typeof ToastPrimitive>) {
 /** The icon for the toast's type: success, error, warning, info or loading. Shows nothing for default. */
 function ToastIcon() {
   return (
-    <span className={toastStyles.iconWrap}>
-      <Icon icon={CheckmarkCircle02Icon} className={toastStyles.iconSuccess} />
-      <Icon icon={AlertCircleIcon} className={toastStyles.iconError} />
-      <Icon icon={Alert02Icon} className={toastStyles.iconWarning} />
-      <Icon icon={InformationCircleIcon} className={toastStyles.iconInfo} />
+    <span className="mt-px hidden shrink-0 group-data-[type=error]/toast:block group-data-[type=info]/toast:block group-data-[type=loading]/toast:block group-data-[type=success]/toast:block group-data-[type=warning]/toast:block [&_svg]:hidden [&_svg]:size-4">
+      <Icon icon={CheckmarkCircle02Icon} className="text-success group-data-[type=success]/toast:block" />
+      <Icon icon={AlertCircleIcon} className="text-destructive group-data-[type=error]/toast:block" />
+      <Icon icon={Alert02Icon} className="text-foreground group-data-[type=warning]/toast:block" />
+      <Icon icon={InformationCircleIcon} className="text-muted-foreground group-data-[type=info]/toast:block" />
       <Icon
         icon={Loading03Icon}
-        className={toastStyles.iconLoading}
+        className="animate-spin text-muted-foreground group-data-[type=loading]/toast:block motion-reduce:animate-none"
       />
     </span>
   )
@@ -60,7 +59,7 @@ function ToastTitle({ className, ...props }: ComponentProps<typeof ToastTitlePri
 
 function ToastDescription({ className, ...props }: ComponentProps<typeof ToastDescriptionPrimitive>) {
   return (
-    <ToastDescriptionPrimitive className={withClass(toastStyles.description, className)} {...props} />
+    <ToastDescriptionPrimitive className={withClass("text-xs text-muted-foreground empty:hidden", className)} {...props} />
   )
 }
 
@@ -95,7 +94,7 @@ function Toaster({ side = "bottom", align = "end", ...props }: Omit<ToastRegionP
       {() => (
         <Toast>
           <ToastIcon />
-          <div className={toastStyles.content}>
+          <div className="flex min-w-0 flex-1 flex-col gap-0.5">
             <ToastTitle />
             <ToastDescription />
           </div>

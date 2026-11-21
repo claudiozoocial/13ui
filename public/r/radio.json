@@ -11,12 +11,7 @@
   "files": [
     {
       "path": "src/components/ui/radio.tsx",
-      "content": "import { Radio as RadioPrimitive, RadioGroup as RadioGroupPrimitive, RadioIndicator } from \"@ui-sdk/react/radio\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\nimport { radioStyles } from \"./radio.styles\"\n\nfunction RadioGroup({ className, ...props }: ComponentProps<typeof RadioGroupPrimitive>) {\n  return <RadioGroupPrimitive className={withClass(\"flex flex-col gap-2.5\", className)} {...props} />\n}\n\n/** One choice in a RadioGroup. Its dot is built in. */\nfunction Radio({ className, ...props }: ComponentProps<typeof RadioPrimitive>) {\n  return (\n    <RadioPrimitive\n      className={withClass(\n        radioStyles.root,\n        className,\n      )}\n      {...props}\n    >\n      <RadioIndicator className={radioStyles.dot} />\n    </RadioPrimitive>\n  )\n}\n\nexport { Radio, RadioGroup }\n",
-      "type": "registry:ui"
-    },
-    {
-      "path": "src/components/ui/radio.styles.ts",
-      "content": "// Framework-free: plain class strings for each part, so any version of 13UI can share them.\nexport const radioStyles = {\n  root: \"grid size-4 shrink-0 cursor-default place-items-center rounded-full border border-input bg-surface outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-checked:border-primary data-disabled:border-border data-disabled:bg-muted\",\n  dot: \"size-2 rounded-full bg-primary\",\n}\n",
+      "content": "import { Radio as RadioPrimitive, RadioGroup as RadioGroupPrimitive, RadioIndicator } from \"@ui-sdk/react/radio\"\nimport type { ComponentProps } from \"react\"\nimport { withClass } from \"@/lib/utils\"\n\nfunction RadioGroup({ className, ...props }: ComponentProps<typeof RadioGroupPrimitive>) {\n  return <RadioGroupPrimitive className={withClass(\"flex flex-col gap-2.5\", className)} {...props} />\n}\n\n/** One choice in a RadioGroup. Its dot is built in. */\nfunction Radio({ className, ...props }: ComponentProps<typeof RadioPrimitive>) {\n  return (\n    <RadioPrimitive\n      className={withClass(\n        \"grid size-4 shrink-0 cursor-default place-items-center rounded-full border border-input bg-surface outline-none transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-checked:border-primary data-disabled:border-border data-disabled:bg-muted\",\n        className,\n      )}\n      {...props}\n    >\n      <RadioIndicator className=\"size-2 rounded-full bg-primary\" />\n    </RadioPrimitive>\n  )\n}\n\nexport { Radio, RadioGroup }\n",
       "type": "registry:ui"
     }
   ],

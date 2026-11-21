@@ -45,10 +45,6 @@
         {
           "path": "src/components/ui/button.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/button.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -65,10 +61,6 @@
       "files": [
         {
           "path": "src/components/ui/input.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/input.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -87,10 +79,6 @@
         {
           "path": "src/components/ui/textarea.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/textarea.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -107,10 +95,6 @@
       "files": [
         {
           "path": "src/components/ui/separator.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/separator.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -159,10 +143,6 @@
         {
           "path": "src/components/ui/tooltip.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/tooltip.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -183,10 +163,6 @@
         {
           "path": "src/components/ui/menu.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/menu.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -205,10 +181,6 @@
         {
           "path": "src/components/ui/avatar.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/avatar.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -225,10 +197,6 @@
       "files": [
         {
           "path": "src/components/ui/label.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/label.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -249,10 +217,6 @@
         {
           "path": "src/components/ui/checkbox.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/checkbox.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -269,10 +233,6 @@
       "files": [
         {
           "path": "src/components/ui/radio.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/radio.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -292,10 +252,6 @@
       "files": [
         {
           "path": "src/components/ui/alert-dialog.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/alert-dialog.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -318,10 +274,6 @@
         {
           "path": "src/components/ui/toast.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/toast.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -339,10 +291,6 @@
       "files": [
         {
           "path": "src/components/ui/menubar.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/menubar.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -363,10 +311,6 @@
         {
           "path": "src/components/ui/navigation-menu.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/navigation-menu.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -383,10 +327,6 @@
       "files": [
         {
           "path": "src/components/ui/tabs.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/tabs.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -405,10 +345,6 @@
         {
           "path": "src/components/ui/scroll-area.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/scroll-area.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -423,10 +359,6 @@
       "files": [
         {
           "path": "src/components/ui/shimmer.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/shimmer.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -443,10 +375,6 @@
         {
           "path": "src/components/ui/spinner.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/spinner.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -461,10 +389,6 @@
       "files": [
         {
           "path": "src/components/ui/loading-dots.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/loading-dots.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -482,10 +406,6 @@
       "files": [
         {
           "path": "src/components/ui/resizable.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/resizable.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -506,10 +426,6 @@
         {
           "path": "src/components/ui/command.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/command.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -529,10 +445,6 @@
         {
           "path": "src/components/ui/select.tsx",
           "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/select.styles.ts",
-          "type": "registry:ui"
         }
       ]
     },
@@ -551,10 +463,6 @@
       "files": [
         {
           "path": "src/components/ui/combobox.tsx",
-          "type": "registry:ui"
-        },
-        {
-          "path": "src/components/ui/combobox.styles.ts",
           "type": "registry:ui"
         }
       ]
@@ -586,11 +494,6 @@
           "path": "src/components/dock/dock.tsx",
           "type": "registry:component",
           "target": "components/dock/dock.tsx"
-        },
-        {
-          "path": "src/components/dock/dock.styles.ts",
-          "type": "registry:component",
-          "target": "components/dock/dock.styles.ts"
         },
         {
           "path": "src/components/dock/index.ts",
@@ -625,29 +528,14 @@
           "target": "components/shell/app-shell.tsx"
         },
         {
-          "path": "src/components/shell/app-shell.styles.ts",
-          "type": "registry:component",
-          "target": "components/shell/app-shell.styles.ts"
-        },
-        {
           "path": "src/components/shell/sidebar.tsx",
           "type": "registry:component",
           "target": "components/shell/sidebar.tsx"
         },
         {
-          "path": "src/components/shell/sidebar.styles.ts",
-          "type": "registry:component",
-          "target": "components/shell/sidebar.styles.ts"
-        },
-        {
           "path": "src/components/shell/panel.tsx",
           "type": "registry:component",
           "target": "components/shell/panel.tsx"
-        },
-        {
-          "path": "src/components/shell/panel.styles.ts",
-          "type": "registry:component",
-          "target": "components/shell/panel.styles.ts"
         },
         {
           "path": "src/lib/use-media-query.ts",
@@ -678,19 +566,9 @@
           "target": "components/shell/composer.tsx"
         },
         {
-          "path": "src/components/shell/composer.styles.ts",
-          "type": "registry:component",
-          "target": "components/shell/composer.styles.ts"
-        },
-        {
           "path": "src/components/shell/message.tsx",
           "type": "registry:component",
           "target": "components/shell/message.tsx"
-        },
-        {
-          "path": "src/components/shell/message.styles.ts",
-          "type": "registry:component",
-          "target": "components/shell/message.styles.ts"
         }
       ]
     },

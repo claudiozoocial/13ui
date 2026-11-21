@@ -87,8 +87,6 @@ src/demo/App.tsx            example workbench
 registry.json               shadcn registry definition
 ```
 
-Each component keeps its classes in a `*.styles.ts` file beside it, like `menu.tsx` and `menu.styles.ts`. Those files hold only class strings and `cva` variants, with no React, so other framework versions can share them. Change a component's look there; the `.tsx` file holds structure and behavior.
-
 ## License
 
 MIT © [Claudio Castillo](https://claudiocastillo.design/). See [LICENSE](LICENSE).

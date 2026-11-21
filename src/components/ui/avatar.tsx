@@ -3,11 +3,20 @@ import {
   AvatarFallback as AvatarFallbackPrimitive,
   AvatarImage as AvatarImagePrimitive,
 } from "@ui-sdk/react/avatar"
-import type { VariantProps } from "class-variance-authority"
+import { cva, type VariantProps } from "class-variance-authority"
 import type { ComponentProps } from "react"
 import { withClass } from "@/lib/utils"
-import { avatarVariants } from "./avatar.styles"
-import { avatarStyles } from "./avatar.styles"
+
+const avatarVariants = cva("relative inline-flex shrink-0 overflow-hidden rounded-full bg-muted align-middle", {
+  variants: {
+    size: {
+      sm: "size-6 text-2xs",
+      default: "size-8 text-xs",
+      lg: "size-10 text-sm",
+    },
+  },
+  defaultVariants: { size: "default" },
+})
 
 type AvatarProps = ComponentProps<typeof AvatarPrimitive> & VariantProps<typeof avatarVariants>
 
@@ -24,7 +33,7 @@ function AvatarFallback({ className, ...props }: ComponentProps<typeof AvatarFal
   return (
     <AvatarFallbackPrimitive
       className={withClass(
-        avatarStyles.fallback,
+        "grid size-full place-items-center bg-primary font-semibold text-primary-foreground select-none",
         className,
       )}
       {...props}

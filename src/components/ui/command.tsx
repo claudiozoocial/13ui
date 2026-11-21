@@ -20,15 +20,14 @@ import {
 import type { ComponentProps, ReactNode } from "react"
 import { withClass } from "@/lib/utils"
 import { Icon } from "@/components/ui/icon"
-import { commandStyles } from "./command.styles"
 
 function CommandInput({ className, ...props }: ComponentProps<typeof CommandInputPrimitive>) {
   return (
-    <div className={commandStyles.inputWrap}>
-      <Icon icon={Search01Icon} className={commandStyles.inputIcon} />
+    <div className="flex h-11 items-center gap-2 border-b border-border px-3">
+      <Icon icon={Search01Icon} className="size-4 shrink-0 text-subtle-foreground" />
       <CommandInputPrimitive
         className={withClass(
-          commandStyles.input,
+          "h-full w-full bg-transparent text-sm text-foreground outline-none placeholder:text-subtle-foreground focus-visible:outline-none",
           className,
         )}
         {...props}
@@ -38,19 +37,19 @@ function CommandInput({ className, ...props }: ComponentProps<typeof CommandInpu
 }
 
 function CommandList({ className, ...props }: ComponentProps<typeof CommandListPrimitive>) {
-  return <CommandListPrimitive className={withClass(commandStyles.list, className)} {...props} />
+  return <CommandListPrimitive className={withClass("max-h-80 overflow-y-auto p-1", className)} {...props} />
 }
 
 function CommandEmpty({ className, ...props }: ComponentProps<typeof CommandEmptyPrimitive>) {
   return (
-    <CommandEmptyPrimitive className={withClass(commandStyles.empty, className)} {...props} />
+    <CommandEmptyPrimitive className={withClass("text-center text-ui text-subtle-foreground data-empty:py-8 data-loading:py-8", className)} {...props} />
   )
 }
 
 function CommandGroupLabel({ className, ...props }: ComponentProps<typeof CommandGroupLabelPrimitive>) {
   return (
     <CommandGroupLabelPrimitive
-      className={withClass(commandStyles.groupLabel, className)}
+      className={withClass("px-2 pb-1 pt-2 text-2xs font-medium text-subtle-foreground", className)}
       {...props}
     />
   )
@@ -60,7 +59,7 @@ function CommandItem({ className, ...props }: ComponentProps<typeof CommandItemP
   return (
     <CommandItemPrimitive
       className={withClass(
-        commandStyles.item,
+        "flex h-control cursor-default select-none items-center gap-2 rounded-md px-2 text-ui outline-none data-disabled:opacity-50 data-highlighted:bg-accent [&_svg]:size-4 [&_svg]:text-muted-foreground",
         className,
       )}
       {...props}
@@ -76,8 +75,8 @@ interface CommandDialogProps extends ComponentProps<typeof Dialog> {
 function CommandDialog({ title, children, ...props }: CommandDialogProps) {
   return (
     <Dialog {...props}>
-      <DialogBackdrop className={commandStyles.dialogBackdrop} />
-      <DialogContent className={commandStyles.dialogContent}>
+      <DialogBackdrop className="fixed inset-0 z-50 bg-black/20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:bg-black/50" />
+      <DialogContent className="fixed top-[18%] left-1/2 z-50 m-0 w-[min(560px,calc(100vw-32px))] -translate-x-1/2 overflow-hidden rounded-xl border-0 bg-surface-raised p-0 text-foreground shadow-popover outline-none transition-[opacity,scale] duration-150 data-ending-style:scale-97 data-ending-style:opacity-0 data-starting-style:scale-97 data-starting-style:opacity-0">
         <DialogTitle className="sr-only">{title}</DialogTitle>
         {children}
       </DialogContent>

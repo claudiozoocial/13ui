@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { Icon } from "@/components/ui/icon"
-import { composerStyles } from "./composer.styles"
 
 interface ComposerProps {
   onSubmit: (text: string) => void
@@ -41,7 +40,7 @@ export function Composer({
       data-pending={pending ? "" : undefined}
       onSubmit={submit}
       className={cn(
-        composerStyles.root,
+        "flex flex-col gap-2 rounded-xl border border-border bg-surface-raised p-2.5 shadow-[0_1px_2px_var(--shadow-color)] transition-colors focus-within:border-border-strong",
         className,
       )}
     >
@@ -57,10 +56,10 @@ export function Composer({
         }}
         placeholder={placeholder}
         rows={2}
-        className={composerStyles.textarea}
+        className="max-h-60 min-h-11 px-1 [field-sizing:content]"
       />
       <div className="flex items-center gap-1">
-        <div className={composerStyles.actions}>{actions}</div>
+        <div className="flex flex-1 items-center gap-1">{actions}</div>
         {pending && onStop ? (
           <Button type="button" size="icon-sm" aria-label="Stop" onClick={onStop}>
             <Icon icon={StopIcon} className="fill-current" />
