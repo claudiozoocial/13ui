@@ -26,6 +26,8 @@ export function Composer({
 }: ComposerProps) {
   const [value, setValue] = useState("")
 
+  const stopping = pending && !!onStop
+
   const submit = (event?: FormEvent) => {
     event?.preventDefault()
     const text = value.trim()
@@ -60,15 +62,30 @@ export function Composer({
       />
       <div className="flex items-center gap-1">
         <div className="flex flex-1 items-center gap-1">{actions}</div>
-        {pending && onStop ? (
-          <Button type="button" size="icon-sm" aria-label="Stop" onClick={onStop}>
-            <Icon icon={StopIcon} className="fill-current" />
-          </Button>
-        ) : (
-          <Button type="submit" size="icon-sm" aria-label="Send" disabled={!value.trim() || pending}>
-            <Icon icon={ArrowUp02Icon} />
-          </Button>
-        )}
+        <Button
+          type={stopping ? "button" : "submit"}
+          size="icon-sm"
+          aria-label={stopping ? "Stop" : "Send"}
+          disabled={!stopping && (!value.trim() || pending)}
+          onClick={stopping ? onStop : undefined}
+          className="grid"
+        >
+          {/* Both icons stay mounted and cross-fade, so the swap reads as one button changing state. */}
+          <Icon
+            icon={ArrowUp02Icon}
+            className={cn(
+              "col-start-1 row-start-1 transition-[opacity,scale] duration-150 ease-out motion-reduce:scale-100",
+              stopping ? "scale-80 opacity-0" : "scale-100 opacity-100",
+            )}
+          />
+          <Icon
+            icon={StopIcon}
+            className={cn(
+              "col-start-1 row-start-1 fill-current transition-[opacity,scale] duration-150 ease-out motion-reduce:scale-100",
+              stopping ? "scale-100 opacity-100" : "scale-80 opacity-0",
+            )}
+          />
+        </Button>
       </div>
     </form>
   )

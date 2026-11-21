@@ -2,6 +2,13 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.19 — 2026-11-20
+
+- Buttons press down slightly (scale 0.97) while held, for feedback. Off with reduced motion.
+- Reasoning and ToolCall open and close smoothly in browsers that can animate <details>; with reduced motion their content fades in instead.
+- Composer's send and stop are one button whose icons cross-fade, instead of two buttons swapping.
+- The theme adds two motion curves, ease-out and ease-in-out, available as the ease-out and ease-in-out utilities.
+
 ## 0.1.0-beta.18 — 2026-11-20
 
 - Alert: in success and destructive alerts the title and description take the color too, on the plain background. Buttons inside keep their own colors.

@@ -83,7 +83,7 @@ export function ToolCall({
   children?: ReactNode
 }) {
   return (
-    <details data-slot="tool-call" data-status={status} className="group rounded-lg border border-border bg-surface text-ui open:pb-2">
+    <details data-slot="tool-call" data-status={status} className="group rounded-lg border border-border bg-surface text-ui">
       <summary className="flex h-control cursor-default list-none items-center gap-2 px-3 text-muted-foreground [&::-webkit-details-marker]:hidden">
         {status === "running" ? (
           <Spinner size="sm" label="" />
@@ -97,7 +97,7 @@ export function ToolCall({
           {title}
         </Shimmer>
       </summary>
-      {children && <div className="px-3 font-mono text-xs text-muted-foreground">{children}</div>}
+      {children && <div className="px-3 pb-2 font-mono text-xs text-muted-foreground">{children}</div>}
     </details>
   )
 }
