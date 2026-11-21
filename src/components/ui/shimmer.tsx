@@ -8,7 +8,7 @@ interface ShimmerProps extends ComponentProps<"span"> {
 
 /**
  * Text with a light sweeping across it, for work in progress: "Thinking", "Searching files".
- * It keeps running with reduced motion: only the color moves, never the text.
+ * With reduced motion the light doesn't move; the text gently fades in and out instead.
  */
 export function Shimmer({ active = true, className, ...props }: ShimmerProps) {
   return (
@@ -17,7 +17,7 @@ export function Shimmer({ active = true, className, ...props }: ShimmerProps) {
       data-active={active ? "" : undefined}
       className={cn(
         active &&
-          "animate-shimmer bg-[linear-gradient(90deg,var(--muted-foreground)_40%,var(--foreground)_50%,var(--muted-foreground)_60%)] bg-size-[250%_100%] bg-no-repeat bg-clip-text text-transparent",
+          "animate-shimmer bg-[linear-gradient(90deg,var(--muted-foreground)_40%,var(--foreground)_50%,var(--muted-foreground)_60%)] bg-size-[250%_100%] bg-no-repeat bg-clip-text text-transparent motion-reduce:animate-breathe motion-reduce:bg-none motion-reduce:text-muted-foreground",
         className,
       )}
       {...props}

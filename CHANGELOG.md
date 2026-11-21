@@ -2,6 +2,11 @@
 
 All notable changes to 13UI. Versions follow semver; while in beta, any release may change component APIs or the saved dock layout format.
 
+## 0.1.0-beta.21 — 2026-11-20
+
+- Shimmer fades gently with reduced motion again, instead of sweeping, as before beta.12.
+- Reasoning and ToolCall open instantly again, without the height or fade animation from beta.19.
+
 ## 0.1.0-beta.20 — 2026-11-20
 
 - CommandDialog opens and closes instantly, with no fade or scale. A palette opened from the keyboard many times a day feels faster without motion.

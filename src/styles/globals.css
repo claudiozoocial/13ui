@@ -219,33 +219,6 @@
   @media (prefers-reduced-motion: reduce) {
     [data-slot="toast"] { transition-property: opacity; }
   }
-
-  /* Reasoning and tool calls open and close smoothly where the browser can animate <details>. */
-  :is([data-slot="reasoning"], [data-slot="tool-call"]) {
-    interpolate-size: allow-keywords;
-  }
-  :is([data-slot="reasoning"], [data-slot="tool-call"])::details-content {
-    block-size: 0;
-    overflow: clip;
-    transition:
-      block-size 200ms var(--ease-out),
-      content-visibility 200ms allow-discrete;
-  }
-  :is([data-slot="reasoning"], [data-slot="tool-call"])[open]::details-content {
-    block-size: auto;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    :is([data-slot="reasoning"], [data-slot="tool-call"])::details-content {
-      block-size: auto;
-      opacity: 0;
-      transition:
-        opacity 150ms var(--ease-out),
-        content-visibility 150ms allow-discrete;
-    }
-    :is([data-slot="reasoning"], [data-slot="tool-call"])[open]::details-content {
-      opacity: 1;
-    }
-  }
 }
 
 @layer base {
