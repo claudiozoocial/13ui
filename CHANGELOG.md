@@ -4,12 +4,11 @@ All notable changes to 13UI. Versions follow semver; while in beta, any release 
 
 ## 0.1.0-beta.14 — 2026-11-20
 
-- Undoes the *.styles.ts split from beta.13: each component is one file again, as with shadcn. buttonVariants and avatarVariants live in button.tsx and avatar.tsx again. The rendered CSS is unchanged.
+- Each component is a single file again: the class files added in beta.13 are gone, and buttonVariants and avatarVariants are back in button.tsx and avatar.tsx. Nothing looks different.
 
 ## 0.1.0-beta.13 — 2026-11-20
 
-- Each component's classes now live in a framework-free *.styles.ts file beside it (menu.styles.ts, dock.styles.ts…), and install with it. The rendered CSS is unchanged. This prepares a future Vue version that shares the same styles.
-- buttonVariants and avatarVariants moved to button.styles.ts and avatar.styles.ts; they are still exported from button and avatar.
+- Moved each component's classes into a separate *.styles.ts file. Reverted in beta.14.
 
 ## 0.1.0-beta.12 — 2026-11-19
 
