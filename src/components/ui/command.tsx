@@ -72,11 +72,15 @@ interface CommandDialogProps extends ComponentProps<typeof Dialog> {
   children: ReactNode
 }
 
+/**
+ * A command palette. It opens and closes instantly, with no animation: people open it from the
+ * keyboard many times a day, and any motion makes it feel slower.
+ */
 function CommandDialog({ title, children, ...props }: CommandDialogProps) {
   return (
     <Dialog {...props}>
-      <DialogBackdrop className="fixed inset-0 z-50 bg-black/20 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 dark:bg-black/50" />
-      <DialogContent className="fixed top-[18%] left-1/2 z-50 m-0 w-[min(560px,calc(100vw-32px))] -translate-x-1/2 overflow-hidden rounded-xl border-0 bg-surface-raised p-0 text-foreground shadow-popover outline-none transition-[opacity,scale] duration-150 data-ending-style:scale-97 data-ending-style:opacity-0 data-starting-style:scale-97 data-starting-style:opacity-0">
+      <DialogBackdrop className="fixed inset-0 z-50 bg-black/20 dark:bg-black/50" />
+      <DialogContent className="fixed top-[18%] left-1/2 z-50 m-0 w-[min(560px,calc(100vw-32px))] -translate-x-1/2 overflow-hidden rounded-xl border-0 bg-surface-raised p-0 text-foreground shadow-popover outline-none">
         <DialogTitle className="sr-only">{title}</DialogTitle>
         {children}
       </DialogContent>
