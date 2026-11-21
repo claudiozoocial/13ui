@@ -55,12 +55,15 @@ export function Docs({ route }: { route: string }) {
         <Sidebar aria-label="Documentation">
           <SidebarHeader>
             <SidebarTitle>
-              <a href="#/">13UI</a>
+              <a href="#/" className="shrink-0">
+                13UI
+              </a>
               <a
                 href="#/docs/changelog"
-                className="rounded-full border border-border px-2 py-0.5 font-mono text-2xs font-normal text-muted-foreground hover:bg-accent"
+                title={`Version ${version}`}
+                className="min-w-0 truncate whitespace-nowrap rounded-full border border-border px-2 py-0.5 text-2xs font-normal text-muted-foreground tabular-nums hover:bg-accent"
               >
-                v{version}
+                {version}
               </a>
             </SidebarTitle>
             <SidebarToggle />
